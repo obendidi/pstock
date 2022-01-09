@@ -1,0 +1,31 @@
+site_name: PYTHON-LIB-TEMPLATE
+site_description: Simple template for python libs with poetry and mkdocs.
+site_url: https://obendidi.github.io/python-lib-template
+
+repo_name: obendidi/python-lib-template
+repo_url: https://github.com/obendidi/python-lib-template
+edit_uri: ""
+
+theme:
+  name: "material"
+
+nav:
+  - Introduction: "index.md"
+
+markdown_extensions:
+  - admonition
+  - codehilite:
+      css_class: highlight
+  - mkautodoc
+  - pymdownx.emoji:
+      emoji_index: !!python/name:materialx.emoji.twemoji
+      emoji_generator: !!python/name:materialx.emoji.to_svg
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets:
+      check_paths: true
+  - pymdownx.superfences
+
+extra_css:
+  - css/custom.css
