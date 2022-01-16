@@ -3,7 +3,7 @@ import typing as tp
 import asyncer
 import httpx
 
-from pstock import get_isin, Asset
+from pstock import Asset, get_isin
 from pstock.yahoo_finance.quote import get_quote_summary
 
 __all__ = "get_asset"

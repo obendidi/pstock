@@ -1,5 +1,5 @@
-import typing as tp
 import logging
+import typing as tp
 from collections.abc import Sequence
 
 import pandas as pd

@@ -2,6 +2,18 @@ import typing as tp
 
 from pydantic import BaseModel, Field
 
+from pstock.schemas.base import BaseDataFrameModel
+
+
+class Earning(BaseModel):
+    date: str
+    estimate: float
+    actual: tp.Optional[float] = None
+
+
+class Earnings(BaseDataFrameModel):
+    __root__: tp.List[Earning]
+
 
 class Asset(BaseModel):
     symbol: str
