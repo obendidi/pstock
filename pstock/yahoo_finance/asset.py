@@ -3,10 +3,14 @@ import typing as tp
 import asyncer
 import httpx
 
-from pstock import Asset, get_isin
+from pstock import Asset, get_isin, Earnings
 from pstock.yahoo_finance.quote import get_quote_summary
 
 __all__ = "get_asset"
+
+
+def _parse_earnings_from_quote(quote_summary: tp.Dict[str, tp.Any]) -> Earnings:
+    earnings = quote_summary.get("earnings", {})
 
 
 def _parse_asset_from_quote(
