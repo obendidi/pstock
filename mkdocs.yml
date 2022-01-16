@@ -1,5 +1,5 @@
 site_name: pstock
-site_description: Simple template for python libs with poetry and mkdocs.
+site_description: Python SDK for (async-)pulling stock/crypto info from the net (price data, news, info, ...)
 site_url: https://obendidi.github.io/pstock
 
 repo_name: obendidi/pstock
@@ -11,6 +11,7 @@ theme:
 
 nav:
   - Introduction: "index.md"
+  - Developper Interface: "api.md"
 
 markdown_extensions:
   - admonition

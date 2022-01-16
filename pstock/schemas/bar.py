@@ -29,4 +29,8 @@ class Bars(BaseDataFrameModel):
                 how="all",
                 subset=["open", "high", "low", "close", "adj_close", "volume"],
             )
-        return self.df
+        return self._df
+
+
+class BarsMulti(BaseDataFrameModel):
+    __root__: tp.Dict[str, Bars]

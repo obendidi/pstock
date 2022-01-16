@@ -4,6 +4,14 @@ from pydantic import BaseModel, Field
 
 
 class Asset(BaseModel):
-    ticker: str
-    name: tp.Optional[str] = Field(repr=False)
+    symbol: str
+    name: str = Field(..., alias="shortName")
+    type: tp.Literal["EQUITY", "ETF", "CRYPTOCURRENCY"] = Field(..., alias="quoteType")
+    market: tp.Optional[str] = Field(repr=False)
+    sector: tp.Optional[str] = Field(repr=False)
+    industry: tp.Optional[str] = Field(repr=False)
+    country: tp.Optional[str] = Field(repr=False)
     isin: tp.Optional[str] = Field(repr=False)
+
+    class Config:
+        allow_population_by_field_name = True

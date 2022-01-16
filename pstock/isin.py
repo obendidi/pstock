@@ -2,88 +2,88 @@ import typing as tp
 
 import httpx
 
-from pstock.core import httpx_get, httpx_aget
+from pstock.core import httpx_get
 
 ISIN_URI = "https://markets.businessinsider.com/ajax/SearchController_Suggest"
 MAX_RESULTS = 25
 
+__all__ = "get_isin"
 
-def _is_valid_ticker(ticker: str) -> bool:
-    if "-" in ticker or "^" in ticker:
+
+def _is_valid_symbol(symbol: str) -> bool:
+    if "-" in symbol or "^" in symbol:
         return False
     return True
 
 
-def _parse_insin_response(ticker: str, response: httpx.Response) -> tp.Optional[str]:
+def _parse_insin_response(symbol: str, response: httpx.Response) -> tp.Optional[str]:
     response.raise_for_status()
-    search_str = f'"{ticker}|'
+    search_str = f'"{symbol}|'
     if search_str not in response.text:
         return None
     return response.text.split(search_str)[1].split('"')[0].split("|")[0]
 
 
-def get_isin(ticker: str, client: tp.Optional[httpx.Client] = None) -> tp.Optional[str]:
-    if not _is_valid_ticker(ticker):
-        return None
-    response = httpx_get(
-        ISIN_URI,
-        client=client,
-        params={
-            "max_results": MAX_RESULTS,
-            "query": ticker,
-        },
-    )
-    return _parse_insin_response(ticker, response)
-
-
-async def aget_isin(
-    ticker: str, client: tp.Optional[httpx.AsyncClient] = None
+async def get_isin(
+    symbol: str, client: tp.Optional[httpx.AsyncClient] = None
 ) -> tp.Optional[str]:
-    if not _is_valid_ticker(ticker):
+    """Get ISIN of an US marker from 'https://markets.businessinsider.com'.
+
+    If the isin is not found, returns None.
+
+    By default yahoo-finance sumbols that contain '^' or '-' are not supported.
+
+    Args:
+        symbol (str): symbol or ticker of an existing US market stock
+        client (tp.Optional[httpx.Client], optional): Defaults to None.
+
+    Returns:
+        tp.Optional[str]: isin of the stock if found else None
+    """
+    if not _is_valid_symbol(symbol):
         return None
-    response = await httpx_aget(
+    response = await httpx_get(
         ISIN_URI,
         client=client,
         params={
             "max_results": MAX_RESULTS,
-            "query": ticker,
+            "query": symbol,
         },
     )
-    return _parse_insin_response(ticker, response)
+    return _parse_insin_response(symbol, response)
 
 
 if __name__ == "__main__":
-    import time
+    import logging
 
-    import anyio
+    import asyncer
 
-    tickers = ["TSLA", "AAPL", "GM", "GOOG", "FB", "AMZN", "AMD", "NVDA", "GME", "SPCE"]
-    data = {}
-    with httpx.Client() as client:
-        start = time.perf_counter()
-        for ticker in tickers:
-            data[ticker] = get_isin(ticker, client=client)
-        print(f"Client: Finished in {time.perf_counter() - start:.2f} seconds.")
-        for ticker, isin in data.items():
-            print(f"\t{ticker} => {isin}")
+    from pstock.core.log import setup_logging
 
-    async def _main():
-        data = {}
+    setup_logging(level="INFO")
+    logger = logging.getLogger()
 
+    async def _worker(symbol: str, client: httpx.AsyncClient) -> None:
+        isin = await get_isin(symbol, client=client)
+        logger.info(f"{symbol}: '{isin}'")
+
+    async def _main(symbols):
         async with httpx.AsyncClient() as client:
+            async with asyncer.create_task_group() as tg:
+                for symbol in symbols:
+                    tg.soonify(_worker)(symbol, client=client)
 
-            async def _worker(ticker):
-                isin = await aget_isin(ticker, client=client)
-                data[ticker] = isin
-
-            start = time.perf_counter()
-            async with anyio.create_task_group() as tg:
-                for ticker in tickers:
-                    tg.start_soon(_worker, ticker)
-            print(
-                f"AsyncClient: Finished in {time.perf_counter() - start:.2f} seconds."
-            )
-            for ticker, isin in data.items():
-                print(f"\t{ticker} => {isin}")
-
-    anyio.run(_main)
+    asyncer.runnify(_main)(
+        [
+            "TSLA",
+            "AAPL",
+            "GOOG",
+            "AMZN",
+            "AMD",
+            "GME",
+            "SPCE",
+            "^QQQ",
+            "ETH-USD",
+            "BTC-EUR",
+        ]
+    )

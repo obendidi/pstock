@@ -1,23 +1,23 @@
+import json
 import typing as tp
 
 import httpx
-import json
-import logging
-from pstock.core import httpx_get, httpx_aget
 
-from pstock.yahoo_finance.config import YF_QUOTE_URI, user_agent_header
+from pstock.core import httpx_get
+from pstock.yahoo_finance.utils import user_agent_header
 
-__all__ = ("get_quote_summary", "aget_quote_summary")
+__all__ = "get_quote_summary"
 
-logger = logging.getLogger(__name__)
+
+YF_QUOTE_URI = "https://finance.yahoo.com/quote/{symbol}"
 
 
 def _parse_quote_summary_response(
-    ticker: str, response: httpx.Response
+    symbol: str, response: httpx.Response
 ) -> tp.Dict[str, tp.Any]:
     if response.status_code == 302:
         logger.error(
-            f"Ticker '{ticker}' not found in yahoo-finance, it may be "
+            f"symbol '{symbol}' not found in yahoo-finance, it may be "
             "delisted or renamed."
         )
         return {}
@@ -37,34 +37,59 @@ def _parse_quote_summary_response(
     )
 
 
-def get_quote_summary(
-    ticker: str, client: tp.Optional[httpx.Client] = None
+async def get_quote_summary(
+    symbol: str, client: tp.Optional[httpx.AsyncClient] = None
 ) -> tp.Dict[str, tp.Any]:
+    """Get symbol quote summary from yahoo-finance.
 
-    url = YF_QUOTE_URI.format(ticker=ticker)
+    Args:
+        symbol (str): Symbol or ticker in yahoo-finance, ex: TSLA, ETH-USD, ^QQQ, ...
+        client (tp.Optional[httpx.AsyncClient], optional): Defaults to None.
 
-    response = httpx_get(
-        url, client=client, headers=user_agent_header(), retry_status_codes=[502]
-    )
-    return _parse_quote_summary_response(ticker, response)
+    Returns:
+        Parsed quote dict.
+    """
 
+    url = YF_QUOTE_URI.format(symbol=symbol)
 
-async def aget_quote_summary(
-    ticker: str, client: tp.Optional[httpx.AsyncClient] = None
-) -> tp.Dict[str, tp.Any]:
-
-    url = YF_QUOTE_URI.format(ticker=ticker)
-
-    response = await httpx_aget(
+    response = await httpx_get(
         url, client=client, headers=user_agent_header(), retry_status_codes=[502]
     )
 
-    return _parse_quote_summary_response(ticker, response)
+    return _parse_quote_summary_response(symbol, response)
 
 
 if __name__ == "__main__":
-    tickers = ["TSLA", "AAPL", "GM", "GOOG", "FB", "AMZN", "AMD", "NVDA", "GME", "SPCE"]
-    for ticker in tickers:
-        summary = get_quote_summary(ticker)
-        with open(f"{ticker}.json", "w") as f:
-            json.dump(summary, f, indent=2)
+    import logging
+
+    import asyncer
+
+    from pstock.core.log import setup_logging
+
+    setup_logging(level="INFO")
+    logger = logging.getLogger()
+
+    async def _worker(symbol: str, client: httpx.AsyncClient) -> None:
+        quote = await get_quote_summary(symbol, client=client)
+        logger.info(f"{symbol}: '{quote}'")
+
+    async def _main(symbols):
+        async with httpx.AsyncClient() as client:
+            async with asyncer.create_task_group() as tg:
+                for symbol in symbols:
+                    tg.soonify(_worker)(symbol, client=client)
+
+    asyncer.runnify(_main)(
+        [
+            "TSLA",
+            "AAPL",
+            "GOOG",
+            "AMZN",
+            "AMD",
+            "GME",
+            "SPCE",
+            "^QQQ",
+            "ETH-USD",
+            "BTC-EUR",
+        ]
+    )

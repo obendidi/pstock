@@ -1,7 +1,7 @@
-import typing as tp
 import logging
-import anyio
+import typing as tp
 
+import anyio
 import httpx
 from httpx._client import USE_CLIENT_DEFAULT, UseClientDefault
 from httpx._types import (
@@ -16,12 +16,12 @@ from tenacity import (
     TryAgain,
     before_sleep_log,
     retry,
+    retry_if_exception_type,
     wait_exponential,
     wait_random,
-    retry_if_exception_type,
 )
 
-__all__ = ("httpx_get", "httpx_aget")
+__all__ = "httpx_get"
 
 logger = logging.getLogger(__name__)
 
@@ -32,63 +32,6 @@ def _check_retry_status(
 ) -> None:
     if retry_status_codes and response.status_code in retry_status_codes:
         raise TryAgain()
-
-
-def _get_with_client(
-    url: URLTypes, client: httpx.Client, **kwargs: tp.Any
-) -> httpx.Response:
-    return client.get(url, **kwargs)
-
-
-def _get_without_client(url: URLTypes, **kwargs: tp.Any) -> httpx.Response:
-    with httpx.Client() as client:
-        return _get_with_client(url, client, **kwargs)
-
-
-@retry(
-    reraise=True,
-    retry=retry_if_exception_type(TryAgain),
-    wait=wait_exponential(multiplier=1, min=4, max=10) + wait_random(0, 2),
-    before_sleep=before_sleep_log(logger, logging.WARNING),
-)
-def httpx_get(
-    url: URLTypes,
-    *,
-    client: tp.Optional[httpx.Client] = None,
-    retry_status_codes: tp.Optional[tp.List[int]] = None,
-    params: QueryParamTypes = None,
-    headers: HeaderTypes = None,
-    cookies: CookieTypes = None,
-    auth: tp.Union[AuthTypes, UseClientDefault] = USE_CLIENT_DEFAULT,
-    follow_redirects: tp.Union[bool, UseClientDefault] = USE_CLIENT_DEFAULT,
-    timeout: tp.Union[TimeoutTypes, UseClientDefault] = USE_CLIENT_DEFAULT,
-    extensions: dict = None,
-) -> httpx.Response:
-    if client is None:
-        response = _get_without_client(
-            url,
-            params=params,
-            headers=headers,
-            cookies=cookies,
-            auth=auth,
-            follow_redirects=follow_redirects,
-            timeout=timeout,
-            extensions=extensions,
-        )
-    else:
-        response = _get_with_client(
-            url,
-            client,
-            params=params,
-            headers=headers,
-            cookies=cookies,
-            auth=auth,
-            follow_redirects=follow_redirects,
-            timeout=timeout,
-            extensions=extensions,
-        )
-    _check_retry_status(response, retry_status_codes=retry_status_codes)
-    return response
 
 
 async def _aget_with_client(
@@ -109,7 +52,7 @@ async def _aget_without_client(url: URLTypes, **kwargs: tp.Any) -> httpx.Respons
     wait=wait_exponential(multiplier=1, min=4, max=10) + wait_random(0, 2),
     before_sleep=before_sleep_log(logger, logging.WARNING),
 )
-async def httpx_aget(
+async def httpx_get(
     url: URLTypes,
     *,
     client: tp.Optional[httpx.AsyncClient] = None,
