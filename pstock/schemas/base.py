@@ -1,14 +1,12 @@
-import logging
 import typing as tp
 from collections.abc import Sequence
 
 import pandas as pd
 from pydantic import BaseModel, Extra, PrivateAttr, validator
 
-logger = logging.getLogger(__name__)
-
 
 class BaseDataFrameModel(BaseModel):
+
     __root__: tp.Union[tp.Sequence[BaseModel], tp.Mapping[str, "BaseDataFrameModel"]]
     _df: tp.Optional[pd.DataFrame] = PrivateAttr(default=None)
 
@@ -21,7 +19,11 @@ class BaseDataFrameModel(BaseModel):
     def __len__(self) -> int:
         return len(self.__root__)
 
-    def dict(self):
+    def dict(  # type: ignore
+        self,
+    ) -> tp.Union[
+        tp.Sequence[tp.Dict[str, tp.Any]], tp.Mapping[str, tp.Dict[str, tp.Any]]
+    ]:
         return super().dict()["__root__"]
 
     @property

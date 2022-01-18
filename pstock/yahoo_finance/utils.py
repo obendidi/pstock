@@ -7,25 +7,25 @@ from pydantic import BaseModel, Field, validator
 
 from pstock.core import TimeStamp, parse_datetime, parse_duration
 
-ValidInterval = tp.Literal[
+_ValidInterval = tp.Literal[
     "1m", "2m", "5m", "15m", "30m", "1h", "1d", "5d", "1mo", "3mo"
 ]
-AutoValidInterval = tp.Union[tp.Literal["auto"], ValidInterval]
-ValidRange = tp.Literal[
+_AutoValidInterval = tp.Union[tp.Literal["auto"], _ValidInterval]
+_ValidRange = tp.Literal[
     "1d", "5d", "1mo", "3mo", "6mo", "1y", "2y", "5y", "10y", "ytd", "max"
 ]
-ValidIntervals = tp.Tuple[ValidInterval, ...]
+_ValidIntervals = tp.Tuple[_ValidInterval, ...]
 
-VALID_INTERVALS: ValidIntervals = tp.get_args(ValidInterval)
-MAX_DAYS_TO_VALID_INTERVALS: tp.Dict[float, ValidIntervals] = {
-    7: VALID_INTERVALS,  # all
-    59.9: VALID_INTERVALS[1:],  # 2m and above
-    729.9: VALID_INTERVALS[5:],  # 1h and above
+_VALID_INTERVALS: _ValidIntervals = tp.get_args(_ValidInterval)
+_MAX_DAYS_TO_VALID_INTERVALS: tp.Dict[float, _ValidIntervals] = {
+    7: _VALID_INTERVALS,  # all
+    59.9: _VALID_INTERVALS[1:],  # 2m and above
+    729.9: _VALID_INTERVALS[5:],  # 1h and above
 }
 # by default smallest always valid interval is 1d
-DEFAULT_VALID_INTERVALS: ValidIntervals = VALID_INTERVALS[6:]
+_DEFAULT_VALID_INTERVALS: _ValidIntervals = _VALID_INTERVALS[6:]
 
-USER_AGENT_LIST: tp.List[str] = [
+_USER_AGENT_LIST: tp.List[str] = [
     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36",  # noqa
     "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36",  # noqa
     "Mozilla/5.0 (Windows NT 10.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36",  # noqa
@@ -36,13 +36,13 @@ USER_AGENT_LIST: tp.List[str] = [
 ]
 
 
-def user_agent_header() -> tp.Dict[str, str]:
-    return {"User-Agent": random.choice(USER_AGENT_LIST)}
+def _user_agent_header() -> tp.Dict[str, str]:
+    return {"User-Agent": random.choice(_USER_AGENT_LIST)}
 
 
-class YFChartParams(BaseModel):
-    interval: ValidInterval
-    period: tp.Optional[ValidRange] = Field(alias="range")
+class _YFChartParams(BaseModel):
+    interval: _ValidInterval
+    period: tp.Optional[_ValidRange] = Field(alias="range")
     start: tp.Optional[TimeStamp] = Field(alias="period1")
     end: tp.Optional[TimeStamp] = Field(alias="period2")
     include_prepost: bool = Field(default=False, alias="includePrePost")
@@ -72,11 +72,11 @@ class YFChartParams(BaseModel):
         validate_assignment = True
 
 
-def get_valid_intervals(
-    interval: AutoValidInterval,
-    period: tp.Optional[ValidRange] = None,
+def _get_valid_intervals(
+    interval: _AutoValidInterval,
+    period: tp.Optional[_ValidRange] = None,
     start: tp.Union[None, str, int, float, datetime] = None,
-) -> ValidIntervals:
+) -> _ValidIntervals:
     if interval != "auto":
         return (interval,)
     if period is not None:
@@ -88,7 +88,7 @@ def get_valid_intervals(
     else:
         raise ValueError("Please provide either 'start' or 'period'.")
 
-    for max_days, valid_intervals in MAX_DAYS_TO_VALID_INTERVALS.items():
+    for max_days, valid_intervals in _MAX_DAYS_TO_VALID_INTERVALS.items():
         if delta.days <= max_days:
             return valid_intervals
-    return DEFAULT_VALID_INTERVALS
+    return _DEFAULT_VALID_INTERVALS

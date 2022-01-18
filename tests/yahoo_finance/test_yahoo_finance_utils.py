@@ -2,11 +2,11 @@ import pendulum
 import pytest
 from pydantic import ValidationError
 
-from pstock.yahoo_finance.utils import YFChartParams
+from pstock.yahoo_finance.utils import _YFChartParams
 
 
 def test_yf_chart_params_aliases():
-    params = YFChartParams(
+    params = _YFChartParams(
         interval="1m",
         period="1d",
         start=1346887571,
@@ -26,7 +26,7 @@ def test_yf_chart_params_aliases():
 
 
 def test_yf_chart_params_end_value_factory_with_no_start():
-    params = YFChartParams(
+    params = _YFChartParams(
         interval="1m",
         period="1d",
     )
@@ -39,7 +39,7 @@ def test_yf_chart_params_end_value_factory_with_no_start():
 
 
 def test_yf_chart_params_with_no_start_and_no_period():
-    params = YFChartParams(
+    params = _YFChartParams(
         interval="1m",
         period="1d",
     )
@@ -49,13 +49,13 @@ def test_yf_chart_params_with_no_start_and_no_period():
 
 def test_yf_chart_params_setting_invalid_interval():
     with pytest.raises(ValidationError):
-        YFChartParams(interval="1m")
+        _YFChartParams(interval="1m")
 
 
 def test_yf_chart_params_end_value_factory_with_start():
     known = pendulum.datetime(2021, 5, 21, 12)
     pendulum.set_test_now(known)
-    params = YFChartParams(
+    params = _YFChartParams(
         interval="1m",
         start=1346887571,
     )

@@ -3,24 +3,24 @@ import typing as tp
 import asyncer
 import httpx
 
-from pstock import Asset, get_isin, Earnings
+from pstock import get_isin, Asset
 from pstock.yahoo_finance.quote import get_quote_summary
+from pstock.yahoo_finance.earnings import _parse_earnings_from_quote_summary
 
 __all__ = "get_asset"
-
-
-def _parse_earnings_from_quote(quote_summary: tp.Dict[str, tp.Any]) -> Earnings:
-    earnings = quote_summary.get("earnings", {})
 
 
 def _parse_asset_from_quote(
     symbol: str, quote_summary: tp.Dict[str, tp.Any], isin: tp.Optional[str] = None
 ) -> Asset:
+    earnings, next_earnings_date = _parse_earnings_from_quote_summary(quote_summary)
     data = {
         "symbol": symbol,
         **quote_summary.get("quoteType", {}),
         **quote_summary.get("summaryProfile", {}),
         "isin": isin,
+        "earnings": earnings,
+        "next_earnings_date": next_earnings_date,
     }
     return Asset(**data)
 
@@ -28,14 +28,16 @@ def _parse_asset_from_quote(
 async def get_asset(
     symbol: str, client: tp.Optional[httpx.AsyncClient] = None
 ) -> Asset:
-    """Get Asset information from yahoo-finance.
+    """Get [Asset][pstock.schemas.Asset] data from yahoo-finance.
+
+    An [Asset][pstock.schemas.Asset] will at least have it's: symbol, name and type.
 
     Args:
-        symbol (str): Stock/crypto symbol supported by yahoo-finance
+        symbol (str): A stock/crypto symbol availlable in yahoo-finance
         client (tp.Optional[httpx.AsyncClient], optional): Defaults to None.
 
     Returns:
-        Asset
+        [pstock.schemas.Asset][]
     """
     async with asyncer.create_task_group() as task_group:
         soon_quote_summary = task_group.soonify(get_quote_summary)(
@@ -59,6 +61,7 @@ if __name__ == "__main__":
     async def _worker(symbol: str, client: httpx.AsyncClient) -> None:
         asset = await get_asset(symbol, client=client)
         logger.info(asset)
+        logger.info(asset.earnings.df)
 
     async def _main(symbols):
         async with httpx.AsyncClient() as client:
@@ -69,14 +72,14 @@ if __name__ == "__main__":
     asyncer.runnify(_main)(
         [
             "TSLA",
-            # "AAPL",
-            # "GOOG",
-            # "AMZN",
-            # "AMD",
-            # "GME",
-            # "SPCE",
-            # "^QQQ",
-            # "ETH-USD",
-            # "BTC-EUR",
+            "AAPL",
+            "GOOG",
+            "AMZN",
+            "AMD",
+            "GME",
+            "SPCE",
+            "^QQQ",
+            "ETH-USD",
+            "BTC-EUR",
         ]
     )

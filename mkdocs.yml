@@ -1,32 +1,34 @@
-site_name: pstock
-site_description: Python SDK for (async-)pulling stock/crypto info from the net (price data, news, info, ...)
+site_name: Pstock
+site_description: Python async api for pulling stock/crypto data (price, news, earnings, ...)
 site_url: https://obendidi.github.io/pstock
 
 repo_name: obendidi/pstock
 repo_url: https://github.com/obendidi/pstock
 edit_uri: ""
 
+
 theme:
   name: "material"
+  palette:
+    - scheme: default
+      toggle:
+        icon: material/toggle-switch-off-outline
+        name: Switch to dark mode
+    - scheme: slate
+      toggle:
+        icon: material/toggle-switch
+        name: Switch to light mode
+
+extra_css:
+- css/style.css
 
 nav:
   - Introduction: "index.md"
-  - Developper Interface: "api.md"
+  - Schemas: schemas-reference.md
+  - Isin: isin-reference.md
+  - Yahoo-finance: yahoo-finance-reference.md
 
-markdown_extensions:
-  - admonition
-  - codehilite:
-      css_class: highlight
-  - mkautodoc
-  - pymdownx.emoji:
-      emoji_index: !!python/name:materialx.emoji.twemoji
-      emoji_generator: !!python/name:materialx.emoji.to_svg
-  - pymdownx.highlight:
-      anchor_linenums: true
-  - pymdownx.inlinehilite
-  - pymdownx.snippets:
-      check_paths: true
-  - pymdownx.superfences
 
-extra_css:
-  - css/custom.css
+plugins:
+  - search
+  - mkdocstrings

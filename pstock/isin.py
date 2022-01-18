@@ -4,8 +4,8 @@ import httpx
 
 from pstock.core import httpx_get
 
-ISIN_URI = "https://markets.businessinsider.com/ajax/SearchController_Suggest"
-MAX_RESULTS = 25
+_ISIN_URI = "https://markets.businessinsider.com/ajax/SearchController_Suggest"
+_MAX_RESULTS = 25
 
 __all__ = "get_isin"
 
@@ -27,7 +27,8 @@ def _parse_insin_response(symbol: str, response: httpx.Response) -> tp.Optional[
 async def get_isin(
     symbol: str, client: tp.Optional[httpx.AsyncClient] = None
 ) -> tp.Optional[str]:
-    """Get ISIN of an US marker from 'https://markets.businessinsider.com'.
+    """Get ISIN of an US stock symbol from
+    [https://markets.businessinsider.com](https://markets.businessinsider.com).
 
     If the isin is not found, returns None.
 
@@ -43,10 +44,10 @@ async def get_isin(
     if not _is_valid_symbol(symbol):
         return None
     response = await httpx_get(
-        ISIN_URI,
+        _ISIN_URI,
         client=client,
         params={
-            "max_results": MAX_RESULTS,
+            "max_results": _MAX_RESULTS,
             "query": symbol,
         },
     )

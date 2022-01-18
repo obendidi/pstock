@@ -1,24 +1,17 @@
 import typing as tp
+from datetime import datetime
 
 from pydantic import BaseModel, Field
 
-from pstock.schemas.base import BaseDataFrameModel
-
-
-class Earning(BaseModel):
-    date: str
-    estimate: float
-    actual: tp.Optional[float] = None
-
-
-class Earnings(BaseDataFrameModel):
-    __root__: tp.List[Earning]
+from pstock.schemas.earnings import Earnings
 
 
 class Asset(BaseModel):
     symbol: str
     name: str = Field(..., alias="shortName")
     type: tp.Literal["EQUITY", "ETF", "CRYPTOCURRENCY"] = Field(..., alias="quoteType")
+    earnings: Earnings = Field(repr=False)
+    next_earnings_date: tp.Optional[datetime] = Field(repr=False)
     market: tp.Optional[str] = Field(repr=False)
     sector: tp.Optional[str] = Field(repr=False)
     industry: tp.Optional[str] = Field(repr=False)

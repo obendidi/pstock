@@ -10,26 +10,34 @@ import numpy as np
 from pstock.core import httpx_get, parse_duration
 from pstock.schemas.bar import Bars, BarsMulti
 from pstock.yahoo_finance.utils import (
-    AutoValidInterval,
-    ValidInterval,
-    ValidRange,
-    YFChartParams,
-    get_valid_intervals,
-    user_agent_header,
+    _AutoValidInterval,
+    _ValidInterval,
+    _ValidRange,
+    _YFChartParams,
+    _get_valid_intervals,
+    _user_agent_header,
 )
 
 __all__ = "get_bars"
 
 logger = logging.getLogger(__name__)
 
-YF_CHART_URI = "https://query2.finance.yahoo.com/v8/finance/chart/{symbol}"
+_YF_CHART_URI = "https://query2.finance.yahoo.com/v8/finance/chart/{symbol}"
 
 
 class UnprocessableEntity(Exception):
+    """Exception for when yahoo-finance returns a status 422.
+
+    It usually means that the interval provided is not valid for provided range or
+    start time.
+    """
+
     ...
 
 
-def _parse_yf_chart_response(response: httpx.Response, interval: ValidInterval) -> Bars:
+def _parse_yf_chart_response(
+    response: httpx.Response, interval: _ValidInterval
+) -> Bars:
     data = response.json()
 
     result = data.get("chart", {}).get("result")
@@ -75,17 +83,75 @@ def _parse_yf_chart_response(response: httpx.Response, interval: ValidInterval) 
 
 async def get_bars(
     symbol: str,
-    interval: AutoValidInterval = "auto",
-    period: tp.Optional[ValidRange] = None,
+    interval: _AutoValidInterval = "auto",
+    period: tp.Optional[_ValidRange] = None,
     start: tp.Union[None, str, int, float, datetime] = None,
     end: tp.Union[None, str, int, float, datetime] = None,
     include_prepost: bool = False,
     events: tp.Literal["div", "split", "div,splits"] = "div,splits",
     client: tp.Optional[httpx.AsyncClient] = None,
 ) -> Bars:
-    valid_intervals = get_valid_intervals(interval, period=period, start=start)
+    """Get symbol [Bars][pstock.schemas.Bars] from yahoo-finance.
 
-    params = YFChartParams(
+    Each bar contains: datetime (UTC), open, hight, low, close, adj_close and interval
+
+    The generated [Bars][pstock.schemas.Bars] can be viewed as a pd.DataFrame,
+    using the property `.df`.
+
+    Either the `period` or `start` time should at least be provided.
+
+    If the provided interval is not valid relative to period or start time,
+    an [UnprocessableEntity][pstock.yahoo_finance.bar.UnprocessableEntity] error will
+    be raised (as a response from yahoo-finance).
+
+    You can also provide an `interval="auto"` (default), so that pstock can
+    automatically infer from your provided `period` or `start` value the minimum
+    `interval` usable.
+
+    When interval is set to `auto`, we try a list of valid intervals from lowest
+    supported to largest.
+
+    Example:
+        >>> from pstock.yahoo_finance import get_bars
+        >>>
+        >>> bars = await get_bars("MSFT", interval="1h", period="1d")
+        >>> print(bars) # will print a pydantic model
+        >>> print(bars.df.head()) # will print a pd.DataFrame
+
+    Args:
+        symbol (str): ticker for a stock/crypto/ETF availlable in yahoo-finance.
+        interval (tp.Literal["auto", "1m", "2m", "5m", "15m", "30m", "1h", "1d", "5d",
+            "1mo", "3mo"]): Interval to use when getting [Bars][pstock.schemas.Bars].
+        period (tp.Optional[tp.Literal["1d", "5d", "1mo", "3mo", "6mo", "1y", "2y",
+            "5y", "10y", "ytd", "max"]], optional): Range/Period to use for getting
+            market data. Period is relative to `datetime.now()` and open market days.
+            Either Use `period` parameter or use `start` and `end`.
+        start (tp.Union[None, str, int, float, datetime], optional): Download start
+            date, ideally an UTC `datetime` object, but also accepts int/float
+            timestamps or str datetime supported by
+            [pydantic](https://pydantic-docs.helpmanual.io/usage/types/#datetime-types)
+        end (tp.Union[None, str, int, float, datetime], optional): Download end
+            date, ideally an UTC `datetime` object, but also accepts int/float
+            timestamps or str datetime supported by
+            [pydantic](https://pydantic-docs.helpmanual.io/usage/types/#datetime-types).
+            If not provided and `start` is provided, defaults to `datetime.utcnow()`
+        include_prepost (bool, optional): Include Pre and Post market data in
+            [Bars][pstock.schemas.Bars].
+        events (tp.Literal["div", "split", "div,splits"], optional): events to include
+            with response..
+        client (tp.Optional[httpx.AsyncClient], optional): Optional instance of
+            [httpx.AsyncClient](python-httpx.org/advanced/#client-instances).
+
+    Raises:
+        anyio.ExceptionGroup: group of
+            [UnprocessableEntity][pstock.yahoo_finance.bar.UnprocessableEntity] errors.
+
+    Returns:
+        [pstock.schemas.Bars][]
+    """
+    valid_intervals = _get_valid_intervals(interval, period=period, start=start)
+
+    params = _YFChartParams(
         interval=valid_intervals[0],
         period=period,
         start=start,
@@ -107,10 +173,10 @@ async def get_bars(
             )
         params.interval = valid_interval
         response = await httpx_get(
-            url=YF_CHART_URI.format(symbol=symbol),
+            url=_YF_CHART_URI.format(symbol=symbol),
             client=client,
             params=params.dict(exclude_none=True, by_alias=True),
-            headers=user_agent_header(),
+            headers=_user_agent_header(),
         )
         try:
             return _parse_yf_chart_response(response, params.interval)
@@ -122,18 +188,61 @@ async def get_bars(
 
 async def get_bars_multi(
     symbols: tp.List[str],
-    interval: AutoValidInterval = "auto",
-    period: tp.Optional[ValidRange] = None,
+    interval: _AutoValidInterval = "auto",
+    period: tp.Optional[_ValidRange] = None,
     start: tp.Union[None, str, int, float, datetime] = None,
     end: tp.Union[None, str, int, float, datetime] = None,
     include_prepost: bool = False,
     events: tp.Literal["div", "split", "div,splits"] = "div,splits",
     client: tp.Optional[httpx.AsyncClient] = None,
 ) -> BarsMulti:
-    close_client = False
-    if client is None:
-        client = httpx.AsyncClient()
-        close_client = True
+    """Get [Bars][pstock.schemas.Bars] for multiple symbols from yahoo-finance.
+
+    Works exactly the same as [get_bars][pstock.yahoo_finance.bar.get_bars], but with a
+    list of symbols as input.
+
+    This function returns an instance of [BarsMulti][pstock.schemas.BarsMulti], wich is
+    simply a mapping `str` -> [Bars][pstock.schemas.Bars].
+
+    Accessings bars for each symbol can be done the same as a Mapping/Dict.
+
+    Example:
+        >>> from pstock.yahoo_finance import get_bars_multi
+        >>>
+        >>> bars = await get_bars_multi(["MSFT", "TSLA", "AAPL"], period="1d")
+        >>> print(bars) # will print all bars of all symbols as a pydantic model.
+        >>> print(bars["MSFT"]) # will print bars specific to symbol `MSFT`
+        >>> print(bars.df.head()) # will print a pd.DataFrame of all symbols
+        >>> print(bars["MSFT"].df) # will print only pd.DataFrame for `MSFT` bars.
+
+    Args:
+        symbols (tp.List[str]): List fo symbols availlable in yahoo-finance (it is
+            possible to mix stock and crypto symbols, but not ideal)
+        interval (tp.Literal["auto", "1m", "2m", "5m", "15m", "30m", "1h", "1d", "5d",
+            "1mo", "3mo"]): Interval to use when getting [Bars][pstock.schemas.Bars].
+        period (tp.Optional[tp.Literal["1d", "5d", "1mo", "3mo", "6mo", "1y", "2y",
+            "5y", "10y", "ytd", "max"]], optional): Range/Period to use for getting
+            market data. Period is relative to `datetime.now()` and open market days.
+            Either Use `period` parameter or use `start` and `end`.
+        start (tp.Union[None, str, int, float, datetime], optional): Download start
+            date, ideally an UTC `datetime` object, but also accepts int/float
+            timestamps or str datetime supported by
+            [pydantic](https://pydantic-docs.helpmanual.io/usage/types/#datetime-types)
+        end (tp.Union[None, str, int, float, datetime], optional): Download end
+            date, ideally an UTC `datetime` object, but also accepts int/float
+            timestamps or str datetime supported by
+            [pydantic](https://pydantic-docs.helpmanual.io/usage/types/#datetime-types).
+            If not provided and `start` is provided, defaults to `datetime.utcnow()`
+        include_prepost (bool, optional): Include Pre and Post market data in
+            [Bars][pstock.schemas.Bars].
+        events (tp.Literal["div", "split", "div,splits"], optional): events to include
+            with response..
+        client (tp.Optional[httpx.AsyncClient], optional): Optional instance of
+            [httpx.AsyncClient](python-httpx.org/advanced/#client-instances).
+
+    Returns:
+        [pstock.schemas.BarsMulti][]
+    """
 
     async with asyncer.create_task_group() as tg:
         soon_values = [
@@ -149,9 +258,6 @@ async def get_bars_multi(
             )
             for symbol in symbols
         ]
-
-    if close_client:
-        await client.aclose()
 
     data = {
         symbol: soon_value.value for symbol, soon_value in zip(symbols, soon_values)
