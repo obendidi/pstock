@@ -36,7 +36,7 @@ async def get_isin(
 
     Args:
         symbol (str): symbol or ticker of an existing US market stock
-        client (tp.Optional[httpx.Client], optional): Defaults to None.
+        client (tp.Optional[httpx.AsyncClient], optional): Defaults to None.
 
     Returns:
         tp.Optional[str]: isin of the stock if found else None

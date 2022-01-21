@@ -1,9 +1,9 @@
 import typing as tp
 
 import httpx
-from pstock.schemas import Earnings, Earning
 import numpy as np
 
+from pstock.schemas import Earning, Earnings
 from pstock.yahoo_finance.quote import get_quote_summary
 
 __all__ = "get_earnings"
@@ -106,6 +106,7 @@ async def get_earnings(
 
 if __name__ == "__main__":
     import logging
+
     import asyncer
 
     from pstock.core.log import setup_logging

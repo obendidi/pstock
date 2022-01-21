@@ -11,11 +11,11 @@ from pstock.core import httpx_get, parse_duration
 from pstock.schemas.bar import Bars, BarsMulti
 from pstock.yahoo_finance.utils import (
     _AutoValidInterval,
+    _get_valid_intervals,
+    _user_agent_header,
     _ValidInterval,
     _ValidRange,
     _YFChartParams,
-    _get_valid_intervals,
-    _user_agent_header,
 )
 
 __all__ = "get_bars"
@@ -274,7 +274,7 @@ if __name__ == "__main__":
     logger = logging.getLogger()
 
     async def _worker(symbol: str, client: httpx.AsyncClient) -> None:
-        bars = await get_bars(symbol, period="1d", client=client)
+        bars = await get_bars(symbol, period="1d", client=client, interval="1h")
         logger.info(symbol)
         logger.info(bars.df)
 
@@ -285,17 +285,17 @@ if __name__ == "__main__":
                     tg.soonify(_worker)(symbol, client=client)
 
     _symbols = [
-        # "TSLA",
-        # "AAPL",
+        "TSLA",
+        "AAPL",
         # "GOOG",
         # "AMZN",
         # "AMD",
         # "GME",
         # "SPCE",
         # "^QQQ",
-        "ETH-USD",
-        "BTC-EUR",
+        # "ETH-USD",
+        # "BTC-EUR",
     ]
     # asyncer.runnify(_main)(_symbols)
-    multi_bars = asyncer.runnify(get_bars_multi)(_symbols, period="1d", interval="15m")
+    multi_bars = asyncer.runnify(get_bars_multi)(_symbols, period="1d", interval="1h")
     logger.info(multi_bars.df)

@@ -1,2 +1,2 @@
 from pstock.isin import get_isin
-from pstock.schemas import Asset, Bar, Bars, Earnings, Earning
+from pstock.schemas import Asset, Bar, Bars, Earning, Earnings

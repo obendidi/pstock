@@ -1,11 +1,13 @@
+import json
 import typing as tp
 
 import asyncer
 import httpx
 
-from pstock import get_isin, Asset
-from pstock.yahoo_finance.quote import get_quote_summary
+from pstock import Asset, get_isin
 from pstock.yahoo_finance.earnings import _parse_earnings_from_quote_summary
+from pstock.yahoo_finance.quote import get_quote_summary
+from pstock.yahoo_finance.trend import _parse_trends_from_quote_summary
 
 __all__ = "get_asset"
 
@@ -13,13 +15,17 @@ __all__ = "get_asset"
 def _parse_asset_from_quote(
     symbol: str, quote_summary: tp.Dict[str, tp.Any], isin: tp.Optional[str] = None
 ) -> Asset:
+    with open(f"data/{symbol}.json", "w") as f:
+        json.dump(quote_summary, f, indent=2)
     earnings, next_earnings_date = _parse_earnings_from_quote_summary(quote_summary)
+    trends = _parse_trends_from_quote_summary(quote_summary)
     data = {
         "symbol": symbol,
         **quote_summary.get("quoteType", {}),
         **quote_summary.get("summaryProfile", {}),
         "isin": isin,
         "earnings": earnings,
+        "trends": trends,
         "next_earnings_date": next_earnings_date,
     }
     return Asset(**data)
@@ -62,6 +68,7 @@ if __name__ == "__main__":
         asset = await get_asset(symbol, client=client)
         logger.info(asset)
         logger.info(asset.earnings.df)
+        logger.info(asset.trends.df)
 
     async def _main(symbols):
         async with httpx.AsyncClient() as client:
@@ -78,8 +85,5 @@ if __name__ == "__main__":
             "AMD",
             "GME",
             "SPCE",
-            "^QQQ",
-            "ETH-USD",
-            "BTC-EUR",
         ]
     )
