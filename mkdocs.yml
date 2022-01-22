@@ -1,5 +1,5 @@
 site_name: Pstock
-site_description: Python async api for pulling stock/crypto data (price, news, earnings, ...)
+site_description: Async python sdk for stock data, get latest prices, news, events, .. from yahoo-finance, finviz, alpaca, ... with the same api.
 site_url: https://obendidi.github.io/pstock
 
 repo_name: obendidi/pstock
