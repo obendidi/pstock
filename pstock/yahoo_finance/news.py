@@ -1,25 +1,42 @@
+import time
 import typing as tp
+
+import feedparser
 import httpx
 
 from pstock.core import httpx_get
-from pstock.yahoo_finance.utils import _user_agent_header
 from pstock.schemas import News
 
-
-_SEARCH_URL = "https://query2.finance.yahoo.com/v1/finance/search?q={symbol}"
+_RSS_URL = (
+    "https://feeds.finance.yahoo.com/rss/2.0/headline?s={symbol}&region=US&lang=en-US"
+)
 
 
 async def get_news(symbol: str, client: tp.Optional[httpx.AsyncClient] = None) -> News:
-    url = _SEARCH_URL.format(symbol=symbol)
+    """Get latest news of a particular symbol from yahoo-finance.
 
-    response = await httpx_get(url, client=client, headers=_user_agent_header())
+    Args:
+        symbol (str): A stock/crypto symbol availlable in yahoo-finance
+        client (tp.Optional[httpx.AsyncClient], optional): Defaults to None.
 
+    Returns:
+        [pstock.schemas.News][]
+    """
+    url = _RSS_URL.format(symbol=symbol)
+    response = await httpx_get(url, client=client)
     response.raise_for_status()
-    return News.parse_obj(response.json().get("news", []))
+    feed = feedparser.parse(response.text)
+    return News.parse_obj(
+        [
+            {**entry, "date": time.mktime(entry["published_parsed"])}
+            for entry in feed.entries
+        ]
+    )
 
 
 if __name__ == "__main__":
     import logging
+
     import asyncer
 
     from pstock.core.log import setup_logging
@@ -29,6 +46,7 @@ if __name__ == "__main__":
 
     async def _worker(symbol: str, client: httpx.AsyncClient) -> None:
         news = await get_news(symbol, client=client)
+        logger.info(symbol)
         logger.info(news.df)
 
     async def _main(symbols):
@@ -40,11 +58,14 @@ if __name__ == "__main__":
     asyncer.runnify(_main)(
         [
             "TSLA",
-            # "AAPL",
-            # "GOOG",
-            # "AMZN",
-            # "AMD",
-            # "GME",
-            # "SPCE",
+            "AAPL",
+            "GOOG",
+            "AMZN",
+            "AMD",
+            "GME",
+            "SPCE",
+            "^QQQ",
+            "ETH-USD",
+            "BTC-EUR",
         ]
     )

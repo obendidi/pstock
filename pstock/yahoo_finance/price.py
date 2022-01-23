@@ -135,7 +135,7 @@ async def get_price_at_timestamp(
         )
 
     # simple if-else to return open or close price
-    bar_open_date = bar.datetime
+    bar_open_date = bar.date
     bar_close_date = bar_open_date + interval
     open_delta = timestamp - bar_open_date
     close_delta = bar_close_date - timestamp

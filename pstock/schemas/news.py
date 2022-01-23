@@ -1,16 +1,17 @@
 import datetime
-from pydantic import BaseModel, Field
-from pstock.schemas.base import BaseDataFrameModel
 import typing as tp
+
 import pandas as pd
+from pydantic import BaseModel, Field
+
+from pstock.schemas.base import BaseDataFrameModel
 
 
 class Publication(BaseModel, allow_population_by_field_name=True):
-    date: datetime.datetime = Field(alias="providerPublishTime")
+    date: datetime.datetime
     title: str
-    publisher: str
-    type: str
     url: str = Field(alias="link")
+    summary: tp.Optional[str]
 
 
 class News(BaseDataFrameModel):
