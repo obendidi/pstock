@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Python async api for pulling stock/crypto data (price, news, earnings, ...)">
+        <meta name="description" content="Async python sdk for stock data, get latest prices, news, events, .. from yahoo-finance, finviz, alpaca, ... with the same api.">
       
       
       
@@ -416,6 +416,26 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#pstock.yahoo_finance.trend" class="md-nav__link">
+    trend
+  </a>
+  
+    <nav class="md-nav" aria-label="trend">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pstock.yahoo_finance.trend.get_trends" class="md-nav__link">
+    get_trends()
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#pstock.yahoo_finance.utils" class="md-nav__link">
     utils
   </a>
@@ -554,6 +574,26 @@
           <li class="md-nav__item">
   <a href="#pstock.yahoo_finance.quote.get_quote_summary" class="md-nav__link">
     get_quote_summary()
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pstock.yahoo_finance.trend" class="md-nav__link">
+    trend
+  </a>
+  
+    <nav class="md-nav" aria-label="trend">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pstock.yahoo_finance.trend.get_trends" class="md-nav__link">
+    get_trends()
   </a>
   
 </li>
@@ -803,11 +843,11 @@ automatically infer from your provided <code>period</code> or <code>start</code>
 supported to largest.</p>
 
 <p><strong>Examples:</strong></p>
-    <div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">pstock.yahoo_finance</span> <span class="kn">import</span> <span class="n">get_bars</span>
-<span class="o">&gt;&gt;&gt;</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">bars</span> <span class="o">=</span> <span class="k">await</span> <span class="n">get_bars</span><span class="p">(</span><span class="s2">&quot;MSFT&quot;</span><span class="p">,</span> <span class="n">interval</span><span class="o">=</span><span class="s2">&quot;1h&quot;</span><span class="p">,</span> <span class="n">period</span><span class="o">=</span><span class="s2">&quot;1d&quot;</span><span class="p">)</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span><span class="p">(</span><span class="n">bars</span><span class="p">)</span> <span class="c1"># will print a pydantic model</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span><span class="p">(</span><span class="n">bars</span><span class="o">.</span><span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">())</span> <span class="c1"># will print a pd.DataFrame</span>
+    <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">pstock.yahoo_finance</span> <span class="kn">import</span> <span class="n">get_bars</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="o">&gt;&gt;&gt;</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="o">&gt;&gt;&gt;</span> <span class="n">bars</span> <span class="o">=</span> <span class="k">await</span> <span class="n">get_bars</span><span class="p">(</span><span class="s2">&quot;MSFT&quot;</span><span class="p">,</span> <span class="n">interval</span><span class="o">=</span><span class="s2">&quot;1h&quot;</span><span class="p">,</span> <span class="n">period</span><span class="o">=</span><span class="s2">&quot;1d&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span><span class="p">(</span><span class="n">bars</span><span class="p">)</span> <span class="c1"># will print a pydantic model</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span><span class="p">(</span><span class="n">bars</span><span class="o">.</span><span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">())</span> <span class="c1"># will print a pd.DataFrame</span>
 </code></pre></div>
 
 <p><strong>Parameters:</strong></p>
@@ -945,13 +985,13 @@ simply a mapping <code>str</code> -&gt; <a href="../../schemas-reference/#pstock
 <p>Accessings bars for each symbol can be done the same as a Mapping/Dict.</p>
 
 <p><strong>Examples:</strong></p>
-    <div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">pstock.yahoo_finance</span> <span class="kn">import</span> <span class="n">get_bars_multi</span>
-<span class="o">&gt;&gt;&gt;</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">bars</span> <span class="o">=</span> <span class="k">await</span> <span class="n">get_bars_multi</span><span class="p">([</span><span class="s2">&quot;MSFT&quot;</span><span class="p">,</span> <span class="s2">&quot;TSLA&quot;</span><span class="p">,</span> <span class="s2">&quot;AAPL&quot;</span><span class="p">],</span> <span class="n">period</span><span class="o">=</span><span class="s2">&quot;1d&quot;</span><span class="p">)</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span><span class="p">(</span><span class="n">bars</span><span class="p">)</span> <span class="c1"># will print all bars of all symbols as a pydantic model.</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span><span class="p">(</span><span class="n">bars</span><span class="p">[</span><span class="s2">&quot;MSFT&quot;</span><span class="p">])</span> <span class="c1"># will print bars specific to symbol `MSFT`</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span><span class="p">(</span><span class="n">bars</span><span class="o">.</span><span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">())</span> <span class="c1"># will print a pd.DataFrame of all symbols</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span><span class="p">(</span><span class="n">bars</span><span class="p">[</span><span class="s2">&quot;MSFT&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">df</span><span class="p">)</span> <span class="c1"># will print only pd.DataFrame for `MSFT` bars.</span>
+    <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">pstock.yahoo_finance</span> <span class="kn">import</span> <span class="n">get_bars_multi</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="o">&gt;&gt;&gt;</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="o">&gt;&gt;&gt;</span> <span class="n">bars</span> <span class="o">=</span> <span class="k">await</span> <span class="n">get_bars_multi</span><span class="p">([</span><span class="s2">&quot;MSFT&quot;</span><span class="p">,</span> <span class="s2">&quot;TSLA&quot;</span><span class="p">,</span> <span class="s2">&quot;AAPL&quot;</span><span class="p">],</span> <span class="n">period</span><span class="o">=</span><span class="s2">&quot;1d&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span><span class="p">(</span><span class="n">bars</span><span class="p">)</span> <span class="c1"># will print all bars of all symbols as a pydantic model.</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span><span class="p">(</span><span class="n">bars</span><span class="p">[</span><span class="s2">&quot;MSFT&quot;</span><span class="p">])</span> <span class="c1"># will print bars specific to symbol `MSFT`</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span><span class="p">(</span><span class="n">bars</span><span class="o">.</span><span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">())</span> <span class="c1"># will print a pd.DataFrame of all symbols</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span><span class="p">(</span><span class="n">bars</span><span class="p">[</span><span class="s2">&quot;MSFT&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">df</span><span class="p">)</span> <span class="c1"># will print only pd.DataFrame for `MSFT` bars.</span>
 </code></pre></div>
 
 <p><strong>Parameters:</strong></p>
@@ -1250,6 +1290,109 @@ crypto.</p>
     <tr>
       <td><code>Dict[str, Any]</code></td>
       <td><p>Parsed quote dict.</p></td>
+    </tr>
+  </tbody>
+</table>
+    </div>
+
+  </div>
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-module">
+
+
+
+<h3 id="pstock.yahoo_finance.trend" class="doc doc-heading">
+        <code>pstock.yahoo_finance.trend</code>
+
+
+
+</h3>
+
+    <div class="doc doc-contents ">
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h4 id="pstock.yahoo_finance.trend.get_trends" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">get_trends</span><span class="p">(</span><span class="n">symbol</span><span class="p">,</span> <span class="n">client</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
+
+  <span class="doc doc-properties">
+      <small class="doc doc-property doc-property-async"><code>async</code></small>
+  </span>
+
+</h4>
+
+    <div class="doc doc-contents ">
+
+      <p>Get <a href="../schemas-reference/#pstock.schemas.trend.Trends">Trends</a> data from yahoo-finance.</p>
+<p><a href="../../schemas-reference/#pstock.schemas.trend.Trends">Trends</a> are parsed from the <code>quote_summary</code> generated by
+<a href="../#pstock.yahoo_finance.quote.get_quote_summary">get_quote_summary</a>.</p>
+<p>Is provided symbol has no Trends (crypto/ETF): an empty
+<a href="../../schemas-reference/#pstock.schemas.trend.Trends">Trends</a> object is returned.</p>
+
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>symbol</code></td>
+        <td><code>str</code></td>
+        <td><p>A stock symbol availlable in yahoo-finance</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>client</code></td>
+        <td><code>tp.Optional[httpx.AsyncClient]</code></td>
+        <td><p>Defaults to None.</p></td>
+        <td><code>None</code></td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>Returns:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>Trends</code></td>
+      <td><p><a href="../../schemas-reference/#pstock.schemas.trend.Trends">pstock.schemas.Trends</a></p></td>
     </tr>
   </tbody>
 </table>
