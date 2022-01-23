@@ -72,7 +72,7 @@ class BaseDataFrameModel(BaseModel):
     def __iter__(self):
         return iter(self.__root__)
 
-    def __getitem__(self, item) -> BaseModel:
+    def __getitem__(self, item):
         return self.__root__[item]
 
     def __len__(self) -> int:

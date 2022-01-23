@@ -1,5 +1,5 @@
+import datetime
 import typing as tp
-from datetime import date
 
 import numpy as np
 import pandas as pd
@@ -36,7 +36,7 @@ def _compute_trend_recomendation(
 
 
 class Trend(BaseModel):
-    date: date
+    date: datetime.date
     strong_buy: int = 0
     buy: int = 0
     hold: int = 0
@@ -60,5 +60,5 @@ class Trends(BaseDataFrameModel):
 
 if __name__ == "__main__":
 
-    trend = Trend(date=date.today())
+    trend = Trend(date=datetime.date.today())
     print(trend)

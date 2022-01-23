@@ -13,3 +13,4 @@ def setup_logging(level: tp.Literal["DEBUG", "INFO", "WARNING", "ERROR"] = "DEBU
     logging.basicConfig(
         level=level, format="%(message)s", datefmt="[%X]", handlers=[RichHandler()]
     )
+    logging.getLogger("httpx").setLevel("INFO")

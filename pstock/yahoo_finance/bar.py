@@ -35,6 +35,16 @@ class UnprocessableEntity(Exception):
     ...
 
 
+class EmptyChart(Exception):
+    """Exception for when yahoo-finance returns a valid but empty chart response.
+
+    It usually means that the requested start-end time is invalid and no data is
+    availlable in requested start-end range.
+    """
+
+    ...
+
+
 def _parse_yf_chart_response(
     response: httpx.Response, interval: _ValidInterval
 ) -> Bars:
@@ -43,13 +53,24 @@ def _parse_yf_chart_response(
     result = data.get("chart", {}).get("result")
     error = data.get("chart", {}).get("error")
 
-    if error:
+    if error and response.status_code == 422:
         raise UnprocessableEntity(error)
+
+    if error:
+        raise Exception(error)
 
     response.raise_for_status()
 
-    timestamps = result[0]["timestamp"]
-    indicators = result[0]["indicators"]
+    if not result:
+        raise Exception(f"Got invalid 'result' value: {result}")
+
+    result = result[0]
+
+    if "timestamp" not in result:
+        raise EmptyChart("Got empty chart from yahoo-finance.")
+
+    timestamps = result["timestamp"]
+    indicators = result["indicators"]
     ohlc = indicators["quote"][0]
     volumes = ohlc["volume"]
     opens = ohlc["open"]
@@ -183,6 +204,15 @@ async def get_bars(
         except UnprocessableEntity as error:
             logger.error(error)
             errors.append(error)
+        except EmptyChart as error:
+            err_msg = (
+                f"Yahoo-finance returned an empty chart for symbol '{symbol}'"
+                f" and params={params.dict(exclude_none=True, by_alias=True)}. "
+                "\nPlease make sure that provided params are valid (example: that "
+                "start/end times are valid UTC market times)."
+            )
+            logger.error(err_msg)
+            raise EmptyChart(err_msg) from error
     raise anyio.ExceptionGroup(*errors)
 
 
@@ -274,7 +304,7 @@ if __name__ == "__main__":
     logger = logging.getLogger()
 
     async def _worker(symbol: str, client: httpx.AsyncClient) -> None:
-        bars = await get_bars(symbol, period="1d", client=client, interval="1h")
+        bars = await get_bars(symbol, period="1mo", client=client, interval="1d")
         logger.info(symbol)
         logger.info(bars.df)
 
@@ -286,7 +316,7 @@ if __name__ == "__main__":
 
     _symbols = [
         "TSLA",
-        "AAPL",
+        # "AAPL",
         # "GOOG",
         # "AMZN",
         # "AMD",
@@ -296,6 +326,6 @@ if __name__ == "__main__":
         # "ETH-USD",
         # "BTC-EUR",
     ]
-    # asyncer.runnify(_main)(_symbols)
-    multi_bars = asyncer.runnify(get_bars_multi)(_symbols, period="1d", interval="1h")
-    logger.info(multi_bars.df)
+    asyncer.runnify(_main)(_symbols)
+    # multi_bars = asyncer.runnify(get_bars_multi)(_symbols, period="1d", interval="1h")
+    # logger.info(multi_bars.df)
