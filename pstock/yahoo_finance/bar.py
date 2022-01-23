@@ -86,7 +86,7 @@ def _parse_yf_chart_response(
     return Bars.parse_obj(
         [
             {
-                "datetime": timestamp,
+                "date": timestamp,
                 "close": close if close is not None else np.nan,
                 "adj_close": adj_close if adj_close is not None else np.nan,
                 "high": high if high is not None else np.nan,

@@ -12,31 +12,6 @@ __all__ = "get_quote_summary"
 _YF_QUOTE_URI = "https://finance.yahoo.com/quote/{symbol}"
 
 
-def _parse_quote_summary_response(
-    symbol: str, response: httpx.Response
-) -> tp.Dict[str, tp.Any]:
-    if response.status_code == 302:
-        logger.error(
-            f"symbol '{symbol}' not found in yahoo-finance, it may be "
-            "delisted or renamed."
-        )
-        return {}
-    response.raise_for_status()
-    data = json.loads(
-        response.text.split("root.App.main =")[1]
-        .split("(this)")[0]
-        .split(";\n}")[0]
-        .strip()
-        .replace("{}", "null")
-    )
-    return (
-        data.get("context", {})
-        .get("dispatcher", {})
-        .get("stores", {})
-        .get("QuoteSummaryStore")
-    )
-
-
 async def get_quote_summary(
     symbol: str, client: tp.Optional[httpx.AsyncClient] = None
 ) -> tp.Dict[str, tp.Any]:
@@ -65,7 +40,26 @@ async def get_quote_summary(
         url, client=client, headers=_user_agent_header(), retry_status_codes=[502]
     )
 
-    return _parse_quote_summary_response(symbol, response)
+    if response.status_code == 302:
+        logger.error(
+            f"symbol '{symbol}' not found in yahoo-finance, it may be "
+            "delisted or renamed."
+        )
+        return {}
+    response.raise_for_status()
+    data = json.loads(
+        response.text.split("root.App.main =")[1]
+        .split("(this)")[0]
+        .split(";\n}")[0]
+        .strip()
+        .replace("{}", "null")
+    )
+    return (
+        data.get("context", {})
+        .get("dispatcher", {})
+        .get("stores", {})
+        .get("QuoteSummaryStore")
+    )
 
 
 if __name__ == "__main__":

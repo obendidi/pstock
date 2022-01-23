@@ -8,7 +8,7 @@ from pstock.schemas.base import BaseDataFrameModel
 
 
 class Bar(BaseModel):
-    datetime: datetime
+    date: datetime
     open: float
     high: float
     low: float
@@ -24,9 +24,7 @@ class Bars(BaseDataFrameModel):
     @property
     def df(self) -> pd.DataFrame:
         if self._df is None:
-            self._df = self._convert_to_df(
-                index_column="datetime", sort_index=True
-            ).dropna(
+            self._df = self._convert_to_df(index_column="date", sort_index=True).dropna(
                 how="all",
                 subset=["open", "high", "low", "close", "adj_close", "volume"],
             )

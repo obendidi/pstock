@@ -7,7 +7,7 @@ from pstock.schemas.earnings import Earnings
 from pstock.schemas.trend import Trends
 
 
-class Asset(BaseModel):
+class Asset(BaseModel, allow_population_by_field_name=True):
     symbol: str
     name: str = Field(..., alias="shortName")
     type: tp.Literal["EQUITY", "ETF", "CRYPTOCURRENCY"] = Field(..., alias="quoteType")
@@ -19,6 +19,3 @@ class Asset(BaseModel):
     industry: tp.Optional[str] = Field(repr=False)
     country: tp.Optional[str] = Field(repr=False)
     isin: tp.Optional[str] = Field(repr=False)
-
-    class Config:
-        allow_population_by_field_name = True
