@@ -85,7 +85,7 @@ known_first_party = ["pstock"]
 known_third_party = ["httpx", "pandas", "pydantic", "anyio"]
 
 [tool.pytest.ini_options]
-addopts = "-ra -q -vv --cov=pstock --cov-report=term"
+addopts = "-ra -q -vv --cov=pstock --cov-report=term --cov-report=xml"
 
 [tool.coverage.run]
 branch = true

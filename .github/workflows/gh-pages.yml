@@ -1,18 +1,11 @@
-name: 🔨 Unit-tests
-
+name: 📝 Build and deploy mkdocs to github pages
 on:
   push:
     branches: [main]
-  pull_request:
-    branches: [main]
 
 jobs:
-  test:
+  deploy:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        python-version: ["3.8", "3.9", "3.10"]
-      fail-fast: false
     steps:
       #----------------------------------------------
       #       check-out repo and set-up python
@@ -21,7 +14,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
-          python-version: ${{ matrix.python-version }}
+          python-version: 3.9
       #----------------------------------------------
       #  -----  install & configure poetry  -----
       #----------------------------------------------
@@ -46,22 +39,10 @@ jobs:
       - name: Install dependencies
         if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
         run: poetry install --no-interaction --no-root
-      #----------------------------------------------
-      #           install project
-      #----------------------------------------------
-      - name: Install project
-        run: poetry install --no-interaction
-      #----------------------------------------------
-      #              run tests
-      #----------------------------------------------
-      - name: Run tests
-        run: poetry run pytest
-      #----------------------------------------------
-      #             upload coverage stats
-      #----------------------------------------------
-      - name: Upload coverage
-        uses: codecov/codecov-action@v2
+      - name: Build site
+        run: poetry run mkdocs build
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
         with:
-          token: ${{ secrets.CODECOV_TOKEN }}
-          file: ./coverage.xml
-          fail_ci_if_error: true
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./site
