@@ -13,7 +13,7 @@
         <link rel="canonical" href="https://obendidi.github.io/pstock/yahoo-finance-reference/">
       
       <link rel="icon" href="../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-8.1.7">
+      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-8.1.8">
     
     
       
@@ -21,7 +21,7 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.cd566b2a.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.6e60f8b8.min.css">
       
         
         <link rel="stylesheet" href="../assets/stylesheets/palette.e6a45f82.min.css">
@@ -336,6 +336,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#pstock.yahoo_finance.asset.get_assets" class="md-nav__link">
+    get_assets()
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -352,6 +359,13 @@
           <li class="md-nav__item">
   <a href="#pstock.yahoo_finance.bar.UnprocessableEntity" class="md-nav__link">
     UnprocessableEntity
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pstock.yahoo_finance.bar.EmptyChart" class="md-nav__link">
+    EmptyChart
   </a>
   
 </li>
@@ -386,6 +400,53 @@
           <li class="md-nav__item">
   <a href="#pstock.yahoo_finance.earnings.get_earnings" class="md-nav__link">
     get_earnings()
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pstock.yahoo_finance.news" class="md-nav__link">
+    news
+  </a>
+  
+    <nav class="md-nav" aria-label="news">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pstock.yahoo_finance.news.get_news" class="md-nav__link">
+    get_news()
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pstock.yahoo_finance.price" class="md-nav__link">
+    price
+  </a>
+  
+    <nav class="md-nav" aria-label="price">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pstock.yahoo_finance.price.get_latest_price" class="md-nav__link">
+    get_latest_price()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pstock.yahoo_finance.price.get_price_at_timestamp" class="md-nav__link">
+    get_price_at_timestamp()
   </a>
   
 </li>
@@ -504,6 +565,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#pstock.yahoo_finance.asset.get_assets" class="md-nav__link">
+    get_assets()
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -520,6 +588,13 @@
           <li class="md-nav__item">
   <a href="#pstock.yahoo_finance.bar.UnprocessableEntity" class="md-nav__link">
     UnprocessableEntity
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pstock.yahoo_finance.bar.EmptyChart" class="md-nav__link">
+    EmptyChart
   </a>
   
 </li>
@@ -554,6 +629,53 @@
           <li class="md-nav__item">
   <a href="#pstock.yahoo_finance.earnings.get_earnings" class="md-nav__link">
     get_earnings()
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pstock.yahoo_finance.news" class="md-nav__link">
+    news
+  </a>
+  
+    <nav class="md-nav" aria-label="news">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pstock.yahoo_finance.news.get_news" class="md-nav__link">
+    get_news()
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pstock.yahoo_finance.price" class="md-nav__link">
+    price
+  </a>
+  
+    <nav class="md-nav" aria-label="price">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pstock.yahoo_finance.price.get_latest_price" class="md-nav__link">
+    get_latest_price()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pstock.yahoo_finance.price.get_price_at_timestamp" class="md-nav__link">
+    get_price_at_timestamp()
   </a>
   
 </li>
@@ -750,6 +872,28 @@
 
 
 
+  <div class="doc doc-object doc-function">
+
+
+
+<h4 id="pstock.yahoo_finance.asset.get_assets" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">get_assets</span><span class="p">(</span><span class="n">symbols</span><span class="p">,</span> <span class="n">client</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
+
+  <span class="doc doc-properties">
+      <small class="doc doc-property doc-property-async"><code>async</code></small>
+  </span>
+
+</h4>
+
+    <div class="doc doc-contents ">
+
+
+    </div>
+
+  </div>
+
+
+
 
 
 
@@ -803,6 +947,33 @@ UnprocessableEntity            (<span title="Exception">Exception</span>)
       <p>Exception for when yahoo-finance returns a status 422.</p>
 <p>It usually means that the interval provided is not valid for provided range or
 start time.</p>
+
+
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h4 id="pstock.yahoo_finance.bar.EmptyChart" class="doc doc-heading">
+        <code>
+EmptyChart            (<span title="Exception">Exception</span>)
+        </code>
+
+
+
+</h4>
+
+    <div class="doc doc-contents ">
+
+      <p>Exception for when yahoo-finance returns a valid but empty chart response.</p>
+<p>It usually means that the requested start-end time is invalid and no data is
+availlable in requested start-end range.</p>
 
 
 
@@ -1209,6 +1380,307 @@ with response..</p></td>
 
 
 
+<h3 id="pstock.yahoo_finance.news" class="doc doc-heading">
+        <code>pstock.yahoo_finance.news</code>
+
+
+
+</h3>
+
+    <div class="doc doc-contents ">
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h4 id="pstock.yahoo_finance.news.get_news" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">get_news</span><span class="p">(</span><span class="n">symbol</span><span class="p">,</span> <span class="n">client</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
+
+  <span class="doc doc-properties">
+      <small class="doc doc-property doc-property-async"><code>async</code></small>
+  </span>
+
+</h4>
+
+    <div class="doc doc-contents ">
+
+      <p>Get latest news of a particular symbol from yahoo-finance.</p>
+
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>symbol</code></td>
+        <td><code>str</code></td>
+        <td><p>A stock/crypto symbol availlable in yahoo-finance</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>client</code></td>
+        <td><code>tp.Optional[httpx.AsyncClient]</code></td>
+        <td><p>Defaults to None.</p></td>
+        <td><code>None</code></td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>Returns:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>News</code></td>
+      <td><p><a href="../schemas-reference/#pstock.schemas.news.News">pstock.schemas.News</a></p></td>
+    </tr>
+  </tbody>
+</table>
+    </div>
+
+  </div>
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-module">
+
+
+
+<h3 id="pstock.yahoo_finance.price" class="doc doc-heading">
+        <code>pstock.yahoo_finance.price</code>
+
+
+
+</h3>
+
+    <div class="doc doc-contents ">
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h4 id="pstock.yahoo_finance.price.get_latest_price" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">get_latest_price</span><span class="p">(</span><span class="n">symbol</span><span class="p">,</span> <span class="n">include_prepost</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">client</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
+
+  <span class="doc doc-properties">
+      <small class="doc doc-property doc-property-async"><code>async</code></small>
+  </span>
+
+</h4>
+
+    <div class="doc doc-contents ">
+
+      <p>Get latest price of symbol from yahoo-finance.</p>
+<p>The price is extracted from yahoo-finance quote-summary</p>
+
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>symbol</code></td>
+        <td><code>str</code></td>
+        <td><p>A stock/crypto symbol availlable in yahoo-finance</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>include_prepost</code></td>
+        <td><code>bool</code></td>
+        <td><p>Include pre-post data when getting latest
+price, if False will return only latest regular market price. Defaults to
+True.</p></td>
+        <td><code>True</code></td>
+      </tr>
+      <tr>
+        <td><code>client</code></td>
+        <td><code>tp.Optional[httpx.AsyncClient]</code></td>
+        <td><p>Defaults to None.</p></td>
+        <td><code>None</code></td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>Exceptions:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>NotImplementedError</code></td>
+        <td><p>If quote_summary is empty or contains no valid price data.</p></td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>Returns:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>float</code></td>
+      <td><p>latest price for symbol.</p></td>
+    </tr>
+  </tbody>
+</table>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h4 id="pstock.yahoo_finance.price.get_price_at_timestamp" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">get_price_at_timestamp</span><span class="p">(</span><span class="n">symbol</span><span class="p">,</span> <span class="n">timestamp</span><span class="p">,</span> <span class="n">client</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">warn_inaccurate</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></code>
+
+  <span class="doc doc-properties">
+      <small class="doc doc-property doc-property-async"><code>async</code></small>
+  </span>
+
+</h4>
+
+    <div class="doc doc-contents ">
+
+      <p>Get an apprx price of symbol at timestamp.</p>
+<p>The price found is an approx since it's only based on historical bars from
+yahoo-finance. Yahoo-finance restricts intervals based on how old requested data is.</p>
+
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>symbol</code></td>
+        <td><code>str</code></td>
+        <td><p>A stock/crypto symbol availlable in yahoo-finance</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>timestamp</code></td>
+        <td><code>tp.Union[str, int, float, datetime]</code></td>
+        <td><p>timestamp to get symbol price
+at, should be a valid datetime that can be parsed using pydantic.</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>client</code></td>
+        <td><code>tp.Optional[httpx.AsyncClient]</code></td>
+        <td><p>Defaults to None.</p></td>
+        <td><code>None</code></td>
+      </tr>
+      <tr>
+        <td><code>warn_inaccurate</code></td>
+        <td><code>bool</code></td>
+        <td><p>enable/disable warning for inncurate data when
+interval &gt; 1Min. Defaults to True.</p></td>
+        <td><code>True</code></td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>Returns:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>float</code></td>
+      <td><p>approximate price for symbol at timestamp.</p></td>
+    </tr>
+  </tbody>
+</table>
+    </div>
+
+  </div>
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-module">
+
+
+
 <h3 id="pstock.yahoo_finance.quote" class="doc doc-heading">
         <code>pstock.yahoo_finance.quote</code>
 
@@ -1493,7 +1965,7 @@ crypto.</p>
     <script id="__config" type="application/json">{"base": "..", "features": [], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../assets/javascripts/workers/search.22074ed6.min.js"}</script>
     
     
-      <script src="../assets/javascripts/bundle.01de222e.min.js"></script>
+      <script src="../assets/javascripts/bundle.960e086b.min.js"></script>
       
     
   </body>
