@@ -1,10 +1,10 @@
-import json
 import typing as tp
 
 import asyncer
 import httpx
 
-from pstock import Asset, get_isin
+from pstock import get_isin
+from pstock.schemas.asset import Asset, Assets
 from pstock.yahoo_finance.earnings import _parse_earnings_from_quote_summary
 from pstock.yahoo_finance.quote import get_quote_summary
 from pstock.yahoo_finance.trend import _parse_trends_from_quote_summary
@@ -15,14 +15,14 @@ __all__ = "get_asset"
 def _parse_asset_from_quote(
     symbol: str, quote_summary: tp.Dict[str, tp.Any], isin: tp.Optional[str] = None
 ) -> Asset:
-    with open(f"data/{symbol}.json", "w") as f:
-        json.dump(quote_summary, f, indent=2)
     earnings, next_earnings_date = _parse_earnings_from_quote_summary(quote_summary)
     trends = _parse_trends_from_quote_summary(quote_summary)
+    quote_profile = quote_summary.get("quoteType", {}) or {}
+    summary_profile = quote_summary.get("summaryProfile", {}) or {}
     data = {
         "symbol": symbol,
-        **quote_summary.get("quoteType", {}),
-        **quote_summary.get("summaryProfile", {}),
+        **quote_profile,
+        **summary_profile,
         "isin": isin,
         "earnings": earnings,
         "trends": trends,
@@ -56,6 +56,29 @@ async def get_asset(
     )
 
 
+async def get_assets(
+    symbols: tp.List[str], client: tp.Optional[httpx.AsyncClient] = None
+) -> Assets:
+    close_client = False
+    if client is None:
+        client = httpx.AsyncClient()
+        close_client = True
+    try:
+        async with asyncer.create_task_group() as tg:
+            soon_values = [
+                tg.soonify(get_asset)(
+                    symbol,
+                    client=client,
+                )
+                for symbol in symbols
+            ]
+    finally:
+        if close_client and client:
+            await client.aclose()
+
+    return Assets.parse_obj([soon.value for soon in soon_values])
+
+
 if __name__ == "__main__":
     import logging
 
@@ -64,19 +87,7 @@ if __name__ == "__main__":
     setup_logging(level="INFO")
     logger = logging.getLogger()
 
-    async def _worker(symbol: str, client: httpx.AsyncClient) -> None:
-        asset = await get_asset(symbol, client=client)
-        logger.info(asset)
-        logger.info(asset.earnings.df)
-        logger.info(asset.trends.df)
-
-    async def _main(symbols):
-        async with httpx.AsyncClient() as client:
-            async with asyncer.create_task_group() as tg:
-                for symbol in symbols:
-                    tg.soonify(_worker)(symbol, client=client)
-
-    asyncer.runnify(_main)(
+    assets = asyncer.runnify(get_assets)(
         [
             "TSLA",
             "AAPL",
@@ -87,3 +98,4 @@ if __name__ == "__main__":
             "SPCE",
         ]
     )
+    print(assets.df)

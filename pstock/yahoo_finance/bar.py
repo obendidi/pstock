@@ -274,20 +274,28 @@ async def get_bars_multi(
         [pstock.schemas.BarsMulti][]
     """
 
-    async with asyncer.create_task_group() as tg:
-        soon_values = [
-            tg.soonify(get_bars)(
-                symbol,
-                interval=interval,
-                period=period,
-                start=start,
-                end=end,
-                include_prepost=include_prepost,
-                events=events,
-                client=client,
-            )
-            for symbol in symbols
-        ]
+    close_client = False
+    if client is None:
+        client = httpx.AsyncClient()
+        close_client = True
+    try:
+        async with asyncer.create_task_group() as tg:
+            soon_values = [
+                tg.soonify(get_bars)(
+                    symbol,
+                    interval=interval,
+                    period=period,
+                    start=start,
+                    end=end,
+                    include_prepost=include_prepost,
+                    events=events,
+                    client=client,
+                )
+                for symbol in symbols
+            ]
+    finally:
+        if close_client and client:
+            await client.aclose()
 
     data = {
         symbol: soon_value.value for symbol, soon_value in zip(symbols, soon_values)
