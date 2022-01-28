@@ -50,5 +50,6 @@
   "python.sortImports.path": "isort",
   "python.languageServer": "Pylance",
   "python.testing.pytestEnabled": true,
-  "python.testing.autoTestDiscoverOnSaveEnabled": true
+  "python.testing.autoTestDiscoverOnSaveEnabled": true,
+  "autoDocstring.docstringFormat": "google"
 }

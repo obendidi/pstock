@@ -39,9 +39,15 @@ jobs:
       - name: Install dependencies
         if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
         run: poetry install --no-interaction --no-root
+      #----------------------------------------------
+      # Build docs
+      #----------------------------------------------
       - name: Build site
         run: poetry run mkdocs build
-      - name: Deploy
+      #----------------------------------------------
+      # Publish to github pages
+      #----------------------------------------------
+      - name: Publish to github pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
