@@ -3,9 +3,11 @@ import typing as tp
 from datetime import datetime, timedelta
 
 import pendulum
+from anyio import ExceptionGroup
+from pydantic.datetime_parse import parse_date as parse_date_pydantic
 from pydantic.datetime_parse import parse_datetime as parse_datetime_pydantic
 from pydantic.datetime_parse import parse_duration as parse_duration_pydantic
-from pydantic.errors import DurationError
+from pydantic.errors import DateError, DateTimeError, DurationError
 
 __all__ = ("TimeStamp", "parse_duration", "parse_datetime")
 
@@ -32,7 +34,23 @@ class TimeStamp(int):
 
 
 def parse_datetime(value: tp.Union[str, int, float, datetime]) -> pendulum.DateTime:
-    return pendulum.instance(parse_datetime_pydantic(value))
+    errors: tp.List[BaseException] = []
+
+    # try to parse a datetime string, int, bytes
+    try:
+        return pendulum.instance(parse_datetime_pydantic(value))
+    except (DateTimeError, TypeError) as error:
+        errors.append(error)
+
+    # if not above, maybe try to parse a date string, int, bytes object.
+    try:
+        _date = parse_date_pydantic(value)
+        return pendulum.datetime(_date.year, _date.month, _date.day)
+    except DateError as error:
+        errors.append(error)
+    raise ValueError(f"Couldn't parse to datetime: {value}") from ExceptionGroup(
+        *errors
+    )
 
 
 def parse_duration(value: tp.Union[str, int, float, timedelta]) -> pendulum.Duration:
@@ -42,11 +60,7 @@ def parse_duration(value: tp.Union[str, int, float, timedelta]) -> pendulum.Dura
     try:
         return pendulum.duration(seconds=parse_duration_pydantic(value).total_seconds())
     except DurationError as error:
-        if not isinstance(value, str):
-            raise TypeError(
-                "Pydantic couldn't parse provided duration, only 'str' type"
-                " is supported for custom parsing"
-            ) from error
+        assert isinstance(value, str), str(error)
 
     if value.lower() == "mtd":
         return pendulum.duration(months=1)
