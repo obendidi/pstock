@@ -4,7 +4,7 @@ import pandas as pd
 import pytest
 from pydantic import BaseModel, ValidationError
 
-from pstock.schemas.base import BaseDataFrameModel
+from pstock.base import BaseDataFrameModel
 
 
 class _TestModel(BaseModel):

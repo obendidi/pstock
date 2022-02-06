@@ -5,7 +5,8 @@ import numpy as np
 import pandas as pd
 from pydantic import BaseModel, Field
 
-from pstock.schemas.base import BaseDataFrameModel, Computed
+from pstock.base import BaseDataFrameModel, Computed
+from pstock.utils.yf.quote import get_yf_quote_summary_trend
 
 
 def _compute_trend_score(
@@ -57,8 +58,13 @@ class Trends(BaseDataFrameModel):
             self._df = self._convert_to_df(index_column="date", sort_index=True)
         return self._df
 
-
-if __name__ == "__main__":
-
-    trend = Trend(date=datetime.date.today())
-    print(trend)
+    @classmethod
+    def from_yf(
+        cls,
+        content: tp.Optional[tp.Union[str, bytes]] = None,
+        quote_summary: tp.Optional[tp.Dict[str, tp.Any]] = None,
+    ) -> "Trends":
+        trends = get_yf_quote_summary_trend(
+            content=content, quote_summary=quote_summary
+        )
+        return cls.parse_obj(trends)

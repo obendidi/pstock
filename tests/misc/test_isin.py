@@ -1,13 +1,12 @@
-import httpx
-from pstock.misc.isin import (
-    get_isin_async,
-    get_isin_sync,
-)
-import pytest
-from unittest import mock
 import pickle
 from pathlib import Path
+from unittest import mock
+
+import httpx
+import pytest
+
 import pstock
+from pstock.misc.isin import get_isin_async, get_isin_sync
 
 pytestmark = pytest.mark.anyio
 

@@ -2,7 +2,7 @@ import pendulum
 import pytest
 from pydantic import ValidationError
 
-from pstock.yahoo_finance.utils import _YFChartParams
+from pstock.yf.utils import _YFChartParams
 
 
 def test_yf_chart_params_aliases():

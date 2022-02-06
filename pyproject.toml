@@ -38,6 +38,7 @@ pendulum = "^2.1.2"
 asyncer = "^0.0.1"
 feedparser = "^6.0.8"
 lxml = "^4.7.1"
+beautifulsoup4 = "^4.10.0"
 
 
 [tool.poetry.dev-dependencies]

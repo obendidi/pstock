@@ -1,23 +1,24 @@
 import typing as tp
 
 import httpx
+
 import pstock
 
 
-def set_params(symbol: str) -> tp.Dict[str, tp.Any]:
+def _set_params(symbol: str) -> tp.Dict[str, tp.Any]:
     return {
         "max_results": 25,
         "query": symbol.upper(),
     }
 
 
-def is_valid_symbol(symbol: str) -> bool:
+def _is_valid_symbol(symbol: str) -> bool:
     if "-" in symbol or "^" in symbol:
         return False
     return True
 
 
-def process_response(symbol: str, response: httpx.Response) -> tp.Optional[str]:
+def _process_response(symbol: str, response: httpx.Response) -> tp.Optional[str]:
     response.raise_for_status()
     search_str = f'"{symbol.upper()}|'
     if search_str not in response.text:
@@ -42,14 +43,14 @@ async def get_isin_async(
     Returns:
         tp.Optional[str]: isin of the stock if found else None
     """
-    if not is_valid_symbol(symbol):
+    if not _is_valid_symbol(symbol):
         return None
     response = await pstock.get_http_async(
         pstock.config.ISIN_URI,
         client=client,
-        params=set_params(symbol),
+        params=_set_params(symbol),
     )
-    return process_response(symbol, response)
+    return _process_response(symbol, response)
 
 
 def get_isin_sync(
@@ -69,11 +70,11 @@ def get_isin_sync(
     Returns:
         tp.Optional[str]: isin of the stock if found else None
     """
-    if not is_valid_symbol(symbol):
+    if not _is_valid_symbol(symbol):
         return None
     response = pstock.get_http_sync(
         pstock.config.ISIN_URI,
         client=client,
-        params=set_params(symbol),
+        params=_set_params(symbol),
     )
-    return process_response(symbol, response)
+    return _process_response(symbol, response)

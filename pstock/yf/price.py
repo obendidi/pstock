@@ -7,8 +7,8 @@ import pendulum
 
 from pstock.core.times import parse_datetime, parse_duration
 from pstock.schemas.bar import Bar
-from pstock.yahoo_finance.bar import get_bars
-from pstock.yahoo_finance.quote import get_quote_summary
+from pstock.yf.bar import get_bars
+from pstock.yf.quote import get_quote_summary
 
 logger = logging.getLogger(__name__)
 

@@ -1,0 +1,43 @@
+import typing as tp
+
+import numpy as np
+import pandas as pd
+from pydantic import validator
+
+from pstock.base import BaseModel, BaseModelSequence
+from pstock.quote import QuoteSummary
+from pstock.yahoo_finance.quote import get_earnings_data_from_quote
+
+
+class Earning(BaseModel):
+    quarter: str
+    estimate: float
+    actual: float
+    status: tp.Literal[None, "Beat", "Missed"] = None
+    revenue: float
+    earnings: float
+
+    @validator("status", always=True)
+    def set_status(
+        cls, value: tp.Any, values: tp.Dict[str, tp.Any]
+    ) -> tp.Literal[None, "Beat", "Missed"]:
+        estimate = values.get("estimate")
+        actual = values.get("actual")
+        if actual is None or np.isnan(actual) or estimate is None or np.isnan(estimate):
+            return None
+        elif actual >= estimate:
+            return "Beat"
+        else:
+            return "Missed"
+
+
+class Earnings(BaseModelSequence[Earning], QuoteSummary):
+    __root__: tp.List[Earning]
+
+    def _gen_df(self) -> pd.DataFrame:
+        df = super()._gen_df()
+        return df.set_index("quarter").sort_index(key=pd.to_datetime)
+
+    @classmethod
+    def process_quote(cls, quote: tp.Dict[str, tp.Any]) -> tp.Dict[str, tp.Any]:
+        return {"__root__": get_earnings_data_from_quote(quote)}

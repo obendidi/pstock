@@ -1,11 +1,11 @@
 from datetime import date, datetime, timedelta
-import pendulum
 
+import pendulum
 import pytest
 from dateutil import tz
-from pydantic import DurationError, BaseModel, ValidationError
+from pydantic import BaseModel, DurationError, ValidationError
 
-from pstock.core import parse_datetime, parse_duration, TimeStamp
+from pstock.core import TimeStamp, parse_datetime, parse_duration
 
 datetime_testcases = [
     (1346887571, 1346887571),
