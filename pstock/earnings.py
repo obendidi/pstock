@@ -25,10 +25,7 @@ class Earning(BaseModel):
         actual = values.get("actual")
         if actual is None or np.isnan(actual) or estimate is None or np.isnan(estimate):
             return None
-        elif actual >= estimate:
-            return "Beat"
-        else:
-            return "Missed"
+        return "Beat" if actual >= estimate else "Missed"
 
 
 class Earnings(BaseModelSequence[Earning], QuoteSummary):
@@ -36,7 +33,9 @@ class Earnings(BaseModelSequence[Earning], QuoteSummary):
 
     def _gen_df(self) -> pd.DataFrame:
         df = super()._gen_df()
-        return df.set_index("quarter").sort_index(key=pd.to_datetime)
+        if not df.empty:
+            df = df.set_index("quarter").sort_index(key=pd.to_datetime)
+        return df
 
     @classmethod
     def process_quote(cls, quote: tp.Dict[str, tp.Any]) -> tp.Dict[str, tp.Any]:

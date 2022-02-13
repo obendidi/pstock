@@ -1,6 +1,6 @@
 import typing as tp
-import numpy as np
 
+import numpy as np
 import pendulum
 
 

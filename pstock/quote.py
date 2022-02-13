@@ -89,7 +89,7 @@ class QuoteSummary(BaseModel):
 
         if quote_response is not None:
             _quote = cls.parse_quote(quote_response)
-            if quote_response:
+            if _quote:
                 data.update(cls.process_quote(_quote))
 
         if financials_quote_response is not None:

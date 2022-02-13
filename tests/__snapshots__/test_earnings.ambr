@@ -1,0 +1,135 @@
+# name: test_earnings[cryptocurrency_quote][pandas-dataframe]
+  <class 'dict'> {
+  }
+---
+# name: test_earnings[cryptocurrency_quote][pydantic-model]
+  <class 'dict'> {
+    '__root__': <class 'list'> [
+    ],
+  }
+---
+# name: test_earnings[currency_quote][pandas-dataframe]
+  <class 'dict'> {
+  }
+---
+# name: test_earnings[currency_quote][pydantic-model]
+  <class 'dict'> {
+    '__root__': <class 'list'> [
+    ],
+  }
+---
+# name: test_earnings[equity_quote][pandas-dataframe]
+  <class 'dict'> {
+    'actual': <class 'dict'> {
+      '1Q2021': 0.93,
+      '1Q2022': nan,
+      '2Q2021': 1.45,
+      '3Q2021': 1.86,
+      '4Q2021': 2.54,
+    },
+    'earnings': <class 'dict'> {
+      '1Q2021': 438000000.0,
+      '1Q2022': nan,
+      '2Q2021': 1142000000.0,
+      '3Q2021': 1618000000.0,
+      '4Q2021': 2321000000.0,
+    },
+    'estimate': <class 'dict'> {
+      '1Q2021': 0.79,
+      '1Q2022': 2.24,
+      '2Q2021': 0.98,
+      '3Q2021': 1.59,
+      '4Q2021': 2.36,
+    },
+    'revenue': <class 'dict'> {
+      '1Q2021': 10389000000.0,
+      '1Q2022': nan,
+      '2Q2021': 11958000000.0,
+      '3Q2021': 13757000000.0,
+      '4Q2021': 17719000000.0,
+    },
+    'status': <class 'dict'> {
+      '1Q2021': 'Beat',
+      '1Q2022': None,
+      '2Q2021': 'Beat',
+      '3Q2021': 'Beat',
+      '4Q2021': 'Beat',
+    },
+  }
+---
+# name: test_earnings[equity_quote][pydantic-model]
+  <class 'dict'> {
+    '__root__': <class 'list'> [
+      <class 'dict'> {
+        'actual': 1.86,
+        'earnings': 1618000000.0,
+        'estimate': 1.59,
+        'quarter': '3Q2021',
+        'revenue': 13757000000.0,
+        'status': 'Beat',
+      },
+      <class 'dict'> {
+        'actual': 1.45,
+        'earnings': 1142000000.0,
+        'estimate': 0.98,
+        'quarter': '2Q2021',
+        'revenue': 11958000000.0,
+        'status': 'Beat',
+      },
+      <class 'dict'> {
+        'actual': 2.54,
+        'earnings': 2321000000.0,
+        'estimate': 2.36,
+        'quarter': '4Q2021',
+        'revenue': 17719000000.0,
+        'status': 'Beat',
+      },
+      <class 'dict'> {
+        'actual': 0.93,
+        'earnings': 438000000.0,
+        'estimate': 0.79,
+        'quarter': '1Q2021',
+        'revenue': 10389000000.0,
+        'status': 'Beat',
+      },
+      <class 'dict'> {
+        'actual': nan,
+        'earnings': nan,
+        'estimate': 2.24,
+        'quarter': '1Q2022',
+        'revenue': nan,
+        'status': None,
+      },
+    ],
+  }
+---
+# name: test_earnings[etf_quote][pandas-dataframe]
+  <class 'dict'> {
+  }
+---
+# name: test_earnings[etf_quote][pydantic-model]
+  <class 'dict'> {
+    '__root__': <class 'list'> [
+    ],
+  }
+---
+# name: test_earnings[future_quote][pandas-dataframe]
+  <class 'dict'> {
+  }
+---
+# name: test_earnings[future_quote][pydantic-model]
+  <class 'dict'> {
+    '__root__': <class 'list'> [
+    ],
+  }
+---
+# name: test_earnings[index_quote][pandas-dataframe]
+  <class 'dict'> {
+  }
+---
+# name: test_earnings[index_quote][pydantic-model]
+  <class 'dict'> {
+    '__root__': <class 'list'> [
+    ],
+  }
+---

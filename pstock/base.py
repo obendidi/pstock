@@ -17,19 +17,17 @@ class BaseModel(_BaseModel):
     def created_at(self) -> datetime:
         return self._created_at
 
-    class Config:
-        allow_population_by_field_name = True
-        validate_all = True
-        validate_assignment = True
-        extra = "ignore"
-
 
 class BaseModelDf(BaseModel, ABC):
     _df: tp.Optional[pd.DataFrame] = PrivateAttr(default=None)
 
     @abstractmethod
     def _gen_df(self) -> pd.DataFrame:
-        ...
+        """Generate a pandas dataframe from data stored in this model.
+
+        Returns:
+            pd.DataFrame
+        """
 
     @property
     def df(self) -> pd.DataFrame:
@@ -46,11 +44,11 @@ class BaseModelSequence(tp.Generic[T], BaseModelDf):
 
     @tp.overload
     def __getitem__(self, index: int) -> T:
-        ...
+        """Get single item from __root__ by idx."""
 
     @tp.overload
     def __getitem__(self, index: slice) -> tp.Sequence[T]:
-        ...
+        """Get slice of items from __root__ by idx."""
 
     def __getitem__(self, index):
         return self.__root__[index]
