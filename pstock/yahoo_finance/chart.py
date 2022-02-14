@@ -1,28 +1,17 @@
-import json
 import logging
 import typing as tp
 from datetime import datetime, timedelta
 
 import numpy as np
 
-import pstock
+from pstock.utils import parse_duration
 
 logger = logging.getLogger(__name__)
 
 
-def parse_yf_chart_ohlc(
-    *,
-    content: tp.Optional[bytes] = None,
-    data: tp.Optional[tp.Dict[str, tp.Any]] = None,
+def get_ohlc_from_chart(
+    data: tp.Dict[str, tp.Any]
 ) -> tp.List[tp.Dict[str, tp.Union[datetime, float, timedelta]]]:
-    if content is not None:
-        data = json.loads(content)
-
-    if data is None:
-        raise ValueError(
-            "Please provide either 'content' or 'data' from yahoo-finance chart "
-            "response."
-        )
 
     result = data.get("chart", {}).get("result")
     if not result:
@@ -34,7 +23,7 @@ def parse_yf_chart_ohlc(
     result = result[0]
     meta = result["meta"]
 
-    interval = pstock.parse_duration(meta["dataGranularity"])
+    interval = parse_duration(meta["dataGranularity"])
     symbol = meta["symbol"]
 
     # Empty chart

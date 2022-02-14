@@ -1,13 +1,13 @@
 [tool.poetry]
 name = "pstock-python"
 version = "0.1.0"
-description = "Async python sdk for stock price data."
+description = "Async yahoo-finance python api with pydantic models."
 authors = ["Ouail Bendidi <ouail.bendidi@gmail.com>"]
 license = "MIT"
 readme = "README.md"
 repository = "https://github.com/obendidi/pstock"
 homepage = "https://github.com/obendidi/pstock"
-keywords = ["stock", "yahoo-finance", "finviz"]
+keywords = ["stock", "yahoo-finance", "httpx", "pstock", "pydantic"]
 classifiers = [
   "Development Status :: 3 - Alpha",
   "Intended Audience :: Developers",
@@ -57,6 +57,8 @@ mkdocs-material = "^8.1.7"
 mkdocstrings = "^0.17.0"
 nox = "^2022.1.7"
 httpx-cache = "^0.4.1"
+syrupy = "^1.7.3"
+pytest-cases = "^3.6.9"
 
 
 [build-system]

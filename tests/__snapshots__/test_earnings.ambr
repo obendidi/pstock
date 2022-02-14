@@ -61,11 +61,11 @@
   <class 'dict'> {
     '__root__': <class 'list'> [
       <class 'dict'> {
-        'actual': 1.86,
-        'earnings': 1618000000.0,
-        'estimate': 1.59,
-        'quarter': '3Q2021',
-        'revenue': 13757000000.0,
+        'actual': 0.93,
+        'earnings': 438000000.0,
+        'estimate': 0.79,
+        'quarter': '1Q2021',
+        'revenue': 10389000000.0,
         'status': 'Beat',
       },
       <class 'dict'> {
@@ -77,19 +77,19 @@
         'status': 'Beat',
       },
       <class 'dict'> {
+        'actual': 1.86,
+        'earnings': 1618000000.0,
+        'estimate': 1.59,
+        'quarter': '3Q2021',
+        'revenue': 13757000000.0,
+        'status': 'Beat',
+      },
+      <class 'dict'> {
         'actual': 2.54,
         'earnings': 2321000000.0,
         'estimate': 2.36,
         'quarter': '4Q2021',
         'revenue': 17719000000.0,
-        'status': 'Beat',
-      },
-      <class 'dict'> {
-        'actual': 0.93,
-        'earnings': 438000000.0,
-        'estimate': 0.79,
-        'quarter': '1Q2021',
-        'revenue': 10389000000.0,
         'status': 'Beat',
       },
       <class 'dict'> {

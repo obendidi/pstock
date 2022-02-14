@@ -10,7 +10,7 @@ def get_income_statement_data_from_financials_quote(
 
     statement_history = financials_quote.get(key, {}).get("incomeStatementHistory", [])
     if not statement_history:
-        raise ValueError("No 'incomeStatementHistory' found in financials quote.")
+        return []
 
     return [
         {

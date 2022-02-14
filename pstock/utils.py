@@ -1,15 +1,14 @@
 import re
 import typing as tp
-from datetime import datetime, timedelta
+from contextlib import asynccontextmanager
+from datetime import date, datetime, timedelta
 
+import httpx
 import pendulum
-from anyio import ExceptionGroup
 from pydantic.datetime_parse import parse_date as parse_date_pydantic
 from pydantic.datetime_parse import parse_datetime as parse_datetime_pydantic
 from pydantic.datetime_parse import parse_duration as parse_duration_pydantic
 from pydantic.errors import DateError, DateTimeError, DurationError
-
-__all__ = ("TimeStamp", "parse_duration", "parse_datetime")
 
 _UNITS_REGEX = r"(?P<val>\d+(\.\d+)?)(?P<unit>(mo|s|m|h|d|w|y)?)"
 _UNITS = {
@@ -23,34 +22,25 @@ _UNITS = {
 }
 
 
-class TimeStamp(int):
-    @classmethod
-    def __get_validators__(cls):
-        yield cls.validate
-
-    @classmethod
-    def validate(cls, value: tp.Union[str, int, float, datetime]) -> int:
-        return parse_datetime(value).int_timestamp
-
-
-def parse_datetime(value: tp.Union[str, int, float, datetime]) -> pendulum.DateTime:
-    errors: tp.List[BaseException] = []
+def parse_datetime(
+    value: tp.Union[str, int, float, date, datetime]
+) -> pendulum.DateTime:
+    errors: tp.List[str] = []
 
     # try to parse a datetime string, int, bytes
-    try:
-        return pendulum.instance(parse_datetime_pydantic(value))
-    except (DateTimeError, TypeError) as error:
-        errors.append(error)
+    if not isinstance(value, date):
+        try:
+            return pendulum.instance(parse_datetime_pydantic(value))
+        except (DateTimeError, TypeError) as error:
+            errors.append(str(error))
 
     # if not above, maybe try to parse a date string, int, bytes object.
     try:
         _date = parse_date_pydantic(value)
         return pendulum.datetime(_date.year, _date.month, _date.day)
     except DateError as error:
-        errors.append(error)
-    raise ValueError(f"Couldn't parse to datetime: {value}") from ExceptionGroup(
-        *errors
-    )
+        errors.append(str(error))
+    raise ValueError(f"Couldn't parse to datetime: {value}: {', '.join(errors)}")
 
 
 def parse_duration(value: tp.Union[str, int, float, timedelta]) -> pendulum.Duration:
@@ -82,3 +72,18 @@ def parse_duration(value: tp.Union[str, int, float, timedelta]) -> pendulum.Dura
     if not kwargs:
         raise DurationError()
     return pendulum.duration(**kwargs)
+
+
+@asynccontextmanager
+async def httpx_client_manager(
+    client: tp.Optional[httpx.AsyncClient] = None,
+) -> tp.AsyncGenerator[httpx.AsyncClient, None]:
+    _close = False
+    if client is None:
+        _close = True
+        client = httpx.AsyncClient()
+    try:
+        yield client
+    finally:
+        if _close:
+            await client.aclose()

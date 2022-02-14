@@ -11,22 +11,6 @@ T = tp.TypeVar("T", bound="QuoteSummary")
 
 
 class QuoteSummary(BaseModel):
-    # _quote: tp.Dict[str, tp.Any] = PrivateAttr()
-    # _financials_quote: tp.Dict[str, tp.Any] = PrivateAttr()
-
-    # def __init__(self: T, **data) -> None:
-    #     self._quote = data.pop("_quote", None)
-    #     self._financials_quote = data.pop("_financials_quote", None)
-    #     super().__init__(**data)
-
-    # @property
-    # def quote(self: T) -> tp.Dict[str, tp.Any]:
-    #     return self._quote
-
-    # @property
-    # def financials_quote(self: T) -> tp.Dict[str, tp.Any]:
-    #     return self._financials_quote
-
     @staticmethod
     def uri(symbol: str) -> str:
         return f"https://finance.yahoo.com/quote/{symbol.upper()}"
@@ -79,21 +63,21 @@ class QuoteSummary(BaseModel):
     def load(
         cls: tp.Type[T],
         *,
-        quote_response: tp.Union[ReadableResponse, str, bytes, None] = None,
-        financials_quote_response: tp.Union[ReadableResponse, str, bytes, None] = None,
+        response: tp.Union[ReadableResponse, str, bytes, None] = None,
+        financials_response: tp.Union[ReadableResponse, str, bytes, None] = None,
     ) -> T:
 
         data = {}
         _quote = None
         _financials_quote = None
 
-        if quote_response is not None:
-            _quote = cls.parse_quote(quote_response)
+        if response is not None:
+            _quote = cls.parse_quote(response)
             if _quote:
                 data.update(cls.process_quote(_quote))
 
-        if financials_quote_response is not None:
-            _financials_quote = cls.parse_quote(financials_quote_response)
+        if financials_response is not None:
+            _financials_quote = cls.parse_quote(financials_response)
             if _financials_quote:
                 data.update(cls.process_financials_quote(_financials_quote))
 

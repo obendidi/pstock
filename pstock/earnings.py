@@ -21,6 +21,8 @@ class Earning(BaseModel):
     def set_status(
         cls, value: tp.Any, values: tp.Dict[str, tp.Any]
     ) -> tp.Literal[None, "Beat", "Missed"]:
+        if value is not None:
+            return value
         estimate = values.get("estimate")
         actual = values.get("actual")
         if actual is None or np.isnan(actual) or estimate is None or np.isnan(estimate):
@@ -36,6 +38,12 @@ class Earnings(BaseModelSequence[Earning], QuoteSummary):
         if not df.empty:
             df = df.set_index("quarter").sort_index(key=pd.to_datetime)
         return df
+
+    @validator("__root__")
+    def sort_earnings(cls, value: tp.List[Earning]) -> tp.List[Earning]:
+        if not value:
+            return value
+        return sorted(value, key=lambda earning: pd.to_datetime(earning.quarter))
 
     @classmethod
     def process_quote(cls, quote: tp.Dict[str, tp.Any]) -> tp.Dict[str, tp.Any]:

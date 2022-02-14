@@ -22,7 +22,9 @@ class BaseIncomeStatements(BaseModelSequence[IncomeStatement], QuoteSummary):
 
     def _gen_df(self) -> pd.DataFrame:
         df = super()._gen_df()
-        return df.set_index("date").sort_index(ascending=False)
+        if not df.empty:
+            df.set_index("date").sort_index(ascending=False)
+        return df
 
 
 class IncomeStatements(BaseIncomeStatements):

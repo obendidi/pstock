@@ -1,4 +1,5 @@
 import typing as tp
+from datetime import date
 
 import numpy as np
 import pendulum
@@ -124,3 +125,26 @@ def get_earnings_data_from_quote(
         )
     ]
     return passed_earnings + next_earnings
+
+
+def get_trends_data_from_quote(
+    quote: tp.Dict[str, tp.Any]
+) -> tp.List[tp.Dict[str, tp.Any]]:
+
+    if not quote:
+        return []
+    recommendation_trend = quote.get("recommendationTrend", {})
+    if not recommendation_trend:
+        return []
+    trends = recommendation_trend.get("trend", [])
+    return [
+        {
+            "date": date.today() + pendulum.duration(months=int(trend["period"][:-1])),
+            "strong_buy": trend.get("strongBuy", 0),
+            "buy": trend.get("buy", 0),
+            "hold": trend.get("hold", 0),
+            "sell": trend.get("sell", 0),
+            "strong_sell": trend.get("stronSell", 0),
+        }
+        for trend in trends
+    ]
