@@ -2,10 +2,13 @@ import json
 import re
 import typing as tp
 
+import asyncer
+import httpx
 from bs4 import BeautifulSoup
 
 from pstock.base import BaseModel
 from pstock.types import ReadableResponse
+from pstock.utils import httpx_client_manager, rdm_user_agent_value
 
 T = tp.TypeVar("T", bound="QuoteSummary")
 
@@ -82,3 +85,24 @@ class QuoteSummary(BaseModel):
                 data.update(cls.process_financials_quote(_financials_quote))
 
         return cls(**data)
+
+    @classmethod
+    async def get(
+        cls: tp.Type[T],
+        symbol: str,
+        *,
+        client: tp.Optional[httpx.AsyncClient] = None,
+    ) -> T:
+        async with httpx_client_manager(client=client) as _client:
+            async with asyncer.create_task_group() as tg:
+                soon_quote = tg.soonify(_client.get)(
+                    cls.uri(symbol), headers={"user-agent": rdm_user_agent_value()}
+                )
+                soon_financials = tg.soonify(_client.get)(
+                    cls.financials_uri(symbol),
+                    headers={"user-agent": rdm_user_agent_value()},
+                )
+
+        return cls.load(
+            response=soon_quote.value, financials_response=soon_financials.value
+        )

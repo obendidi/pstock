@@ -51,6 +51,24 @@ def _get_lowest_valid_interval(
         return "1d"
 
 
+def _get_largest_valid_period(
+    interval: tp.Optional[IntervalParam] = None,
+) -> PeriodParam:
+    if interval is None:
+        return "max"
+    delta = parse_duration(interval)
+    if delta <= pendulum.duration(minutes=1):
+        return "5d"
+    elif delta <= pendulum.duration(minutes=2):
+        return "1mo"
+    elif delta <= pendulum.duration(hours=1):
+        return "2y"
+    elif delta <= pendulum.duration(days=1):
+        return "10y"
+    else:
+        return "max"
+
+
 class Bar(BaseModel):
     date: datetime
     open: float
@@ -63,14 +81,13 @@ class Bar(BaseModel):
 
 
 class _BarMixin:
-    @classmethod
-    def base_uri(cls, symbol: str) -> str:
+    @staticmethod
+    def base_uri(symbol: str) -> str:
         return f"https://query2.finance.yahoo.com/v8/finance/chart/{symbol.upper()}"
 
-    @classmethod
+    @staticmethod
     @validate_arguments
     def params(
-        cls,
         interval: tp.Optional[IntervalParam] = None,
         period: tp.Optional[PeriodParam] = None,
         start: tp.Optional[Timestamp] = None,
@@ -79,14 +96,13 @@ class _BarMixin:
         include_prepost: bool = False,
     ) -> tp.Dict[str, tp.Any]:
         if period is None and start is None:
-            period = "max"
+            period = _get_largest_valid_period(interval=interval)
 
         if end is None and start is not None:
             end = pendulum.now().int_timestamp
 
         if interval is None:
             interval = _get_lowest_valid_interval(period=period, start=start)
-            print(f"Setting interval to: {interval}")
 
         _params: tp.Dict[str, tp.Any] = {
             "interval": interval,
@@ -136,7 +152,7 @@ class Bars(BaseModelSequence[Bar], _BarMixin):
                 subset=["open", "high", "low", "close", "adj_close", "volume"],
             )
             if df["interval"][0] >= timedelta(days=1):
-                df["date"] = pd.to_datetime(df["date"]).dt.date
+                df["date"] = pd.to_datetime(pd.to_datetime(df["date"]).dt.date)
             df = df.set_index("date").sort_index()
         return df
 
@@ -180,7 +196,6 @@ class Bars(BaseModelSequence[Bar], _BarMixin):
         async with httpx_client_manager(client=client) as _client:
             response = await _client.get(url, params=params)
 
-        response.raise_for_status()
         return cls.load(response=response)
 
 

@@ -15,6 +15,9 @@ def get_ohlc_from_chart(
 
     result = data.get("chart", {}).get("result")
     if not result:
+        error = data.get("chart", {}).get("error")
+        if error:
+            raise ValueError(f"Yahoo-finance responded with an error:\n{error}")
         raise ValueError(
             "Got invalid value for result field in yahoo-finance chart "
             f"response: {result}"

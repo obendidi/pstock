@@ -6,10 +6,12 @@ import typing as tp
 from urllib.parse import urlencode
 
 import feedparser
+import httpx
 import pandas as pd
 
 from pstock.base import BaseModel, BaseModelSequence
 from pstock.types import ReadableResponse
+from pstock.utils import httpx_client_manager
 
 
 class Publication(BaseModel):
@@ -28,12 +30,12 @@ class News(BaseModelSequence):
             df = df.set_index("date").sort_index()
         return df
 
-    @classmethod
-    def base_uri(cls) -> str:
+    @staticmethod
+    def base_uri() -> str:
         return "https://feeds.finance.yahoo.com/rss/2.0/headline"
 
-    @classmethod
-    def params(cls, symbol: str) -> tp.Dict[str, str]:
+    @staticmethod
+    def params(symbol: str) -> tp.Dict[str, str]:
         return {"s": symbol.upper(), "region": "US", "lang": "en-US"}
 
     @classmethod
@@ -68,3 +70,15 @@ class News(BaseModelSequence):
                 for entry in feed.entries
             ]
         )
+
+    @classmethod
+    async def get(
+        cls,
+        symbol: str,
+        *,
+        client: tp.Optional[httpx.AsyncClient] = None,
+    ) -> News:
+        async with httpx_client_manager(client=client) as _client:
+            response = await _client.get(cls.base_uri(), params=cls.params(symbol))
+
+        return cls.load(response=response)

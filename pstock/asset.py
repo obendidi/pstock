@@ -2,6 +2,8 @@ from __future__ import annotations
 
 import typing as tp
 
+import asyncer
+import httpx
 import numpy as np
 import pandas as pd
 from pydantic import Field, validator
@@ -11,6 +13,7 @@ from pstock.earnings import Earnings
 from pstock.income_statement import IncomeStatements
 from pstock.quote import QuoteSummary
 from pstock.trend import Trends
+from pstock.utils import httpx_client_manager
 from pstock.yahoo_finance.quote import get_asset_data_from_quote
 
 
@@ -53,3 +56,17 @@ class Assets(BaseModelSequence[Asset]):
         df["earnings"] = df["earnings"].apply(lambda v: None if len(v) == 0 else v)
         df["trends"] = df["trends"].apply(lambda v: None if len(v) == 0 else v)
         return df.set_index("symbol").sort_index().dropna(axis=1, how="all")
+
+    @classmethod
+    async def get(
+        cls,
+        symbols: tp.List[str],
+        *,
+        client: tp.Optional[httpx.AsyncClient] = None,
+    ):
+        async with httpx_client_manager(client=client) as _client:
+            async with asyncer.create_task_group() as tg:
+                soon_values = [
+                    tg.soonify(Asset.get)(symbol, client=_client) for symbol in symbols
+                ]
+        return cls.parse_obj([soon.value for soon in soon_values])
