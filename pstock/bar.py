@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 import json
-import logging
 import typing as tp
 from datetime import datetime, timedelta
 from urllib.parse import urlencode
@@ -14,10 +13,8 @@ from pydantic import validate_arguments
 
 from pstock.base import BaseModel, BaseModelMapping, BaseModelSequence
 from pstock.types import ReadableResponse, Timestamp
-from pstock.utils import httpx_client_manager, parse_datetime, parse_duration
-from pstock.yahoo_finance.chart import get_ohlc_from_chart
-
-logger = logging.getLogger(__name__)
+from pstock.utils.chart import get_ohlc_from_chart
+from pstock.utils.utils import httpx_client_manager, parse_datetime, parse_duration
 
 IntervalParam = tp.Literal[
     "1m", "2m", "5m", "15m", "30m", "1h", "1d", "5d", "1mo", "3mo"

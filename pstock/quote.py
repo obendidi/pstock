@@ -8,7 +8,7 @@ from bs4 import BeautifulSoup
 
 from pstock.base import BaseModel
 from pstock.types import ReadableResponse
-from pstock.utils import httpx_client_manager, rdm_user_agent_value
+from pstock.utils.utils import httpx_client_manager, rdm_user_agent_value
 
 T = tp.TypeVar("T", bound="QuoteSummary")
 

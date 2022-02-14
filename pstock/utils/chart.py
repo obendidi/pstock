@@ -4,7 +4,7 @@ from datetime import datetime, timedelta
 
 import numpy as np
 
-from pstock.utils import parse_duration
+from pstock.utils.utils import parse_duration
 
 
 def get_ohlc_from_chart(

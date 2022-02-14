@@ -1,7 +1,7 @@
 import typing as tp
 from datetime import date, datetime
 
-from pstock.utils import parse_datetime
+from pstock.utils.utils import parse_datetime
 
 
 class Timestamp(int):

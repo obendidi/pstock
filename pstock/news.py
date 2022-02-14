@@ -11,7 +11,7 @@ import pandas as pd
 
 from pstock.base import BaseModel, BaseModelSequence
 from pstock.types import ReadableResponse
-from pstock.utils import httpx_client_manager
+from pstock.utils.utils import httpx_client_manager
 
 
 class Publication(BaseModel):

@@ -7,7 +7,7 @@ from pydantic import validator
 
 from pstock.base import BaseModel, BaseModelSequence
 from pstock.quote import QuoteSummary
-from pstock.yahoo_finance.quote import get_trends_data_from_quote
+from pstock.utils.quote import get_trends_data_from_quote
 
 
 class Trend(BaseModel):

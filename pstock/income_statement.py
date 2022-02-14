@@ -5,7 +5,7 @@ import pandas as pd
 
 from pstock.base import BaseModel, BaseModelSequence
 from pstock.quote import QuoteSummary
-from pstock.yahoo_finance.financials_quote import (
+from pstock.utils.financials_quote import (
     get_income_statement_data_from_financials_quote,
 )
 

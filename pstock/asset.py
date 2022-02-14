@@ -13,8 +13,8 @@ from pstock.earnings import Earnings
 from pstock.income_statement import IncomeStatements
 from pstock.quote import QuoteSummary
 from pstock.trend import Trends
-from pstock.utils import httpx_client_manager
-from pstock.yahoo_finance.quote import get_asset_data_from_quote
+from pstock.utils.quote import get_asset_data_from_quote
+from pstock.utils.utils import httpx_client_manager
 
 
 class Asset(QuoteSummary):
