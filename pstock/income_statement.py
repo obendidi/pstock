@@ -20,8 +20,8 @@ class IncomeStatement(BaseModel):
 class BaseIncomeStatements(BaseModelSequence[IncomeStatement], QuoteSummary):
     __root__: tp.List[IncomeStatement]
 
-    def _gen_df(self) -> pd.DataFrame:
-        df = super()._gen_df()
+    def gen_df(self) -> pd.DataFrame:
+        df = super().gen_df()
         if not df.empty:
             df.set_index("date").sort_index(ascending=False)
         return df

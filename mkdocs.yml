@@ -1,5 +1,5 @@
 site_name: Pstock
-site_description: Async python sdk for stock data, get latest prices, news, events, .. from yahoo-finance, finviz, alpaca, ... with the same api.
+site_description: Async yahoo-finance python api with pydantic models.
 site_url: https://obendidi.github.io/pstock
 
 repo_name: obendidi/pstock
@@ -24,14 +24,34 @@ extra_css:
 
 nav:
   - Introduction: "index.md"
-  - Schemas: schemas-reference.md
-  - Isin: isin-reference.md
-  - Yahoo-finance: yahoo-finance-reference.md
+  - User Guide: "user-guide.md"
+  - API: "api.md"
 
 
 plugins:
   - search
-  - mkdocstrings
+  - mkdocstrings:
+      default_handler: python
+      handlers:
+        python:
+          selection:
+            docstring_style: google
+            filters:
+              - "!^_"  # exlude all members starting with _
+              # - "!^__"  # exlude all members starting with __
+              - "^__root__$"  # except for __root__
+              - "^__init__$"  # but always include __init__ modules and methods
+          rendering:
+            heading_level: 3
+            members_order: source
+            show_if_no_docstring: true
+            show_root_heading: true
+            show_root_full_path: true
+            show_signature_annotations: true
+            show_source: true
+            show_root_members_full_path: true
+      watch:
+        - pstock
 
 markdown_extensions:
   - pymdownx.highlight:

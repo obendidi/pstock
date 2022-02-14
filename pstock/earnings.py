@@ -33,8 +33,8 @@ class Earning(BaseModel):
 class Earnings(BaseModelSequence[Earning], QuoteSummary):
     __root__: tp.List[Earning]
 
-    def _gen_df(self) -> pd.DataFrame:
-        df = super()._gen_df()
+    def gen_df(self) -> pd.DataFrame:
+        df = super().gen_df()
         if not df.empty:
             df = df.set_index("quarter").sort_index(key=pd.to_datetime)
         return df

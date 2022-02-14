@@ -19,20 +19,17 @@ class BaseModel(_BaseModel):
 
 
 class BaseModelDf(BaseModel, ABC):
+
     _df: tp.Optional[pd.DataFrame] = PrivateAttr(default=None)
 
     @abstractmethod
-    def _gen_df(self) -> pd.DataFrame:
-        """Generate a pandas dataframe from data stored in this model.
-
-        Returns:
-            pd.DataFrame
-        """
+    def gen_df(self) -> pd.DataFrame:
+        ...
 
     @property
     def df(self) -> pd.DataFrame:
         if self._df is None:
-            self._df = self._gen_df()
+            self._df = self.gen_df()
         return self._df
 
 
@@ -40,6 +37,7 @@ T = tp.TypeVar("T", bound=BaseModel)
 
 
 class BaseModelSequence(tp.Generic[T], BaseModelDf):
+
     __root__: tp.Sequence[T]
 
     @tp.overload
@@ -59,7 +57,7 @@ class BaseModelSequence(tp.Generic[T], BaseModelDf):
     def __iter__(self) -> tp.Iterator[T]:  # type: ignore
         return iter(self.__root__)
 
-    def _gen_df(self) -> pd.DataFrame:
+    def gen_df(self) -> pd.DataFrame:
         return pd.DataFrame.from_dict(self.dict().get("__root__"), orient="columns")
 
 
@@ -67,6 +65,7 @@ U = tp.TypeVar("U", bound=BaseModelSequence)
 
 
 class BaseModelMapping(tp.Generic[U], BaseModelDf):
+
     __root__: tp.Mapping[str, U]
 
     def __getitem__(self, index: str) -> U:
@@ -78,6 +77,6 @@ class BaseModelMapping(tp.Generic[U], BaseModelDf):
     def __iter__(self) -> tp.Iterator[str]:  # type: ignore
         return iter(self.__root__)
 
-    def _gen_df(self) -> pd.DataFrame:
+    def gen_df(self) -> pd.DataFrame:
         keys, dfs = zip(*[(key, value.df) for key, value in self.__root__.items()])
         return pd.concat(dfs, axis=1, keys=keys)

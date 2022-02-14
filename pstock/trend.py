@@ -70,8 +70,8 @@ class Trend(BaseModel):
 class Trends(BaseModelSequence[Trend], QuoteSummary):
     __root__: tp.List[Trend]
 
-    def _gen_df(self) -> pd.DataFrame:
-        df = super()._gen_df()
+    def gen_df(self) -> pd.DataFrame:
+        df = super().gen_df()
         if not df.empty:
             df = df.set_index("date").sort_index()
         return df

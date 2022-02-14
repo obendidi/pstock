@@ -6,8 +6,6 @@ import numpy as np
 
 from pstock.utils import parse_duration
 
-logger = logging.getLogger(__name__)
-
 
 def get_ohlc_from_chart(
     data: tp.Dict[str, tp.Any]
@@ -31,7 +29,7 @@ def get_ohlc_from_chart(
 
     # Empty chart
     if "timestamp" not in result:
-        logger.warning(
+        logging.getLogger(__name__).warning(
             f"Yahoo-finance returned an empty chart for symbol '{symbol}'. "
             "Please make sure that provided params are valid (for example that "
             "start/end times are valid UTC market times)."

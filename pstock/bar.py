@@ -144,8 +144,8 @@ class _BarMixin:
 class Bars(BaseModelSequence[Bar], _BarMixin):
     __root__: tp.List[Bar]
 
-    def _gen_df(self) -> pd.DataFrame:
-        df = super()._gen_df()
+    def gen_df(self) -> pd.DataFrame:
+        df = super().gen_df()
         if not df.empty:
             df = df.dropna(
                 how="all",
@@ -202,8 +202,8 @@ class Bars(BaseModelSequence[Bar], _BarMixin):
 class BarsMulti(BaseModelMapping[Bars], _BarMixin):
     __root__: tp.Dict[str, Bars]
 
-    def _gen_df(self) -> pd.DataFrame:
-        df = super()._gen_df()
+    def gen_df(self) -> pd.DataFrame:
+        df = super().gen_df()
         return df.sort_index()
 
     @classmethod

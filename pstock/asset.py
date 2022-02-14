@@ -51,8 +51,8 @@ class Asset(QuoteSummary):
 class Assets(BaseModelSequence[Asset]):
     __root__: tp.List[Asset]
 
-    def _gen_df(self) -> pd.DataFrame:
-        df = super()._gen_df()
+    def gen_df(self) -> pd.DataFrame:
+        df = super().gen_df()
         df["earnings"] = df["earnings"].apply(lambda v: None if len(v) == 0 else v)
         df["trends"] = df["trends"].apply(lambda v: None if len(v) == 0 else v)
         return df.set_index("symbol").sort_index().dropna(axis=1, how="all")

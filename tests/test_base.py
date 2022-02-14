@@ -13,7 +13,7 @@ def test_pstock_base_model(pendulum_now: pendulum.DateTime):
 
 def test_pstock_base_model_df(pendulum_now: pendulum.DateTime):
     class TestModel(BaseModelDf):
-        def _gen_df(self) -> pd.DataFrame:
+        def gen_df(self) -> pd.DataFrame:
             return pd.DataFrame(data={"col1": [1, 2], "col2": [3, 4]})
 
     model = TestModel()
