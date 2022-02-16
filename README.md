@@ -13,7 +13,7 @@ project is intended for personal use only.**
 
 ---
 [![codecov](https://codecov.io/gh/obendidi/pstock/branch/main/graph/badge.svg?token=WU1E3ISBDK)](https://codecov.io/gh/obendidi/pstock)
-<a target="new" href="https://pypi.python.org/pypi/pstock-python"><img border=0 src="https://img.shields.io/badge/python-3.8+-blue.svg?style=flat" alt="Python version"></a>
+<a target="new" href="https://pypi.python.org/pypi/pstock-python"><img border=0 src="https://img.shields.io/pypi/v/pstock-python.svg?maxAge=60%" alt="PyPi version"></a>
 <a href="https://pypi.org/project/pstock-python" target="_blank">
 <img src="https://img.shields.io/pypi/pyversions/pstock-python.svg?color=%2334D058" alt="Supported Python versions"></a>
 <a target="new" href="https://pypi.python.org/pypi/pstock-python"><img border=0 src="https://img.shields.io/pypi/status/pstock-python.svg?maxAge=60" alt="PyPi status"></a>
