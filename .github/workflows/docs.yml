@@ -1,4 +1,4 @@
-name: 📝 Build and deploy mkdocs to github pages
+name: 📝 Docs
 on:
   push:
     branches: [main]

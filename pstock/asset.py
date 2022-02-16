@@ -18,13 +18,15 @@ from pstock.utils.utils import httpx_client_manager
 
 
 class Asset(QuoteSummary):
-    symbol: str = Field(..., repr=True)
-    name: str = Field(..., repr=False)
-    asset_type: str = Field(..., repr=False)
-    currency: str = Field(..., repr=False)
-    latest_price: tp.Optional[float] = Field(default=np.nan, repr=False)
-    sector: tp.Optional[str] = Field(repr=False)
-    industry: tp.Optional[str] = Field(repr=False)
+    symbol: str
+    name: str
+    asset_type: tp.Literal[
+        "EQUITY", "CURRENCY", "CRYPTOCURRENCY", "ETF", "FUTURE", "INDEX"
+    ]
+    currency: str
+    latest_price: float = np.nan
+    sector: tp.Optional[str]
+    industry: tp.Optional[str]
     earnings: Earnings = Field(repr=False)
     trends: Trends = Field(repr=False)
     income_statement: tp.Optional[IncomeStatements] = Field(repr=False)
