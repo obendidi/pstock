@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "pstock-python"
-version = "0.1.0"
+version = "0.2.0"
 description = "Async yahoo-finance python api with pydantic models."
 authors = ["Ouail Bendidi <ouail.bendidi@gmail.com>"]
 license = "MIT"
