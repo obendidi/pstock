@@ -69,6 +69,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#user-guide" class="md-skip">
+          Skip to content
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -251,10 +256,92 @@
       <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
       
       
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          User Guide
+          <span class="md-nav__icon md-icon"></span>
+        </label>
       
       <a href="./" class="md-nav__link md-nav__link--active">
         User Guide
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#assets" class="md-nav__link">
+    Assets
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#trends" class="md-nav__link">
+    Trends
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#earnings" class="md-nav__link">
+    Earnings
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#income-statement" class="md-nav__link">
+    Income Statement
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#news" class="md-nav__link">
+    News
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bars-historical-price-data" class="md-nav__link">
+    Bars (Historical price data)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#barsmulti" class="md-nav__link">
+    BarsMulti
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sans-io-protocol" class="md-nav__link">
+    Sans-I/O protocol
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -282,15 +369,436 @@
               </div>
             
             
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#assets" class="md-nav__link">
+    Assets
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#trends" class="md-nav__link">
+    Trends
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#earnings" class="md-nav__link">
+    Earnings
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#income-statement" class="md-nav__link">
+    Income Statement
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#news" class="md-nav__link">
+    News
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bars-historical-price-data" class="md-nav__link">
+    Bars (Historical price data)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#barsmulti" class="md-nav__link">
+    BarsMulti
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sans-io-protocol" class="md-nav__link">
+    Sans-I/O protocol
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
           
           <div class="md-content" data-md-component="content">
             <article class="md-content__inner md-typeset">
               
                 
 
-  <h1>User Guide</h1>
+<h1 id="user-guide">User Guide</h1>
+<h2 id="assets">Assets</h2>
+<p>An <code>Asset</code> in <code>pstock</code> terms is any ticker symbol supported by yahoo-finance. If the asset exists in yahoo-finance, you should be able to get it's quote summary  using <code>pstock</code>.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span> <span class="nn">asyncio</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">from</span> <span class="nn">pstock</span> <span class="kn">import</span> <span class="n">Asset</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="n">asset</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">Asset</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;TSLA&quot;</span><span class="p">))</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="nb">print</span><span class="p">(</span><span class="n">asset</span><span class="p">)</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="c1"># symbol=&#39;TSLA&#39; name=&#39;Tesla, Inc.&#39; asset_type=&#39;EQUITY&#39; currency=&#39;USD&#39; latest_price=920.0 sector=&#39;Consumer Cyclical&#39; industry=&#39;Auto Manufacturers&#39;</span>
+</code></pre></div>
+<p>An <code>Asset</code> will always have a:</p>
+<ul>
+<li><code>symbol</code>: The ticker symbol of the asset</li>
+<li><code>name</code>: The long/short name of the asset (depending on which is found, the long name takes priority)</li>
+<li><code>asset_type</code>: Type of the asset, can be one of: <code>EQUITY</code>, <code>CURRENCY</code>, <code>CRYPTOCURRENCY</code>, <code>ETF</code>, <code>FUTURE</code>, <code>INDEX</code></li>
+<li><code>currency</code>: Currency of the asset, <code>USD</code> for US stocks</li>
+<li><code>latest_price</code>: Latest price of the asset known by yahoo-finance, takes into account the pre-post market prices. Can be <code>numpy.nan</code> if no proce data is found.</li>
+</ul>
+<blockquote>
+<p><em>Note: if an <code>asset_type</code> exists in yahoo-finance but is not one of the above, feel free to open an issue or PR. In the meantime you can subclass the <code>Asset</code> object and override the type of <code>asset_type</code> and add the missing asset type</em></p>
+</blockquote>
+<p>The other fields are optional and can be filled depending on the <code>asset_type</code>, currently there are only fields for the <code>EQUITY</code> (stocks) asset_type:</p>
+<ul>
+<li><code>sector</code></li>
+<li><code>industry</code></li>
+<li><code>[trends](#trends)</code></li>
+<li><code>[earnings](#earnings)</code></li>
+<li><code>[income_statement](#income-statement)</code></li>
+</ul>
+<p>In addition to getting data about a single <code>Asset</code>, there is also the possibily to query multiple assets at the same time using <code>Assets</code>. The main benefit is that it provides the ability to directly convert the resulting list of assets into a pandas dataframe.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kn">import</span> <span class="nn">asyncio</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="kn">from</span> <span class="nn">pstock</span> <span class="kn">import</span> <span class="n">Asset</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="n">assets</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">Assets</span><span class="o">.</span><span class="n">get</span><span class="p">([</span><span class="s2">&quot;TSLA&quot;</span><span class="p">,</span> <span class="s2">&quot;AAPL&quot;</span><span class="p">,</span> <span class="s2">&quot;GME&quot;</span><span class="p">]))</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="nb">print</span><span class="p">(</span><span class="n">assets</span><span class="o">.</span><span class="n">df</span><span class="p">)</span>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>                  <span class="n">name</span> <span class="n">asset_type</span> <span class="n">currency</span>  <span class="o">...</span>                                           <span class="n">earnings</span>                                             <span class="n">trends</span>                                   <span class="n">income_statement</span>
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="n">symbol</span>                                      <span class="o">...</span>
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="n">AAPL</span>        <span class="n">Apple</span> <span class="n">Inc</span><span class="o">.</span>     <span class="n">EQUITY</span>      <span class="n">USD</span>  <span class="o">...</span>  <span class="p">[{</span><span class="s1">&#39;quarter&#39;</span><span class="p">:</span> <span class="s1">&#39;1Q2021&#39;</span><span class="p">,</span> <span class="s1">&#39;estimate&#39;</span><span class="p">:</span> <span class="mf">0.99</span><span class="p">,</span> <span class="s1">&#39;actu...  [{&#39;</span><span class="n">date</span><span class="s1">&#39;: 2021-11-17, &#39;</span><span class="n">strong_buy</span><span class="s1">&#39;: 13, &#39;</span><span class="n">buy</span><span class="s1">&#39;:...  [{&#39;</span><span class="n">date</span><span class="s1">&#39;: 2021-09-25, &#39;</span><span class="n">ebit</span><span class="s1">&#39;: 108949000000.0, ...</span>
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="n">GME</span>     <span class="n">GameStop</span> <span class="n">Corp</span><span class="o">.</span>     <span class="n">EQUITY</span>      <span class="n">USD</span>  <span class="o">...</span>  <span class="p">[{</span><span class="s1">&#39;quarter&#39;</span><span class="p">:</span> <span class="s1">&#39;1Q2021&#39;</span><span class="p">,</span> <span class="s1">&#39;estimate&#39;</span><span class="p">:</span> <span class="mf">1.35</span><span class="p">,</span> <span class="s1">&#39;actu...  [{&#39;</span><span class="n">date</span><span class="s1">&#39;: 2021-11-17, &#39;</span><span class="n">strong_buy</span><span class="s1">&#39;: 2, &#39;</span><span class="n">buy</span><span class="s1">&#39;: ...  [{&#39;</span><span class="n">date</span><span class="s1">&#39;: 2021-01-30, &#39;</span><span class="n">ebit</span><span class="s1">&#39;: -249300000.0, &#39;</span><span class="n">t</span><span class="o">...</span>
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="n">TSLA</span>       <span class="n">Tesla</span><span class="p">,</span> <span class="n">Inc</span><span class="o">.</span>     <span class="n">EQUITY</span>      <span class="n">USD</span>  <span class="o">...</span>  <span class="p">[{</span><span class="s1">&#39;quarter&#39;</span><span class="p">:</span> <span class="s1">&#39;1Q2021&#39;</span><span class="p">,</span> <span class="s1">&#39;estimate&#39;</span><span class="p">:</span> <span class="mf">0.79</span><span class="p">,</span> <span class="s1">&#39;actu...  [{&#39;</span><span class="n">date</span><span class="s1">&#39;: 2021-11-17, &#39;</span><span class="n">strong_buy</span><span class="s1">&#39;: 4, &#39;</span><span class="n">buy</span><span class="s1">&#39;: ...  [{&#39;</span><span class="n">date</span><span class="s1">&#39;: 2021-12-31, &#39;</span><span class="n">ebit</span><span class="s1">&#39;: 6523000000.0, &#39;</span><span class="n">t</span><span class="o">...</span>
+</code></pre></div>
+<blockquote>
+<p><em>Note 1: <code>Assets</code> is also a pydantic model that will validate data that it pulls from yahoo-finance.</em></p>
+<p><em>Note 2: The generated pandas Dataframe is cached into a private <code>._df</code> attribute and is computed only the first time it is accessed via the property <code>.df</code>.</em></p>
+<p><em>Note 3: Most if not all data objects in <code>pstock</code> have a <code>.df</code> property, and it's the recommended way to view and manipulate data when possible.</em></p>
+<p><em>Note 4: <code>Assets</code>, <code>Bars</code>, <code>Earnings</code>, <code>News</code>, ... can also be iterated over and support indexing and behave like a <code>typing.List[Asset]</code>, <code>typing.List[Bar]</code>, ...</em></p>
+</blockquote>
+<h2 id="trends">Trends</h2>
+<p>There are 2 ways to get the trends of a symbol.</p>
+<ul>
+<li>via <code>Asset</code>:</li>
+</ul>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kn">import</span> <span class="nn">asyncio</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="kn">from</span> <span class="nn">pstock</span> <span class="kn">import</span> <span class="n">Asset</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="n">asset</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">Asset</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;TSLA&quot;</span><span class="p">))</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="nb">print</span><span class="p">(</span><span class="n">asset</span><span class="o">.</span><span class="n">trends</span><span class="o">.</span><span class="n">df</span><span class="p">)</span>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>            <span class="n">strong_buy</span>  <span class="n">buy</span>  <span class="n">hold</span>  <span class="n">sell</span>  <span class="n">strong_sell</span>  <span class="n">score</span> <span class="n">recomendation</span>
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="n">date</span>
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="mi">2021</span><span class="o">-</span><span class="mi">11</span><span class="o">-</span><span class="mi">17</span>           <span class="mi">4</span>    <span class="mi">4</span>     <span class="mi">8</span>     <span class="mi">6</span>            <span class="mi">0</span>   <span class="mf">2.73</span>          <span class="n">HOLD</span>
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="mi">2021</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">17</span>          <span class="mi">11</span>    <span class="mi">6</span>    <span class="mi">13</span>     <span class="mi">6</span>            <span class="mi">0</span>   <span class="mf">2.39</span>           <span class="n">BUY</span>
+<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="mi">2022</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">16</span>          <span class="mi">11</span>    <span class="mi">6</span>    <span class="mi">13</span>     <span class="mi">6</span>            <span class="mi">0</span>   <span class="mf">2.39</span>           <span class="n">BUY</span>
+<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a><span class="mi">2022</span><span class="o">-</span><span class="mi">02</span><span class="o">-</span><span class="mi">15</span>           <span class="mi">4</span>    <span class="mi">4</span>     <span class="mi">8</span>     <span class="mi">6</span>            <span class="mi">0</span>   <span class="mf">2.73</span>          <span class="n">HOLD</span>
+</code></pre></div>
+<ul>
+<li>Directly via <code>Trends</code></li>
+</ul>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kn">import</span> <span class="nn">asyncio</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="kn">from</span> <span class="nn">pstock</span> <span class="kn">import</span> <span class="n">Trends</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="n">trends</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">Trends</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;TSLA&quot;</span><span class="p">))</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="nb">print</span><span class="p">(</span><span class="n">trends</span><span class="o">.</span><span class="n">df</span><span class="p">)</span>
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>            <span class="n">strong_buy</span>  <span class="n">buy</span>  <span class="n">hold</span>  <span class="n">sell</span>  <span class="n">strong_sell</span>  <span class="n">score</span> <span class="n">recomendation</span>
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="n">date</span>
+<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="mi">2021</span><span class="o">-</span><span class="mi">11</span><span class="o">-</span><span class="mi">17</span>           <span class="mi">4</span>    <span class="mi">4</span>     <span class="mi">8</span>     <span class="mi">6</span>            <span class="mi">0</span>   <span class="mf">2.73</span>          <span class="n">HOLD</span>
+<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="mi">2021</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">17</span>          <span class="mi">11</span>    <span class="mi">6</span>    <span class="mi">13</span>     <span class="mi">6</span>            <span class="mi">0</span>   <span class="mf">2.39</span>           <span class="n">BUY</span>
+<a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a><span class="mi">2022</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">16</span>          <span class="mi">11</span>    <span class="mi">6</span>    <span class="mi">13</span>     <span class="mi">6</span>            <span class="mi">0</span>   <span class="mf">2.39</span>           <span class="n">BUY</span>
+<a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a><span class="mi">2022</span><span class="o">-</span><span class="mi">02</span><span class="o">-</span><span class="mi">15</span>           <span class="mi">4</span>    <span class="mi">4</span>     <span class="mi">8</span>     <span class="mi">6</span>            <span class="mi">0</span>   <span class="mf">2.73</span>          <span class="n">HOLD</span>
+</code></pre></div>
+<h2 id="earnings">Earnings</h2>
+<p>There are 2 ways to get the earnings of a symbol.</p>
+<ul>
+<li>via <code>Asset</code>:</li>
+</ul>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kn">import</span> <span class="nn">asyncio</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="kn">from</span> <span class="nn">pstock</span> <span class="kn">import</span> <span class="n">Asset</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="n">asset</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">Asset</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;TSLA&quot;</span><span class="p">))</span>
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="nb">print</span><span class="p">(</span><span class="n">asset</span><span class="o">.</span><span class="n">earnings</span><span class="o">.</span><span class="n">df</span><span class="p">)</span>
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>         <span class="n">estimate</span>  <span class="n">actual</span> <span class="n">status</span>       <span class="n">revenue</span>      <span class="n">earnings</span>
+<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="n">quarter</span>
+<a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="mi">1</span><span class="n">Q2021</span>       <span class="mf">0.79</span>    <span class="mf">0.93</span>   <span class="n">Beat</span>  <span class="mf">1.038900e+10</span>  <span class="mf">4.380000e+08</span>
+<a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="mi">2</span><span class="n">Q2021</span>       <span class="mf">0.98</span>    <span class="mf">1.45</span>   <span class="n">Beat</span>  <span class="mf">1.195800e+10</span>  <span class="mf">1.142000e+09</span>
+<a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a><span class="mi">3</span><span class="n">Q2021</span>       <span class="mf">1.59</span>    <span class="mf">1.86</span>   <span class="n">Beat</span>  <span class="mf">1.375700e+10</span>  <span class="mf">1.618000e+09</span>
+<a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a><span class="mi">4</span><span class="n">Q2021</span>       <span class="mf">2.37</span>    <span class="mf">2.54</span>   <span class="n">Beat</span>  <span class="mf">1.771900e+10</span>  <span class="mf">2.321000e+09</span>
+<a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a><span class="mi">1</span><span class="n">Q2022</span>       <span class="mf">2.25</span>     <span class="n">NaN</span>   <span class="kc">None</span>           <span class="n">NaN</span>           <span class="n">NaN</span>
+</code></pre></div>
+<ul>
+<li>Directly via <code>Earnings</code></li>
+</ul>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="kn">import</span> <span class="nn">asyncio</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="kn">from</span> <span class="nn">pstock</span> <span class="kn">import</span> <span class="n">Earnings</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="n">earnings</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">Earnings</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;TSLA&quot;</span><span class="p">))</span>
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="nb">print</span><span class="p">(</span><span class="n">earnings</span><span class="o">.</span><span class="n">df</span><span class="p">)</span>
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>
+<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>         <span class="n">estimate</span>  <span class="n">actual</span> <span class="n">status</span>       <span class="n">revenue</span>      <span class="n">earnings</span>
+<a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a><span class="n">quarter</span>
+<a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a><span class="mi">1</span><span class="n">Q2021</span>       <span class="mf">0.79</span>    <span class="mf">0.93</span>   <span class="n">Beat</span>  <span class="mf">1.038900e+10</span>  <span class="mf">4.380000e+08</span>
+<a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a><span class="mi">2</span><span class="n">Q2021</span>       <span class="mf">0.98</span>    <span class="mf">1.45</span>   <span class="n">Beat</span>  <span class="mf">1.195800e+10</span>  <span class="mf">1.142000e+09</span>
+<a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a><span class="mi">3</span><span class="n">Q2021</span>       <span class="mf">1.59</span>    <span class="mf">1.86</span>   <span class="n">Beat</span>  <span class="mf">1.375700e+10</span>  <span class="mf">1.618000e+09</span>
+<a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a><span class="mi">4</span><span class="n">Q2021</span>       <span class="mf">2.37</span>    <span class="mf">2.54</span>   <span class="n">Beat</span>  <span class="mf">1.771900e+10</span>  <span class="mf">2.321000e+09</span>
+<a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a><span class="mi">1</span><span class="n">Q2022</span>       <span class="mf">2.25</span>     <span class="n">NaN</span>   <span class="kc">None</span>           <span class="n">NaN</span>           <span class="n">NaN</span>
+</code></pre></div>
+<blockquote>
+<p><em>Note: The last earning have <code>NaN</code>/<code>None</code> values since we only have analysts estimates and revenue isn't reported yet. The specific earnings call date can be extracted from the <code>QuoteSummary</code>.</em></p>
+</blockquote>
+<h2 id="income-statement">Income Statement</h2>
+<p>There are 2 ways to get the income statement of a symbol.</p>
+<blockquote>
+<p><em>Note: The current extracted statement is very limited/minimaliste, contributions are welcome to extract more data from the <code>QuoteSummary</code>.</em></p>
+</blockquote>
+<ul>
+<li>via <code>Asset</code>:</li>
+</ul>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="kn">import</span> <span class="nn">asyncio</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="kn">from</span> <span class="nn">pstock</span> <span class="kn">import</span> <span class="n">Asset</span>
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="n">asset</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">Asset</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;TSLA&quot;</span><span class="p">))</span>
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="nb">print</span><span class="p">(</span><span class="n">asset</span><span class="o">.</span><span class="n">income_statement</span><span class="o">.</span><span class="n">df</span><span class="p">)</span>
+<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>
+<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a>                    <span class="n">ebit</span>  <span class="n">total_revenue</span>  <span class="n">gross_profit</span>
+<a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a><span class="n">date</span>
+<a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a><span class="mi">2018</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">31</span> <span class="o">-</span><span class="mf">2.530000e+08</span>   <span class="mf">2.146100e+10</span>  <span class="mf">4.042000e+09</span>
+<a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a><span class="mi">2019</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">31</span>  <span class="mf">8.000000e+07</span>   <span class="mf">2.457800e+10</span>  <span class="mf">4.069000e+09</span>
+<a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a><span class="mi">2020</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">31</span>  <span class="mf">1.951000e+09</span>   <span class="mf">3.153600e+10</span>  <span class="mf">6.630000e+09</span>
+<a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a><span class="mi">2021</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">31</span>  <span class="mf">6.523000e+09</span>   <span class="mf">5.382300e+10</span>  <span class="mf">1.360600e+10</span>
+</code></pre></div>
+<blockquote>
+<p><em>Note: <code>asset.income_statement</code> can be <code>None</code> for all assets that are not of type <code>EQUITY</code>.</em></p>
+</blockquote>
+<ul>
+<li>Directly via <code>IncomeStatements</code></li>
+</ul>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="kn">import</span> <span class="nn">asyncio</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="kn">from</span> <span class="nn">pstock</span> <span class="kn">import</span> <span class="n">IncomeStatements</span>
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="n">income_statement</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">IncomeStatements</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;TSLA&quot;</span><span class="p">))</span>
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="nb">print</span><span class="p">(</span><span class="n">income_statement</span><span class="o">.</span><span class="n">df</span><span class="p">)</span>
+<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>
+<a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a>                    <span class="n">ebit</span>  <span class="n">total_revenue</span>  <span class="n">gross_profit</span>
+<a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a><span class="n">date</span>
+<a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a><span class="mi">2018</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">31</span> <span class="o">-</span><span class="mf">2.530000e+08</span>   <span class="mf">2.146100e+10</span>  <span class="mf">4.042000e+09</span>
+<a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a><span class="mi">2019</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">31</span>  <span class="mf">8.000000e+07</span>   <span class="mf">2.457800e+10</span>  <span class="mf">4.069000e+09</span>
+<a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a><span class="mi">2020</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">31</span>  <span class="mf">1.951000e+09</span>   <span class="mf">3.153600e+10</span>  <span class="mf">6.630000e+09</span>
+<a id="__codelineno-7-12" name="__codelineno-7-12" href="#__codelineno-7-12"></a><span class="mi">2021</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">31</span>  <span class="mf">6.523000e+09</span>   <span class="mf">5.382300e+10</span>  <span class="mf">1.360600e+10</span>
+</code></pre></div>
+<blockquote>
+<p><em>Note: You can also use <code>QuarterlyIncomeStatements</code> for (as the name says) quarterly income stamenets</em>.</p>
+</blockquote>
+<h2 id="news">News</h2>
+<p>Gettings yahoo-finance news about a symbol also follows the same pattern.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="kn">import</span> <span class="nn">asyncio</span>
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="kn">from</span> <span class="nn">pstock</span> <span class="kn">import</span> <span class="n">News</span>
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="n">news</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">News</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;TSLA&quot;</span><span class="p">))</span>
+<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="nb">print</span><span class="p">(</span><span class="n">news</span><span class="o">.</span><span class="n">df</span><span class="p">)</span>
+<a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a>                                                                       <span class="n">title</span>                                            <span class="n">url</span>                                            <span class="n">summary</span>
+<a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a><span class="n">date</span>
+<a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a><span class="mi">2022</span><span class="o">-</span><span class="mi">02</span><span class="o">-</span><span class="mi">15</span> <span class="mi">12</span><span class="p">:</span><span class="mi">11</span><span class="p">:</span><span class="mi">46</span><span class="o">+</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>  <span class="n">Retail</span> <span class="n">investor</span><span class="p">:</span> <span class="s1">&#39;I&#39;</span><span class="n">m</span> <span class="n">being</span> <span class="n">careful</span> <span class="n">just</span> <span class="ow">in</span> <span class="n">ca</span><span class="o">...</span>  <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">finance</span><span class="o">.</span><span class="n">yahoo</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">news</span><span class="o">/</span><span class="n">retail</span><span class="o">-</span><span class="n">investor</span><span class="o">...</span>  <span class="n">Some</span> <span class="n">retail</span> <span class="n">investors</span> <span class="n">are</span> <span class="n">being</span> <span class="n">more</span> <span class="n">cautious</span> <span class="o">...</span>
+<a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a><span class="mi">2022</span><span class="o">-</span><span class="mi">02</span><span class="o">-</span><span class="mi">15</span> <span class="mi">12</span><span class="p">:</span><span class="mi">23</span><span class="p">:</span><span class="mi">00</span><span class="o">+</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>  <span class="n">Tesla</span><span class="err">’</span><span class="n">s</span> <span class="n">Elon</span> <span class="n">Musk</span> <span class="n">Gave</span> <span class="n">Away</span> <span class="err">$</span><span class="mf">5.7</span> <span class="n">Billion</span><span class="o">.</span> <span class="n">But</span> <span class="o">...</span>  <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">finance</span><span class="o">.</span><span class="n">yahoo</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">m</span><span class="o">/</span><span class="n">d342cd56</span><span class="o">-</span><span class="n">d5bb</span><span class="o">-</span><span class="mf">3957.</span><span class="o">..</span>  <span class="n">Tesla</span> <span class="n">CEO</span> <span class="n">Elon</span> <span class="n">Musk</span> <span class="n">gave</span> <span class="n">away</span> <span class="n">more</span> <span class="n">than</span> <span class="mi">5</span> <span class="n">mill</span><span class="o">...</span>
+<a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a><span class="mi">2022</span><span class="o">-</span><span class="mi">02</span><span class="o">-</span><span class="mi">15</span> <span class="mi">13</span><span class="p">:</span><span class="mi">07</span><span class="p">:</span><span class="mi">02</span><span class="o">+</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>                      <span class="n">Company</span> <span class="n">News</span> <span class="k">for</span> <span class="n">Feb</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">2022</span>  <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">finance</span><span class="o">.</span><span class="n">yahoo</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">news</span><span class="o">/</span><span class="n">company</span><span class="o">-</span><span class="n">news</span><span class="o">-</span><span class="n">fe</span><span class="o">...</span>    <span class="n">Companies</span> <span class="n">In</span> <span class="n">The</span> <span class="n">News</span> <span class="n">Are</span><span class="p">:</span> <span class="n">IFS</span><span class="p">,</span> <span class="n">OLK</span><span class="p">,</span> <span class="n">THS</span><span class="p">,</span> <span class="n">TSLA</span><span class="o">.</span>
+<a id="__codelineno-8-11" name="__codelineno-8-11" href="#__codelineno-8-11"></a><span class="o">....</span>
+<a id="__codelineno-8-12" name="__codelineno-8-12" href="#__codelineno-8-12"></a><span class="mi">2022</span><span class="o">-</span><span class="mi">02</span><span class="o">-</span><span class="mi">15</span> <span class="mi">19</span><span class="p">:</span><span class="mi">23</span><span class="p">:</span><span class="mi">43</span><span class="o">+</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>  <span class="n">Australia</span><span class="s1">&#39;s Syrah Resources to expand Louisian...  https://finance.yahoo.com/news/australias-syra...  Australian industrial materials firm Syrah Res...</span>
+<a id="__codelineno-8-13" name="__codelineno-8-13" href="#__codelineno-8-13"></a><span class="mi">2022</span><span class="o">-</span><span class="mi">02</span><span class="o">-</span><span class="mi">15</span> <span class="mi">20</span><span class="p">:</span><span class="mi">31</span><span class="p">:</span><span class="mi">30</span><span class="o">+</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>       <span class="n">Biggest</span> <span class="n">Companies</span> <span class="ow">in</span> <span class="n">the</span> <span class="n">World</span> <span class="n">by</span> <span class="n">Market</span> <span class="n">Cap</span>  <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">finance</span><span class="o">.</span><span class="n">yahoo</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">m</span><span class="o">/</span><span class="mi">8</span><span class="n">aead0a5</span><span class="o">-</span><span class="n">ef35</span><span class="o">-</span><span class="mi">3</span><span class="n">d90</span><span class="o">...</span>  <span class="n">The</span> <span class="n">world</span><span class="s1">&#39;s biggest companies by market cap op...</span>
+</code></pre></div>
+<h2 id="bars-historical-price-data">Bars (Historical price data)</h2>
+<p>A <code>Bar</code> in <code>pstock</code> is a pydantic model with the following fields:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="k">class</span> <span class="nc">Bar</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>    <span class="n">date</span><span class="p">:</span> <span class="n">datetime</span>
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>    <span class="nb">open</span><span class="p">:</span> <span class="nb">float</span>
+<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>    <span class="n">high</span><span class="p">:</span> <span class="nb">float</span>
+<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>    <span class="n">low</span><span class="p">:</span> <span class="nb">float</span>
+<a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>    <span class="n">close</span><span class="p">:</span> <span class="nb">float</span>
+<a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a>    <span class="n">adj_close</span><span class="p">:</span> <span class="nb">float</span>
+<a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a>    <span class="n">volume</span><span class="p">:</span> <span class="nb">float</span>
+<a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a>    <span class="n">interval</span><span class="p">:</span> <span class="n">timedelta</span>
+</code></pre></div>
+<blockquote>
+<p><em>Note: The <code>interval</code> is the time between bar <code>open</code> and <code>close</code>.</em></p>
+</blockquote>
+<p>To get <code>Bars</code> there are a couple of arguments that can be specified:</p>
+<ul>
+<li><code>interval</code>: one of <code>1m</code>, <code>2m</code>, <code>5m</code>, <code>15m</code>, <code>30m</code>, <code>1h</code>, <code>1d</code>, <code>5d</code>, <code>1mo</code>, <code>3mo</code>, defaults to <code>None</code></li>
+<li><code>period</code>: one of <code>1d</code>, <code>5d</code>, <code>1mo</code>, <code>3mo</code>, <code>6mo</code>, <code>1y</code>, <code>2y</code>, <code>5y</code>, <code>10y</code>, <code>ytd</code>, <code>max</code>, defaults to <code>None</code></li>
+<li><code>start</code>: Any <code>date</code>/<code>datetime</code> <a href="https://pydantic-docs.helpmanual.io/usage/types/#datetime-types">supported by pydnatic</a>, defaults to <code>None</code></li>
+<li><code>end</code>: Any <code>date</code>/<code>datetime</code> <a href="https://pydantic-docs.helpmanual.io/usage/types/#datetime-types">supported by pydnatic</a>, defaults to <code>None</code></li>
+<li><code>events</code>: one of <code>div</code>, <code>split</code>, <code>div,splits</code>, defaults to <code>div,splits</code></li>
+<li><code>include_prepost</code>: Bool, include Pre and Post market bars, default to <code>False</code></li>
+</ul>
+<p>By default, if no argument is provided, the <code>period</code> is set to <code>max</code> and the interval to <code>3mo</code>, example:</p>
+<blockquote>
+<p><em><strong>Note</strong>: It is possible for yahoo-finance to return bars of different interval than what was specified in the request (example below, requested <code>3mo</code> interval bars, got an interval of <code>1mo</code> because <code>TSLA</code> is a relatively new stock and it's max period is around ~10 years by the time of writing).</em></p>
+</blockquote>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="kn">import</span> <span class="nn">asyncio</span>
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="kn">from</span> <span class="nn">pstock</span> <span class="kn">import</span> <span class="n">Bars</span>
+<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>
+<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="n">bars</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">Bars</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;TSLA&quot;</span><span class="p">))</span>
+<a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a><span class="nb">print</span><span class="p">(</span><span class="n">bars</span><span class="o">.</span><span class="n">df</span><span class="p">)</span>
+<a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a>
+<a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a>                   <span class="nb">open</span>         <span class="n">high</span>         <span class="n">low</span>        <span class="n">close</span>    <span class="n">adj_close</span>       <span class="n">volume</span> <span class="n">interval</span>
+<a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a><span class="n">date</span>
+<a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a><span class="mi">2010</span><span class="o">-</span><span class="mi">07</span><span class="o">-</span><span class="mi">01</span>     <span class="mf">5.000000</span>     <span class="mf">5.184000</span>    <span class="mf">2.996000</span>     <span class="mf">3.988000</span>     <span class="mf">3.988000</span>  <span class="mf">322879000.0</span>  <span class="mi">30</span> <span class="n">days</span>
+<a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a><span class="mi">2010</span><span class="o">-</span><span class="mi">08</span><span class="o">-</span><span class="mi">01</span>     <span class="mf">4.100000</span>     <span class="mf">4.436000</span>    <span class="mf">3.478000</span>     <span class="mf">3.896000</span>     <span class="mf">3.896000</span>   <span class="mf">75191000.0</span>  <span class="mi">30</span> <span class="n">days</span>
+<a id="__codelineno-10-11" name="__codelineno-10-11" href="#__codelineno-10-11"></a><span class="mi">2010</span><span class="o">-</span><span class="mi">09</span><span class="o">-</span><span class="mi">01</span>     <span class="mf">3.924000</span>     <span class="mf">4.632000</span>    <span class="mf">3.900000</span>     <span class="mf">4.082000</span>     <span class="mf">4.082000</span>   <span class="mf">90229500.0</span>  <span class="mi">30</span> <span class="n">days</span>
+<a id="__codelineno-10-12" name="__codelineno-10-12" href="#__codelineno-10-12"></a><span class="mi">2010</span><span class="o">-</span><span class="mi">10</span><span class="o">-</span><span class="mi">01</span>     <span class="mf">4.138000</span>     <span class="mf">4.374000</span>    <span class="mf">4.000000</span>     <span class="mf">4.368000</span>     <span class="mf">4.368000</span>   <span class="mf">32739000.0</span>  <span class="mi">30</span> <span class="n">days</span>
+<a id="__codelineno-10-13" name="__codelineno-10-13" href="#__codelineno-10-13"></a><span class="mi">2010</span><span class="o">-</span><span class="mi">11</span><span class="o">-</span><span class="mi">01</span>     <span class="mf">4.388000</span>     <span class="mf">7.200000</span>    <span class="mf">4.210000</span>     <span class="mf">7.066000</span>     <span class="mf">7.066000</span>  <span class="mf">141575500.0</span>  <span class="mi">30</span> <span class="n">days</span>
+<a id="__codelineno-10-14" name="__codelineno-10-14" href="#__codelineno-10-14"></a><span class="o">...</span>                 <span class="o">...</span>          <span class="o">...</span>         <span class="o">...</span>          <span class="o">...</span>          <span class="o">...</span>          <span class="o">...</span>      <span class="o">...</span>
+<a id="__codelineno-10-15" name="__codelineno-10-15" href="#__codelineno-10-15"></a><span class="mi">2021</span><span class="o">-</span><span class="mi">11</span><span class="o">-</span><span class="mi">01</span>  <span class="mf">1145.000000</span>  <span class="mf">1243.489990</span>  <span class="mf">978.599976</span>  <span class="mf">1144.760010</span>  <span class="mf">1144.760010</span>  <span class="mf">648671800.0</span>  <span class="mi">30</span> <span class="n">days</span>
+<a id="__codelineno-10-16" name="__codelineno-10-16" href="#__codelineno-10-16"></a><span class="mi">2021</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">01</span>  <span class="mf">1160.699951</span>  <span class="mf">1172.839966</span>  <span class="mf">886.119995</span>  <span class="mf">1056.780029</span>  <span class="mf">1056.780029</span>  <span class="mf">509945100.0</span>  <span class="mi">30</span> <span class="n">days</span>
+<a id="__codelineno-10-17" name="__codelineno-10-17" href="#__codelineno-10-17"></a><span class="mi">2022</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">01</span>  <span class="mf">1147.750000</span>  <span class="mf">1208.000000</span>  <span class="mf">792.010010</span>   <span class="mf">936.719971</span>   <span class="mf">936.719971</span>  <span class="mf">638471400.0</span>  <span class="mi">30</span> <span class="n">days</span>
+<a id="__codelineno-10-18" name="__codelineno-10-18" href="#__codelineno-10-18"></a><span class="mi">2022</span><span class="o">-</span><span class="mi">02</span><span class="o">-</span><span class="mi">01</span>   <span class="mf">935.210022</span>   <span class="mf">947.770020</span>  <span class="mf">850.700012</span>   <span class="mf">875.760010</span>   <span class="mf">875.760010</span>  <span class="mf">223112600.0</span>  <span class="mi">30</span> <span class="n">days</span>
+<a id="__codelineno-10-19" name="__codelineno-10-19" href="#__codelineno-10-19"></a><span class="mi">2022</span><span class="o">-</span><span class="mi">02</span><span class="o">-</span><span class="mi">15</span>   <span class="mf">900.000000</span>   <span class="mf">923.000000</span>  <span class="mf">893.377380</span>   <span class="mf">922.429993</span>   <span class="mf">922.429993</span>   <span class="mf">19085243.0</span>  <span class="mi">30</span> <span class="n">days</span>
+<a id="__codelineno-10-20" name="__codelineno-10-20" href="#__codelineno-10-20"></a>
+<a id="__codelineno-10-21" name="__codelineno-10-21" href="#__codelineno-10-21"></a><span class="p">[</span><span class="mi">141</span> <span class="n">rows</span> <span class="n">x</span> <span class="mi">7</span> <span class="n">columns</span><span class="p">]</span>
+</code></pre></div>
+<blockquote>
+<p><em><strong>Note 1</strong>: Yahoo-finance limits the <code>interval</code> of data we can fetch based on how old the data is. For example we can't get <code>1m</code> bars for a period (or start/end) older than 7 days.</em></p>
+</blockquote>
+<details markdown="1">
+<summary>Example of an interval error ...</summary>
 
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="kn">import</span> <span class="nn">asyncio</span>
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="kn">from</span> <span class="nn">pstock</span> <span class="kn">import</span> <span class="n">Bars</span>
+<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>
+<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="n">bars</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">Bars</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;TSLA&quot;</span><span class="p">,</span> <span class="n">period</span><span class="o">=</span><span class="s2">&quot;1mo&quot;</span><span class="p">,</span> <span class="n">interval</span><span class="o">=</span><span class="s2">&quot;1m&quot;</span><span class="p">))</span>
+<a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a><span class="nb">print</span><span class="p">(</span><span class="n">bars</span><span class="o">.</span><span class="n">df</span><span class="p">)</span>
+<a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a>
+<a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a><span class="n">Traceback</span> <span class="p">(</span><span class="n">most</span> <span class="n">recent</span> <span class="n">call</span> <span class="n">last</span><span class="p">):</span>
+<a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a>  <span class="n">File</span> <span class="s2">&quot;pstock/bar.py&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">243</span><span class="p">,</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<a id="__codelineno-11-9" name="__codelineno-11-9" href="#__codelineno-11-9"></a>    <span class="n">bars</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">Bars</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;TSLA&quot;</span><span class="p">,</span> <span class="n">period</span><span class="o">=</span><span class="s2">&quot;1mo&quot;</span><span class="p">,</span> <span class="n">interval</span><span class="o">=</span><span class="s2">&quot;1m&quot;</span><span class="p">))</span>
+<a id="__codelineno-11-10" name="__codelineno-11-10" href="#__codelineno-11-10"></a>  <span class="n">File</span> <span class="s2">&quot;user/.pyenv/versions/3.8.12/lib/python3.8/asyncio/runners.py&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">44</span><span class="p">,</span> <span class="ow">in</span> <span class="n">run</span>
+<a id="__codelineno-11-11" name="__codelineno-11-11" href="#__codelineno-11-11"></a>    <span class="k">return</span> <span class="n">loop</span><span class="o">.</span><span class="n">run_until_complete</span><span class="p">(</span><span class="n">main</span><span class="p">)</span>
+<a id="__codelineno-11-12" name="__codelineno-11-12" href="#__codelineno-11-12"></a>  <span class="n">File</span> <span class="s2">&quot;user/.pyenv/versions/3.8.12/lib/python3.8/asyncio/base_events.py&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">616</span><span class="p">,</span> <span class="ow">in</span> <span class="n">run_until_complete</span>
+<a id="__codelineno-11-13" name="__codelineno-11-13" href="#__codelineno-11-13"></a>    <span class="k">return</span> <span class="n">future</span><span class="o">.</span><span class="n">result</span><span class="p">()</span>
+<a id="__codelineno-11-14" name="__codelineno-11-14" href="#__codelineno-11-14"></a>  <span class="n">File</span> <span class="s2">&quot;pstock/bar.py&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">196</span><span class="p">,</span> <span class="ow">in</span> <span class="n">get</span>
+<a id="__codelineno-11-15" name="__codelineno-11-15" href="#__codelineno-11-15"></a>    <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">response</span><span class="o">=</span><span class="n">response</span><span class="p">)</span>
+<a id="__codelineno-11-16" name="__codelineno-11-16" href="#__codelineno-11-16"></a>  <span class="n">File</span> <span class="s2">&quot;pstock/bar.py&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">169</span><span class="p">,</span> <span class="ow">in</span> <span class="n">load</span>
+<a id="__codelineno-11-17" name="__codelineno-11-17" href="#__codelineno-11-17"></a>    <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">parse_obj</span><span class="p">(</span><span class="n">get_ohlc_from_chart</span><span class="p">(</span><span class="n">data</span><span class="p">))</span>
+<a id="__codelineno-11-18" name="__codelineno-11-18" href="#__codelineno-11-18"></a>  <span class="n">File</span> <span class="s2">&quot;user/git/pstock/pstock/utils/chart.py&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">18</span><span class="p">,</span> <span class="ow">in</span> <span class="n">get_ohlc_from_chart</span>
+<a id="__codelineno-11-19" name="__codelineno-11-19" href="#__codelineno-11-19"></a>    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Yahoo-finance responded with an error:</span><span class="se">\n</span><span class="si">{</span><span class="n">error</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-11-20" name="__codelineno-11-20" href="#__codelineno-11-20"></a><span class="ne">ValueError</span><span class="p">:</span> <span class="n">Yahoo</span><span class="o">-</span><span class="n">finance</span> <span class="n">responded</span> <span class="k">with</span> <span class="n">an</span> <span class="n">error</span><span class="p">:</span>
+<a id="__codelineno-11-21" name="__codelineno-11-21" href="#__codelineno-11-21"></a><span class="p">{</span><span class="s1">&#39;code&#39;</span><span class="p">:</span> <span class="s1">&#39;Unprocessable Entity&#39;</span><span class="p">,</span> <span class="s1">&#39;description&#39;</span><span class="p">:</span> <span class="s1">&#39;1m data not available for startTime=1642289894 and endTime=1644968294. Only 7 days worth of 1m granularity data are allowed to be fetched per request.&#39;</span><span class="p">}</span>
+</code></pre></div>
+> </details>
 
+<blockquote>
+<p><em><strong>Note2</strong> By leaving the <code>interval</code> parameter empty (=<code>None</code>), <code>pstock</code> automatically tries to find the lowest <code>interval</code> possible based on how old the data requested is.</em></p>
+</blockquote>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="kn">import</span> <span class="nn">asyncio</span>
+<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="kn">from</span> <span class="nn">pstock</span> <span class="kn">import</span> <span class="n">Bars</span>
+<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>
+<a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="n">bars</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">Bars</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;TSLA&quot;</span><span class="p">,</span> <span class="n">period</span><span class="o">=</span><span class="s2">&quot;1mo&quot;</span><span class="p">))</span>
+<a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a><span class="nb">print</span><span class="p">(</span><span class="n">bars</span><span class="o">.</span><span class="n">df</span><span class="p">)</span>
+<a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a>
+<a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a><span class="c1"># Automatically finds that the lowest interval for a period of `1mo` is `2m`</span>
+<a id="__codelineno-12-8" name="__codelineno-12-8" href="#__codelineno-12-8"></a>
+<a id="__codelineno-12-9" name="__codelineno-12-9" href="#__codelineno-12-9"></a>                                  <span class="nb">open</span>         <span class="n">high</span>          <span class="n">low</span>        <span class="n">close</span>    <span class="n">adj_close</span>     <span class="n">volume</span>        <span class="n">interval</span>
+<a id="__codelineno-12-10" name="__codelineno-12-10" href="#__codelineno-12-10"></a><span class="n">date</span>
+<a id="__codelineno-12-11" name="__codelineno-12-11" href="#__codelineno-12-11"></a><span class="mi">2022</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">18</span> <span class="mi">14</span><span class="p">:</span><span class="mi">30</span><span class="p">:</span><span class="mi">00</span><span class="o">+</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>  <span class="mf">1028.000000</span>  <span class="mf">1030.000000</span>  <span class="mf">1023.000000</span>  <span class="mf">1023.983582</span>  <span class="mf">1023.983582</span>  <span class="mf">1125597.0</span> <span class="mi">0</span> <span class="n">days</span> <span class="mi">00</span><span class="p">:</span><span class="mi">02</span><span class="p">:</span><span class="mi">00</span>
+<a id="__codelineno-12-12" name="__codelineno-12-12" href="#__codelineno-12-12"></a><span class="mi">2022</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">18</span> <span class="mi">14</span><span class="p">:</span><span class="mi">32</span><span class="p">:</span><span class="mi">00</span><span class="o">+</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>  <span class="mf">1023.230103</span>  <span class="mf">1032.000000</span>  <span class="mf">1023.230103</span>  <span class="mf">1029.807983</span>  <span class="mf">1029.807983</span>   <span class="mf">228889.0</span> <span class="mi">0</span> <span class="n">days</span> <span class="mi">00</span><span class="p">:</span><span class="mi">02</span><span class="p">:</span><span class="mi">00</span>
+<a id="__codelineno-12-13" name="__codelineno-12-13" href="#__codelineno-12-13"></a><span class="mi">2022</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">18</span> <span class="mi">14</span><span class="p">:</span><span class="mi">34</span><span class="p">:</span><span class="mi">00</span><span class="o">+</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>  <span class="mf">1029.949951</span>  <span class="mf">1029.949951</span>  <span class="mf">1023.700012</span>  <span class="mf">1025.000000</span>  <span class="mf">1025.000000</span>   <span class="mf">248188.0</span> <span class="mi">0</span> <span class="n">days</span> <span class="mi">00</span><span class="p">:</span><span class="mi">02</span><span class="p">:</span><span class="mi">00</span>
+<a id="__codelineno-12-14" name="__codelineno-12-14" href="#__codelineno-12-14"></a><span class="mi">2022</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">18</span> <span class="mi">14</span><span class="p">:</span><span class="mi">36</span><span class="p">:</span><span class="mi">00</span><span class="o">+</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>  <span class="mf">1024.319946</span>  <span class="mf">1025.999878</span>  <span class="mf">1018.000000</span>  <span class="mf">1021.000000</span>  <span class="mf">1021.000000</span>   <span class="mf">289773.0</span> <span class="mi">0</span> <span class="n">days</span> <span class="mi">00</span><span class="p">:</span><span class="mi">02</span><span class="p">:</span><span class="mi">00</span>
+<a id="__codelineno-12-15" name="__codelineno-12-15" href="#__codelineno-12-15"></a><span class="mi">2022</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">18</span> <span class="mi">14</span><span class="p">:</span><span class="mi">38</span><span class="p">:</span><span class="mi">00</span><span class="o">+</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>  <span class="mf">1021.669922</span>  <span class="mf">1024.000000</span>  <span class="mf">1018.440002</span>  <span class="mf">1020.150024</span>  <span class="mf">1020.150024</span>   <span class="mf">183713.0</span> <span class="mi">0</span> <span class="n">days</span> <span class="mi">00</span><span class="p">:</span><span class="mi">02</span><span class="p">:</span><span class="mi">00</span>
+<a id="__codelineno-12-16" name="__codelineno-12-16" href="#__codelineno-12-16"></a><span class="o">...</span>                                <span class="o">...</span>          <span class="o">...</span>          <span class="o">...</span>          <span class="o">...</span>          <span class="o">...</span>        <span class="o">...</span>             <span class="o">...</span>
+<a id="__codelineno-12-17" name="__codelineno-12-17" href="#__codelineno-12-17"></a><span class="mi">2022</span><span class="o">-</span><span class="mi">02</span><span class="o">-</span><span class="mi">15</span> <span class="mi">20</span><span class="p">:</span><span class="mi">52</span><span class="p">:</span><span class="mi">00</span><span class="o">+</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>   <span class="mf">919.640015</span>   <span class="mf">920.989990</span>   <span class="mf">919.171570</span>   <span class="mf">919.179993</span>   <span class="mf">919.179993</span>   <span class="mf">189152.0</span> <span class="mi">0</span> <span class="n">days</span> <span class="mi">00</span><span class="p">:</span><span class="mi">02</span><span class="p">:</span><span class="mi">00</span>
+<a id="__codelineno-12-18" name="__codelineno-12-18" href="#__codelineno-12-18"></a><span class="mi">2022</span><span class="o">-</span><span class="mi">02</span><span class="o">-</span><span class="mi">15</span> <span class="mi">20</span><span class="p">:</span><span class="mi">54</span><span class="p">:</span><span class="mi">00</span><span class="o">+</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>   <span class="mf">919.320007</span>   <span class="mf">920.770020</span>   <span class="mf">918.869995</span>   <span class="mf">920.075012</span>   <span class="mf">920.075012</span>   <span class="mf">178398.0</span> <span class="mi">0</span> <span class="n">days</span> <span class="mi">00</span><span class="p">:</span><span class="mi">02</span><span class="p">:</span><span class="mi">00</span>
+<a id="__codelineno-12-19" name="__codelineno-12-19" href="#__codelineno-12-19"></a><span class="mi">2022</span><span class="o">-</span><span class="mi">02</span><span class="o">-</span><span class="mi">15</span> <span class="mi">20</span><span class="p">:</span><span class="mi">56</span><span class="p">:</span><span class="mi">00</span><span class="o">+</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>   <span class="mf">920.010010</span>   <span class="mf">921.000000</span>   <span class="mf">919.859985</span>   <span class="mf">920.940002</span>   <span class="mf">920.940002</span>   <span class="mf">207078.0</span> <span class="mi">0</span> <span class="n">days</span> <span class="mi">00</span><span class="p">:</span><span class="mi">02</span><span class="p">:</span><span class="mi">00</span>
+<a id="__codelineno-12-20" name="__codelineno-12-20" href="#__codelineno-12-20"></a><span class="mi">2022</span><span class="o">-</span><span class="mi">02</span><span class="o">-</span><span class="mi">15</span> <span class="mi">20</span><span class="p">:</span><span class="mi">58</span><span class="p">:</span><span class="mi">00</span><span class="o">+</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>   <span class="mf">920.900024</span>   <span class="mf">923.000000</span>   <span class="mf">920.750000</span>   <span class="mf">922.260010</span>   <span class="mf">922.260010</span>   <span class="mf">382232.0</span> <span class="mi">0</span> <span class="n">days</span> <span class="mi">00</span><span class="p">:</span><span class="mi">02</span><span class="p">:</span><span class="mi">00</span>
+<a id="__codelineno-12-21" name="__codelineno-12-21" href="#__codelineno-12-21"></a><span class="mi">2022</span><span class="o">-</span><span class="mi">02</span><span class="o">-</span><span class="mi">15</span> <span class="mi">21</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="o">+</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>   <span class="mf">922.429993</span>   <span class="mf">922.429993</span>   <span class="mf">922.429993</span>   <span class="mf">922.429993</span>   <span class="mf">922.429993</span>        <span class="mf">0.0</span> <span class="mi">0</span> <span class="n">days</span> <span class="mi">00</span><span class="p">:</span><span class="mi">02</span><span class="p">:</span><span class="mi">00</span>
+<a id="__codelineno-12-22" name="__codelineno-12-22" href="#__codelineno-12-22"></a>
+<a id="__codelineno-12-23" name="__codelineno-12-23" href="#__codelineno-12-23"></a><span class="p">[</span><span class="mi">4093</span> <span class="n">rows</span> <span class="n">x</span> <span class="mi">7</span> <span class="n">columns</span><span class="p">]</span>
+</code></pre></div>
+<blockquote>
+<p><em><strong>Note3</strong> Instead of using <code>period</code> it is also possible to set a specific <code>start</code> and optioally <code>end</code> value. If <code>end</code> is not set, it defaults to current UTC time.</em></p>
+</blockquote>
+<h2 id="barsmulti">BarsMulti</h2>
+<p>Sometimes we'll want to get bars for multiple symbols at the same time.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="kn">import</span> <span class="nn">asyncio</span>
+<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="kn">from</span> <span class="nn">pstock</span> <span class="kn">import</span> <span class="n">BarsMulti</span>
+<a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>
+<a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a><span class="n">bars</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">BarsMulti</span><span class="o">.</span><span class="n">get</span><span class="p">([</span><span class="s2">&quot;TSLA&quot;</span><span class="p">,</span> <span class="s2">&quot;AAPL&quot;</span><span class="p">],</span> <span class="n">period</span><span class="o">=</span><span class="s2">&quot;5d&quot;</span><span class="p">,</span> <span class="n">interval</span><span class="o">=</span><span class="s2">&quot;1d&quot;</span><span class="p">))</span>
+<a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a><span class="nb">print</span><span class="p">(</span><span class="n">bars</span><span class="o">.</span><span class="n">df</span><span class="p">)</span>
+<a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a>
+<a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a>                  <span class="n">TSLA</span>                                                                             <span class="n">AAPL</span>
+<a id="__codelineno-13-8" name="__codelineno-13-8" href="#__codelineno-13-8"></a>                  <span class="nb">open</span>        <span class="n">high</span>         <span class="n">low</span>       <span class="n">close</span>   <span class="n">adj_close</span>      <span class="n">volume</span> <span class="n">interval</span>        <span class="nb">open</span>        <span class="n">high</span>         <span class="n">low</span>       <span class="n">close</span>   <span class="n">adj_close</span>      <span class="n">volume</span> <span class="n">interval</span>
+<a id="__codelineno-13-9" name="__codelineno-13-9" href="#__codelineno-13-9"></a><span class="n">date</span>
+<a id="__codelineno-13-10" name="__codelineno-13-10" href="#__codelineno-13-10"></a><span class="mi">2022</span><span class="o">-</span><span class="mi">02</span><span class="o">-</span><span class="mi">09</span>  <span class="mf">935.000000</span>  <span class="mf">946.270020</span>  <span class="mf">920.000000</span>  <span class="mf">932.000000</span>  <span class="mf">932.000000</span>  <span class="mf">17419800.0</span>   <span class="mi">1</span> <span class="n">days</span>  <span class="mf">176.050003</span>  <span class="mf">176.649994</span>  <span class="mf">174.899994</span>  <span class="mf">176.279999</span>  <span class="mf">176.279999</span>  <span class="mf">71285000.0</span>   <span class="mi">1</span> <span class="n">days</span>
+<a id="__codelineno-13-11" name="__codelineno-13-11" href="#__codelineno-13-11"></a><span class="mi">2022</span><span class="o">-</span><span class="mi">02</span><span class="o">-</span><span class="mi">10</span>  <span class="mf">908.369995</span>  <span class="mf">943.809998</span>  <span class="mf">896.700012</span>  <span class="mf">904.549988</span>  <span class="mf">904.549988</span>  <span class="mf">22042300.0</span>   <span class="mi">1</span> <span class="n">days</span>  <span class="mf">174.139999</span>  <span class="mf">175.479996</span>  <span class="mf">171.550003</span>  <span class="mf">172.119995</span>  <span class="mf">172.119995</span>  <span class="mf">90865900.0</span>   <span class="mi">1</span> <span class="n">days</span>
+<a id="__codelineno-13-12" name="__codelineno-13-12" href="#__codelineno-13-12"></a><span class="mi">2022</span><span class="o">-</span><span class="mi">02</span><span class="o">-</span><span class="mi">11</span>  <span class="mf">909.630005</span>  <span class="mf">915.960022</span>  <span class="mf">850.700012</span>  <span class="mf">860.000000</span>  <span class="mf">860.000000</span>  <span class="mf">26492700.0</span>   <span class="mi">1</span> <span class="n">days</span>  <span class="mf">172.330002</span>  <span class="mf">173.080002</span>  <span class="mf">168.039993</span>  <span class="mf">168.639999</span>  <span class="mf">168.639999</span>  <span class="mf">98566000.0</span>   <span class="mi">1</span> <span class="n">days</span>
+<a id="__codelineno-13-13" name="__codelineno-13-13" href="#__codelineno-13-13"></a><span class="mi">2022</span><span class="o">-</span><span class="mi">02</span><span class="o">-</span><span class="mi">14</span>  <span class="mf">861.570007</span>  <span class="mf">898.880005</span>  <span class="mf">853.150024</span>  <span class="mf">875.760010</span>  <span class="mf">875.760010</span>  <span class="mf">22515100.0</span>   <span class="mi">1</span> <span class="n">days</span>  <span class="mf">167.369995</span>  <span class="mf">169.580002</span>  <span class="mf">166.559998</span>  <span class="mf">168.880005</span>  <span class="mf">168.880005</span>  <span class="mf">86062800.0</span>   <span class="mi">1</span> <span class="n">days</span>
+<a id="__codelineno-13-14" name="__codelineno-13-14" href="#__codelineno-13-14"></a><span class="mi">2022</span><span class="o">-</span><span class="mi">02</span><span class="o">-</span><span class="mi">15</span>  <span class="mf">900.000000</span>  <span class="mf">923.000000</span>  <span class="mf">893.377380</span>  <span class="mf">922.429993</span>  <span class="mf">922.429993</span>  <span class="mf">19085243.0</span>   <span class="mi">1</span> <span class="n">days</span>  <span class="mf">170.970001</span>  <span class="mf">172.949997</span>  <span class="mf">170.250000</span>  <span class="mf">172.789993</span>  <span class="mf">172.789993</span>  <span class="mf">62512704.0</span>   <span class="mi">1</span> <span class="n">days</span>
+</code></pre></div>
+<blockquote>
+<p><em><strong>Note</strong> Bars of a specific symbol can be accessed by using the sumbol as key:
+<code>bars["TSLA"].df == bars.df["TSLA"] == Bars.get("TSLA").df</code></em></p>
+</blockquote>
+<h2 id="sans-io-protocol">Sans-I/O protocol</h2>
+<blockquote>
+<p>An I/O-free protocol implementation (colloquially referred to as a “sans-IO” implementation) is an implementation of a network protocol that contains no code that does any form of network I/O or any form of asynchronous flow control. Put another way, a sans-IO protocol implementation is one that is defined entirely in terms of synchronous functions returning synchronous results, and that does not block or wait for any form of I/O.
+............
+By keeping async flow control and I/O out of your protocol implementation, it provides the ability to use that implementation across all forms of flow control. This means that the core of the protocol implementation is divorced entirely from the way I/O is done or the way the API is designed.</p>
+</blockquote>
+<p>-&gt; <a href="https://sans-io.readthedocs.io/">https://sans-io.readthedocs.io</a></p>
+<p>Although <code>pstock</code> provides an async IO interface to get data from yahoo-finance, It is still extremly easy to use it with other http libraries or other ways to get data.</p>
+<p>A simple example is using the popular <code>requests</code> library:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="kn">import</span> <span class="nn">requests</span>
+<a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a><span class="kn">from</span> <span class="nn">pstock</span> <span class="kn">import</span> <span class="n">Asset</span><span class="p">,</span> <span class="n">rdm_user_agent_value</span>
+<a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>
+<a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a><span class="n">url</span> <span class="o">=</span> <span class="n">Asset</span><span class="o">.</span><span class="n">uri</span><span class="p">(</span><span class="s2">&quot;TSLA&quot;</span><span class="p">)</span>
+<a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a><span class="n">headers</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;User-Agent&quot;</span><span class="p">:</span> <span class="n">rdm_user_agent_value</span><span class="p">()}</span>
+<a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a>
+<a id="__codelineno-14-7" name="__codelineno-14-7" href="#__codelineno-14-7"></a><span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">)</span>
+<a id="__codelineno-14-8" name="__codelineno-14-8" href="#__codelineno-14-8"></a>
+<a id="__codelineno-14-9" name="__codelineno-14-9" href="#__codelineno-14-9"></a><span class="n">asset</span> <span class="o">=</span> <span class="n">Asset</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">response</span><span class="o">=</span><span class="n">response</span><span class="p">)</span>
+</code></pre></div>
+<p>The <code>response</code> object can be an <code>str</code> or <code>bytes</code> content of the response. Or it can even be the whole response object (should have a <code>.read()</code> method that returns content).</p>
+<p>The same can be done for generating <code>Bars</code></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="kn">import</span> <span class="nn">requests</span>
+<a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a><span class="kn">from</span> <span class="nn">pstock</span> <span class="kn">import</span> <span class="n">Bars</span><span class="p">,</span> <span class="n">rdm_user_agent_value</span>
+<a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a>
+<a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a><span class="n">url</span> <span class="o">=</span> <span class="n">Bars</span><span class="o">.</span><span class="n">uri</span><span class="p">(</span><span class="s2">&quot;TSLA&quot;</span><span class="p">,</span> <span class="n">interval</span><span class="o">=</span><span class="s2">&quot;1m&quot;</span><span class="p">,</span> <span class="n">period</span><span class="o">=</span><span class="s2">&quot;1d&quot;</span><span class="p">)</span>
+<a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a><span class="n">headers</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;User-Agent&quot;</span><span class="p">:</span> <span class="n">rdm_user_agent_value</span><span class="p">()}</span>
+<a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a>
+<a id="__codelineno-15-7" name="__codelineno-15-7" href="#__codelineno-15-7"></a><span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">)</span>
+<a id="__codelineno-15-8" name="__codelineno-15-8" href="#__codelineno-15-8"></a>
+<a id="__codelineno-15-9" name="__codelineno-15-9" href="#__codelineno-15-9"></a><span class="n">bars</span> <span class="o">=</span> <span class="n">Bars</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">response</span><span class="o">=</span><span class="n">response</span><span class="p">)</span>
+</code></pre></div>
 
               
             </article>

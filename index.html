@@ -269,8 +269,36 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#disclosure" class="md-nav__link">
-    Disclosure
+  <a href="#disclaimer" class="md-nav__link">
+    Disclaimer
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#requirements" class="md-nav__link">
+    Requirements
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#installation" class="md-nav__link">
+    Installation
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quickstart" class="md-nav__link">
+    Quickstart
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#contributors" class="md-nav__link">
+    Contributors
   </a>
   
 </li>
@@ -340,8 +368,36 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#disclosure" class="md-nav__link">
-    Disclosure
+  <a href="#disclaimer" class="md-nav__link">
+    Disclaimer
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#requirements" class="md-nav__link">
+    Requirements
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#installation" class="md-nav__link">
+    Installation
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quickstart" class="md-nav__link">
+    Quickstart
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#contributors" class="md-nav__link">
+    Contributors
   </a>
   
 </li>
@@ -360,11 +416,134 @@
                 
 
 <h1 id="pstock">Pstock</h1>
-<p>Welcome to pstock documentation.</p>
-<p>This is still a work-in-progess, any help, recommendation or ideas are welcome.</p>
-<p>This packages is for <strong>personal</strong> use only.</p>
-<h2 id="disclosure">Disclosure</h2>
-<p>Nothing in this project should be considered investment advice. Past performance is not necessarily indicative of future returns.</p>
+<h2 id="disclaimer">Disclaimer</h2>
+<p><strong>You should refer to Yahoo!'s terms of use</strong>
+(<a href="https://policies.yahoo.com/us/en/yahoo/terms/product-atos/apiforydn/index.htm">here</a>,
+<a href="https://legal.yahoo.com/us/en/yahoo/terms/otos/index.html">here</a>, and
+<a href="https://policies.yahoo.com/us/en/yahoo/terms/index.htm">here</a>) <strong>for
+details on your rights to use the actual data downloaded. Remember - the
+project is intended for personal use only.</strong></p>
+<p><strong>Pstock</strong> is an open source tool/project that is not affiliated in any way to yahoo-finance. Nothing in this project should be considered investment advice.</p>
+<hr />
+<p><a href="https://codecov.io/gh/obendidi/pstock"><img alt="codecov" src="https://codecov.io/gh/obendidi/pstock/branch/main/graph/badge.svg?token=WU1E3ISBDK" /></a>
+<a target="new" href="https://pypi.python.org/pypi/pstock-python"><img border=0 src="https://img.shields.io/badge/python-3.8+-blue.svg?style=flat" alt="Python version"></a>
+<a href="https://pypi.org/project/pstock-python" target="_blank">
+<img src="https://img.shields.io/pypi/pyversions/pstock-python.svg?color=%2334D058" alt="Supported Python versions"></a>
+<a target="new" href="https://pypi.python.org/pypi/pstock-python"><img border=0 src="https://img.shields.io/pypi/status/pstock-python.svg?maxAge=60" alt="PyPi status"></a>
+<a target="new" href="https://pypi.python.org/pypi/pstock-python"><img border=0 src="https://img.shields.io/pypi/dm/pstock-python.svg?maxAge=2592000&label=installs&color=%2327B1FF" alt="PyPi downloads"></a>
+<img alt="example workflow" src="https://github.com/obendidi/pstock/actions/workflows/test.yml/badge.svg" />
+<img alt="example workflow" src="https://github.com/obendidi/pstock/actions/workflows/docs.yml/badge.svg" /></p>
+<hr />
+<p><strong>Documentation</strong>: <a href="https://obendidi.github.io/pstock" target="_blank">https://obendidi.github.io/pstock</a></p>
+<p><strong>Source Code</strong>: <a href="https://github.com/obendidi/pstock" target="_blank">https://github.com/obendidi/pstock</a></p>
+<hr />
+<p><strong>Pstock</strong> is <em>yet</em> another python unoficial API for getting yahoo-finance data.</p>
+<p>The key features are:</p>
+<ul>
+<li>Async first</li>
+<li>Data validation using pydantic</li>
+<li>Fully typed, with great editor support</li>
+<li>Easily extensible: Parse the yahoo-finance quote dict and extract any type of info you want.</li>
+<li>Follows the Sans-IO design pattern: Use your favourite http library (sync/async) and let <code>pstock</code> parse your response to get <code>Assets</code> or <code>Bars</code></li>
+</ul>
+<h2 id="requirements">Requirements</h2>
+<p>Python 3.8+ (support for 3.6/3.7 may be added later, contributions are welcome)</p>
+<p>Pstock depends mainly on:</p>
+<ul>
+<li><a href="https://pydantic-docs.helpmanual.io/">pydantic</a>: For data validation</li>
+<li><a href="https://pandas.pydata.org/docs/">pandas</a>: For structuring data in nice dataframes</li>
+<li><a href="https://www.python-httpx.org/">httpx</a>: For the main async IO interface</li>
+</ul>
+<h2 id="installation">Installation</h2>
+<div class="termy">
+
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="gp">$ </span>pip install pstock-python
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="go">---&gt; 100%</span>
+</code></pre></div>
+
+</div>
+
+<h2 id="quickstart">Quickstart</h2>
+<ul>
+<li>Download an asset:</li>
+</ul>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kn">import</span> <span class="nn">asyncio</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="kn">from</span> <span class="nn">pstock</span> <span class="kn">import</span> <span class="n">Asset</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="n">asset</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">Asset</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;TSLA&quot;</span><span class="p">))</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="nb">print</span><span class="p">(</span><span class="n">asset</span><span class="p">)</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="c1"># symbol=&#39;TSLA&#39; name=&#39;Tesla, Inc.&#39; asset_type=&#39;EQUITY&#39; currency=&#39;USD&#39; latest_price=920.0 sector=&#39;Consumer Cyclical&#39; industry=&#39;Auto Manufacturers&#39;</span>
+</code></pre></div>
+<ul>
+<li>Download a list of assets:</li>
+</ul>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kn">import</span> <span class="nn">asyncio</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="kn">from</span> <span class="nn">pstock</span> <span class="kn">import</span> <span class="n">Asset</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="n">assets</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">Assets</span><span class="o">.</span><span class="n">get</span><span class="p">([</span><span class="s2">&quot;TSLA&quot;</span><span class="p">,</span> <span class="s2">&quot;AAPL&quot;</span><span class="p">,</span> <span class="s2">&quot;GME&quot;</span><span class="p">]))</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="nb">print</span><span class="p">(</span><span class="n">assets</span><span class="p">)</span>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="c1"># __root__=[Asset(symbol=&#39;TSLA&#39;, name=&#39;Tesla, Inc.&#39;, asset_type=&#39;EQUITY&#39;, currency=&#39;USD&#39;, latest_price=918.97, sector=&#39;Consumer Cyclical&#39;, industry=&#39;Auto Manufacturers&#39;), Asset(symbol=&#39;AAPL&#39;, name=&#39;Apple Inc.&#39;, asset_type=&#39;EQUITY&#39;, currency=&#39;USD&#39;, latest_price=172.345, sector=&#39;Technology&#39;, industry=&#39;Consumer Electronics&#39;), Asset(symbol=&#39;GME&#39;, name=&#39;GameStop Corp.&#39;, asset_type=&#39;EQUITY&#39;, currency=&#39;USD&#39;, latest_price=125.0, sector=&#39;Consumer Cyclical&#39;, industry=&#39;Specialty Retail&#39;)]</span>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="nb">print</span><span class="p">(</span><span class="n">assets</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="c1"># Asset(symbol=&#39;TSLA&#39;, name=&#39;Tesla, Inc.&#39;, asset_type=&#39;EQUITY&#39;, currency=&#39;USD&#39;, latest_price=918.97, sector=&#39;Consumer Cyclical&#39;, industry=&#39;Auto Manufacturers&#39;)</span>
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>
+<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="nb">print</span><span class="p">(</span><span class="n">assets</span><span class="o">.</span><span class="n">df</span><span class="p">)</span>
+<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>                  <span class="n">name</span> <span class="n">asset_type</span> <span class="n">currency</span>  <span class="o">...</span>                                           <span class="n">earnings</span>                                             <span class="n">trends</span>                                   <span class="n">income_statement</span>
+<a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a><span class="n">symbol</span>                                      <span class="o">...</span>
+<a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a><span class="n">AAPL</span>        <span class="n">Apple</span> <span class="n">Inc</span><span class="o">.</span>     <span class="n">EQUITY</span>      <span class="n">USD</span>  <span class="o">...</span>  <span class="p">[{</span><span class="s1">&#39;quarter&#39;</span><span class="p">:</span> <span class="s1">&#39;1Q2021&#39;</span><span class="p">,</span> <span class="s1">&#39;estimate&#39;</span><span class="p">:</span> <span class="mf">0.99</span><span class="p">,</span> <span class="s1">&#39;actu...  [{&#39;</span><span class="n">date</span><span class="s1">&#39;: 2021-11-17, &#39;</span><span class="n">strong_buy</span><span class="s1">&#39;: 13, &#39;</span><span class="n">buy</span><span class="s1">&#39;:...  [{&#39;</span><span class="n">date</span><span class="s1">&#39;: 2021-09-25, &#39;</span><span class="n">ebit</span><span class="s1">&#39;: 108949000000.0, ...</span>
+<a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a><span class="n">GME</span>     <span class="n">GameStop</span> <span class="n">Corp</span><span class="o">.</span>     <span class="n">EQUITY</span>      <span class="n">USD</span>  <span class="o">...</span>  <span class="p">[{</span><span class="s1">&#39;quarter&#39;</span><span class="p">:</span> <span class="s1">&#39;1Q2021&#39;</span><span class="p">,</span> <span class="s1">&#39;estimate&#39;</span><span class="p">:</span> <span class="mf">1.35</span><span class="p">,</span> <span class="s1">&#39;actu...  [{&#39;</span><span class="n">date</span><span class="s1">&#39;: 2021-11-17, &#39;</span><span class="n">strong_buy</span><span class="s1">&#39;: 2, &#39;</span><span class="n">buy</span><span class="s1">&#39;: ...  [{&#39;</span><span class="n">date</span><span class="s1">&#39;: 2021-01-30, &#39;</span><span class="n">ebit</span><span class="s1">&#39;: -249300000.0, &#39;</span><span class="n">t</span><span class="o">...</span>
+<a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a><span class="n">TSLA</span>       <span class="n">Tesla</span><span class="p">,</span> <span class="n">Inc</span><span class="o">.</span>     <span class="n">EQUITY</span>      <span class="n">USD</span>  <span class="o">...</span>  <span class="p">[{</span><span class="s1">&#39;quarter&#39;</span><span class="p">:</span> <span class="s1">&#39;1Q2021&#39;</span><span class="p">,</span> <span class="s1">&#39;estimate&#39;</span><span class="p">:</span> <span class="mf">0.79</span><span class="p">,</span> <span class="s1">&#39;actu...  [{&#39;</span><span class="n">date</span><span class="s1">&#39;: 2021-11-17, &#39;</span><span class="n">strong_buy</span><span class="s1">&#39;: 4, &#39;</span><span class="n">buy</span><span class="s1">&#39;: ...  [{&#39;</span><span class="n">date</span><span class="s1">&#39;: 2021-12-31, &#39;</span><span class="n">ebit</span><span class="s1">&#39;: 6523000000.0, &#39;</span><span class="n">t</span><span class="o">...</span>
+</code></pre></div>
+<ul>
+<li>Download historical bars:</li>
+</ul>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kn">import</span> <span class="nn">asyncio</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="kn">from</span> <span class="nn">pstock</span> <span class="kn">import</span> <span class="n">Bars</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="n">bars</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">Bars</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;TSLA&quot;</span><span class="p">))</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="nb">print</span><span class="p">(</span><span class="n">bars</span><span class="p">)</span>
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="c1"># __root__=[Bar(date=datetime.datetime(2010, 7, 1, 4, 0, tzinfo=datetime.timezone.utc), open=5.0, high=5.184000015258789, low=2.996000051498413, close=3.98799991607666, adj_close=3.98799991607666, volume=322879000.0, interval=Duration(months=1)), Bar(date=datetime.datetime(2010, 8, 1, 4, 0, tzinfo=datetime.timezone.utc), open=4.099999904632568, high=4.435999870300293, low=3.4779999256134033, close=3.8959999084472656, adj_close=3.8959999084472656, volume=75191000.0, interval=Duration(months=1)), Bar(date=datetime.datetime(2010, 9, 1, 4, 0, tzinfo=datetime.timezone.utc), open=3.9240000247955322, high=4.631999969482422, low=3.9000000953674316, close=4.081999778747559, adj_close=4.081999778747559, volume=90229500.0, interval=Duration(months=1)), Bar(date=datetime.datetime(2010, 10, 1, 4, 0, tzinfo=datetime.timezone.utc), open=4.138000011444092, high=4.374000072479248, low=4.0, close=4.368000030517578, adj_close=4.368000030517578, volume=32739000.0, interval=Duration(months=1)), ....]</span>
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="nb">print</span><span class="p">(</span><span class="n">bars</span><span class="o">.</span><span class="n">df</span><span class="p">)</span>
+<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>                   <span class="nb">open</span>         <span class="n">high</span>         <span class="n">low</span>        <span class="n">close</span>    <span class="n">adj_close</span>       <span class="n">volume</span> <span class="n">interval</span>
+<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="n">date</span>
+<a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a><span class="mi">2010</span><span class="o">-</span><span class="mi">07</span><span class="o">-</span><span class="mi">01</span>     <span class="mf">5.000000</span>     <span class="mf">5.184000</span>    <span class="mf">2.996000</span>     <span class="mf">3.988000</span>     <span class="mf">3.988000</span>  <span class="mf">322879000.0</span>  <span class="mi">30</span> <span class="n">days</span>
+<a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a><span class="mi">2010</span><span class="o">-</span><span class="mi">08</span><span class="o">-</span><span class="mi">01</span>     <span class="mf">4.100000</span>     <span class="mf">4.436000</span>    <span class="mf">3.478000</span>     <span class="mf">3.896000</span>     <span class="mf">3.896000</span>   <span class="mf">75191000.0</span>  <span class="mi">30</span> <span class="n">days</span>
+<a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a><span class="mi">2010</span><span class="o">-</span><span class="mi">09</span><span class="o">-</span><span class="mi">01</span>     <span class="mf">3.924000</span>     <span class="mf">4.632000</span>    <span class="mf">3.900000</span>     <span class="mf">4.082000</span>     <span class="mf">4.082000</span>   <span class="mf">90229500.0</span>  <span class="mi">30</span> <span class="n">days</span>
+<a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a><span class="mi">2010</span><span class="o">-</span><span class="mi">10</span><span class="o">-</span><span class="mi">01</span>     <span class="mf">4.138000</span>     <span class="mf">4.374000</span>    <span class="mf">4.000000</span>     <span class="mf">4.368000</span>     <span class="mf">4.368000</span>   <span class="mf">32739000.0</span>  <span class="mi">30</span> <span class="n">days</span>
+<a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a><span class="mi">2010</span><span class="o">-</span><span class="mi">11</span><span class="o">-</span><span class="mi">01</span>     <span class="mf">4.388000</span>     <span class="mf">7.200000</span>    <span class="mf">4.210000</span>     <span class="mf">7.066000</span>     <span class="mf">7.066000</span>  <span class="mf">141575500.0</span>  <span class="mi">30</span> <span class="n">days</span>
+<a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a><span class="o">...</span>                 <span class="o">...</span>          <span class="o">...</span>         <span class="o">...</span>          <span class="o">...</span>          <span class="o">...</span>          <span class="o">...</span>      <span class="o">...</span>
+<a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a><span class="mi">2021</span><span class="o">-</span><span class="mi">11</span><span class="o">-</span><span class="mi">01</span>  <span class="mf">1145.000000</span>  <span class="mf">1243.489990</span>  <span class="mf">978.599976</span>  <span class="mf">1144.760010</span>  <span class="mf">1144.760010</span>  <span class="mf">648671800.0</span>  <span class="mi">30</span> <span class="n">days</span>
+<a id="__codelineno-3-18" name="__codelineno-3-18" href="#__codelineno-3-18"></a><span class="mi">2021</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">01</span>  <span class="mf">1160.699951</span>  <span class="mf">1172.839966</span>  <span class="mf">886.119995</span>  <span class="mf">1056.780029</span>  <span class="mf">1056.780029</span>  <span class="mf">509945100.0</span>  <span class="mi">30</span> <span class="n">days</span>
+<a id="__codelineno-3-19" name="__codelineno-3-19" href="#__codelineno-3-19"></a><span class="mi">2022</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">01</span>  <span class="mf">1147.750000</span>  <span class="mf">1208.000000</span>  <span class="mf">792.010010</span>   <span class="mf">936.719971</span>   <span class="mf">936.719971</span>  <span class="mf">638471400.0</span>  <span class="mi">30</span> <span class="n">days</span>
+<a id="__codelineno-3-20" name="__codelineno-3-20" href="#__codelineno-3-20"></a><span class="mi">2022</span><span class="o">-</span><span class="mi">02</span><span class="o">-</span><span class="mi">01</span>   <span class="mf">935.210022</span>   <span class="mf">947.770020</span>  <span class="mf">850.700012</span>   <span class="mf">875.760010</span>   <span class="mf">875.760010</span>  <span class="mf">223112600.0</span>  <span class="mi">30</span> <span class="n">days</span>
+<a id="__codelineno-3-21" name="__codelineno-3-21" href="#__codelineno-3-21"></a><span class="mi">2022</span><span class="o">-</span><span class="mi">02</span><span class="o">-</span><span class="mi">15</span>   <span class="mf">900.000000</span>   <span class="mf">923.000000</span>  <span class="mf">893.377380</span>   <span class="mf">922.429993</span>   <span class="mf">922.429993</span>   <span class="mf">19085243.0</span>  <span class="mi">30</span> <span class="n">days</span>
+<a id="__codelineno-3-22" name="__codelineno-3-22" href="#__codelineno-3-22"></a>
+<a id="__codelineno-3-23" name="__codelineno-3-23" href="#__codelineno-3-23"></a><span class="p">[</span><span class="mi">141</span> <span class="n">rows</span> <span class="n">x</span> <span class="mi">7</span> <span class="n">columns</span><span class="p">]</span>
+</code></pre></div>
+<ul>
+<li>Download stock news:</li>
+</ul>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kn">import</span> <span class="nn">asyncio</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="kn">from</span> <span class="nn">pstock</span> <span class="kn">import</span> <span class="n">News</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="n">news</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">News</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;TSLA&quot;</span><span class="p">))</span>
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="nb">print</span><span class="p">(</span><span class="n">news</span><span class="o">.</span><span class="n">df</span><span class="p">)</span>
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>                                                                       <span class="n">title</span>                                            <span class="n">url</span>                                            <span class="n">summary</span>
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="n">date</span>
+<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="mi">2022</span><span class="o">-</span><span class="mi">02</span><span class="o">-</span><span class="mi">15</span> <span class="mi">12</span><span class="p">:</span><span class="mi">11</span><span class="p">:</span><span class="mi">46</span><span class="o">+</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>  <span class="n">Retail</span> <span class="n">investor</span><span class="p">:</span> <span class="s1">&#39;I&#39;</span><span class="n">m</span> <span class="n">being</span> <span class="n">careful</span> <span class="n">just</span> <span class="ow">in</span> <span class="n">ca</span><span class="o">...</span>  <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">finance</span><span class="o">.</span><span class="n">yahoo</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">news</span><span class="o">/</span><span class="n">retail</span><span class="o">-</span><span class="n">investor</span><span class="o">...</span>  <span class="n">Some</span> <span class="n">retail</span> <span class="n">investors</span> <span class="n">are</span> <span class="n">being</span> <span class="n">more</span> <span class="n">cautious</span> <span class="o">...</span>
+<a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="mi">2022</span><span class="o">-</span><span class="mi">02</span><span class="o">-</span><span class="mi">15</span> <span class="mi">12</span><span class="p">:</span><span class="mi">23</span><span class="p">:</span><span class="mi">00</span><span class="o">+</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>  <span class="n">Tesla</span><span class="err">’</span><span class="n">s</span> <span class="n">Elon</span> <span class="n">Musk</span> <span class="n">Gave</span> <span class="n">Away</span> <span class="err">$</span><span class="mf">5.7</span> <span class="n">Billion</span><span class="o">.</span> <span class="n">But</span> <span class="o">...</span>  <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">finance</span><span class="o">.</span><span class="n">yahoo</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">m</span><span class="o">/</span><span class="n">d342cd56</span><span class="o">-</span><span class="n">d5bb</span><span class="o">-</span><span class="mf">3957.</span><span class="o">..</span>  <span class="n">Tesla</span> <span class="n">CEO</span> <span class="n">Elon</span> <span class="n">Musk</span> <span class="n">gave</span> <span class="n">away</span> <span class="n">more</span> <span class="n">than</span> <span class="mi">5</span> <span class="n">mill</span><span class="o">...</span>
+<a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="mi">2022</span><span class="o">-</span><span class="mi">02</span><span class="o">-</span><span class="mi">15</span> <span class="mi">13</span><span class="p">:</span><span class="mi">07</span><span class="p">:</span><span class="mi">02</span><span class="o">+</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>                      <span class="n">Company</span> <span class="n">News</span> <span class="k">for</span> <span class="n">Feb</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">2022</span>  <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">finance</span><span class="o">.</span><span class="n">yahoo</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">news</span><span class="o">/</span><span class="n">company</span><span class="o">-</span><span class="n">news</span><span class="o">-</span><span class="n">fe</span><span class="o">...</span>    <span class="n">Companies</span> <span class="n">In</span> <span class="n">The</span> <span class="n">News</span> <span class="n">Are</span><span class="p">:</span> <span class="n">IFS</span><span class="p">,</span> <span class="n">OLK</span><span class="p">,</span> <span class="n">THS</span><span class="p">,</span> <span class="n">TSLA</span><span class="o">.</span>
+<a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a><span class="o">....</span>
+<a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a><span class="mi">2022</span><span class="o">-</span><span class="mi">02</span><span class="o">-</span><span class="mi">15</span> <span class="mi">19</span><span class="p">:</span><span class="mi">23</span><span class="p">:</span><span class="mi">43</span><span class="o">+</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>  <span class="n">Australia</span><span class="s1">&#39;s Syrah Resources to expand Louisian...  https://finance.yahoo.com/news/australias-syra...  Australian industrial materials firm Syrah Res...</span>
+<a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a><span class="mi">2022</span><span class="o">-</span><span class="mi">02</span><span class="o">-</span><span class="mi">15</span> <span class="mi">20</span><span class="p">:</span><span class="mi">31</span><span class="p">:</span><span class="mi">30</span><span class="o">+</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>       <span class="n">Biggest</span> <span class="n">Companies</span> <span class="ow">in</span> <span class="n">the</span> <span class="n">World</span> <span class="n">by</span> <span class="n">Market</span> <span class="n">Cap</span>  <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">finance</span><span class="o">.</span><span class="n">yahoo</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">m</span><span class="o">/</span><span class="mi">8</span><span class="n">aead0a5</span><span class="o">-</span><span class="n">ef35</span><span class="o">-</span><span class="mi">3</span><span class="n">d90</span><span class="o">...</span>  <span class="n">The</span> <span class="n">world</span><span class="s1">&#39;s biggest companies by market cap op...</span>
+</code></pre></div>
+<h2 id="contributors">Contributors</h2>
+<p>Feel free to contribute !</p>
+<p><a href = "https://github.com/obendidi/pstock/graphs/contributors">
+<img src = "https://contrib.rocks/image?repo=obendidi/pstock"/>
+</a></p>
 
               
             </article>
