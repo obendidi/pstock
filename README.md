@@ -187,9 +187,9 @@ The other fields are optional and can be filled depending on the `asset_type`, c
 
 - `sector`
 - `industry`
-- `[trends](#trends)`
-- `[earnings](#earnings)`
-- `[income_statement](#income-statement)`
+- [trends](#trends)
+- [earnings](#earnings)
+- [income_statement](#income-statement)
 
 In addition to getting data about a single `Asset`, there is also the possibily to query multiple assets at the same time using `Assets`. The main benefit is that it provides the ability to directly convert the resulting list of assets into a pandas dataframe.
 
