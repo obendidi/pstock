@@ -58,7 +58,7 @@ nox = "^2022.1.7"
 httpx-cache = "^0.4.1"
 syrupy = "^1.7.3"
 pytest-cases = "^3.6.9"
-mkdocstrings = "^0.18.0"
+mkdocstrings = "^0.19.0"
 
 
 [build-system]
