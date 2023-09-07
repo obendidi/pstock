@@ -95,7 +95,7 @@ print(asset)
 
 ```Python
 import asyncio
-from pstock import Asset
+from pstock import Assets
 
 assets = asyncio.run(Assets.get(["TSLA", "AAPL", "GME"]))
 print(assets)
